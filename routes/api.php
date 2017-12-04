@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/competitions', 'CompetitionsController@findAll');
+Route::get('/competitions/{competition}', 'CompetitionsController@findById');
+Route::post('/competitions', 'CompetitionsController@create');
+Route::put('/competitions/upate/{competition}', 'CompetitionsController@update');
+Route::delete('competitions/delete/{competition}', 'CompetitionsController@delete')
+
