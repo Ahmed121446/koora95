@@ -16,6 +16,8 @@ class CreateSeasonsTable extends Migration
         Schema::create('seasons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->boolean('active')->default(0);
+            $table->integer('competition_id');
             $table->timestamps();
         });
     }

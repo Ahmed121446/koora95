@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\CompetitionType;
 
 class CompetitionSeader extends Seeder
 {
@@ -17,7 +18,7 @@ class CompetitionSeader extends Seeder
     	for ($i=0; $i < count($competitions); $i++) { 
 	      	DB::table('competitions')->insert([
 		       	'name' => $competitions[$i],
-		       	'comp_type_id' => 1,
+		       	'comp_type_id' => CompetitionType::all()->random()->id,
 		       	'comp_scope_id' => 1
 	       ]);
     	}

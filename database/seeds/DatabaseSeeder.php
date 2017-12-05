@@ -26,6 +26,13 @@ class DatabaseSeeder extends Seeder
         // run  PlayerSeeder seeder 
         $this->call(PlayerSeeder::class);
 
+        
+        //remove from the database all the recordes in table seasons
+        DB::table('competitions')->truncate();
+        // run  SeasonSeeder seeder 
+        $this->call(CompetitionSeader::class);
+
+        
         //remove from the database all the recordes in table seasons
         DB::table('seasons')->truncate();
         // run  SeasonSeeder seeder 
