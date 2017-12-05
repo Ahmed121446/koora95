@@ -28,7 +28,6 @@ Route::group(['prefix' => 'teams'], function() {
 });
 
 
-
 Route::group(['prefix' => 'Continent'], function() {
     Route::get('All-Continent','ContinentController@Get_All_Continents');
 	Route::get('{id}','ContinentController@Get_Continent');
@@ -69,8 +68,6 @@ Route::group(['prefix' => 'player'], function() {
 
     // delete request for deleting country it will take id
 	Route::delete('{id}','PlayerController@destroy');
-
-
 });
 
 
@@ -79,4 +76,3 @@ Route::group(['prefix' => 'player'], function() {
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
