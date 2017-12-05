@@ -18,6 +18,7 @@ class CreateCompetitionsTable extends Migration
             $table->string("name");
             $table->integer('comp_type_id'); // competitions type
             $table->integer('comp_scope_id'); //Copmetition Scope
+            $table->integer('country_id');
             $table->timestamps();
         });
     }
