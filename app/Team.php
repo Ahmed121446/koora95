@@ -12,4 +12,13 @@ class Team extends BaseModel
     {
     	return $this->belongsToMany(competition::class);
     }
+
+
+    //relationship between team and player
+    // M player  --> 1 team    ===>  M to 1
+    public function players(){
+    	return $this->hasMany(player::class);
+     	
+    } 
+    
 }
