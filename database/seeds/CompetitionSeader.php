@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
+use App\CompetitionType;
 
 class CompetitionSeader extends Seeder
 {
@@ -21,9 +22,10 @@ class CompetitionSeader extends Seeder
     	for ($i=0; $i < count($competitions); $i++) { 
 	      	DB::table('competitions')->insert([
 		       	'name' => $competitions[$i],
-		       	'comp_type_id' => 1,
+                'comp_type_id' => CompetitionType::all()->random()->id,
 		       	'comp_scope_id' => 1,
                 'country_id' => $faker->numberBetween($min = 1, $max = 100)
+		       	
 	       ]);
     	}
     }

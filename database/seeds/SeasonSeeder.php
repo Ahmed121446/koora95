@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use Carbon\Carbon;
+use App\competition;
 
 class SeasonSeeder extends Seeder
 {
@@ -27,6 +28,8 @@ class SeasonSeeder extends Seeder
         for ($i=0; $i < count($Seasons); $i++) { 
         	DB::table('seasons')->insert([
         		'name' => $Seasons[$i],
+                'active' => $faker->boolean,
+                'competition_id' => competition::all()->random()->id,
         		'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
 				'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
         	]);
