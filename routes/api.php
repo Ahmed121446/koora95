@@ -19,3 +19,5 @@ Route::post('/competitions', 'CompetitionsController@create');
 Route::put('/competitions/upate/{competition}', 'CompetitionsController@update');
 Route::delete('competitions/delete/{competition}', 'CompetitionsController@delete');
 
+Route::post('/teams', 'TeamsController@create');
+

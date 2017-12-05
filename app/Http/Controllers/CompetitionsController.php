@@ -38,9 +38,13 @@ class CompetitionsController extends Controller
 	    		'comp_scope_id' => $scope->id
 	    	]);
 
-        // $competition->seasons()->save($season);
-
         $competition->save();
+
+        // $season = new Season([
+        //         'season_year' => Request('season')
+        //     ]);
+
+        // $competition->seasons()->save($season);
 
     	return response()->json(['data' => $competition], 201);
 
@@ -65,23 +69,29 @@ class CompetitionsController extends Controller
 
 
     // Find Competitions Teams 
-    public function findTeams()
+    public function findTeams(Competition $competition)
     {
-    	// Competitions->teams
+    	$teams = $competition->teams;
+
+        return response()->json(['data' => $teams], 200);
     }
 
 
     // Add Team To Competition 
-    public function addTeam()
+    public function addTeam(Competition $competition, Team $team)
     {
-    	// Competition->addTeam(Team)
+    	$team = $competition->teams()->attach($team);
+
+        return response()->json(['data' => $team], 200);
     }
 
 
     // Delete Team From Competition
-    public function deleteTeam($value='')
+    public function deleteTeam(Competition $competition, Team $team)
     {
-    	// Competition->deleteTeam(Team)
+    	$competition->teams()->detach($team);
+
+        return response()->json(null, 200);
     }
 
 

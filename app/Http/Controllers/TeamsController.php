@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\team as Team;
-use App\team_scope as TeamScope;
+use App\Team;
+use App\TeamScope;
 
 class TeamsController extends Controller
 {
@@ -12,15 +12,17 @@ class TeamsController extends Controller
 	// Create New Team 
     public function create()
     {
-    	$continent = \App\continent::where('name', Request('continent'));
-    	$country = \App\Country::where('name', Request('country'));
-    	$scope = TeamScope::where('name', Request('scope'));
+    	$continent = \App\continent::where('name', Request('continent'))->first();
+    	$country = \App\Country::where('name', Request('country'))->first();
+    	$scope = TeamScope::where('name', Request('scope'))->first();
+
+        // return $continent->id . "   " . $country->id . "  " . $scope->id; 
 
     	$team = Team::create([
     			'name' => Request('name'),
     			'continent_id' => $continent->id,
     			'country_id' => $country->id,
-    			'team_scope_id' => $scope
+    			'team_scope_id' => $scope->id
     		]);
 
     	return response()->json(['data' => $team], 201);

@@ -18,6 +18,12 @@ class CreateCompetitionTypesTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
+
+        Schema::create('competition_team', function (Blueprint $table) {
+            $table->integer('competition_id');
+            $table->integer('team_id');
+            $table->primary(['competition_id', 'team_id']);
+        });
     }
 
     /**
