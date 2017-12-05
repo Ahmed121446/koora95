@@ -1,0 +1,61 @@
+[33mcommit e22eeaba8768658569d8e3ac9bbf625178537bfd[m
+Merge: ded3d46 5248cfa
+Author: abdulRahmanAbouzaid <abdarrahman.abouzaid@gmail.com>
+Date:   Tue Dec 5 15:56:15 2017 +0200
+
+    conflict2
+
+[33mcommit ded3d460923672c31ffc025506672e8a10ee1658[m
+Author: abdulRahmanAbouzaid <abdarrahman.abouzaid@gmail.com>
+Date:   Tue Dec 5 15:48:24 2017 +0200
+
+    competition seeder & update Competition migration
+
+[33mcommit 5248cfa5a8a3dffbb2e25c5626ef514719b59619[m
+Author: Apple <apple@Apples-MacBook-Pro-2.local>
+Date:   Tue Dec 5 15:46:11 2017 +0200
+
+    add seeder file for SeasonSeeder , competition_scopes_Seeder , competition_types_Seeder and other updates
+
+[33mcommit 8cb25d4f4b32f24d639c8ec0995f30d63dac538e[m
+Author: Apple <apple@Apples-MacBook-Pro-2.local>
+Date:   Tue Dec 5 15:43:55 2017 +0200
+
+    add seeder file for SeasonSeeder , competition_scopes_Seeder , competition_types_Seeder and other updates
+
+[33mcommit ae7d0f2326457398bce9a7a9b953f537d8fc0d5e[m
+Merge: 77a7789 3cce80a
+Author: abdulRahmanAbouzaid <abdarrahman.abouzaid@gmail.com>
+Date:   Tue Dec 5 13:09:08 2017 +0200
+
+    Conflit solved
+
+[33mcommit 77a77893f9d17babd75f2da9815c477760cf6e12[m
+Author: abdulRahmanAbouzaid <abdarrahman.abouzaid@gmail.com>
+Date:   Tue Dec 5 13:04:45 2017 +0200
+
+    Prepare Teams Controller
+
+[33mcommit 3cce80a782f5afba1cefe38abe97b0b9973284c6[m
+Author: Apple <apple@Apples-MacBook-Pro-2.local>
+Date:   Tue Dec 5 12:49:03 2017 +0200
+
+    Add views country , layout , player and add seed files for player country and continent and also update controllers
+
+[33mcommit b38dc91e3c83e5661c932e268dc30668232957a7[m
+Author: abdulRahmanAbouzaid <abdarrahman.abouzaid@gmail.com>
+Date:   Tue Dec 5 11:27:34 2017 +0200
+
+    updating Competition MVC files
+
+[33mcommit 5fa89dd4ff6815eddba4fce29965c2f9905c4986[m
+Author: abdulRahmanAbouzaid <abdarrahman.abouzaid@gmail.com>
+Date:   Mon Dec 4 16:43:33 2017 +0200
+
+    update migrations and Prepare Competition controller
+
+[33mcommit 50e4c70747631dce48fc28e55e8af9d01c1029c9[m
+Author: Apple <apple@Apples-MacBook-Pro-2.local>
+Date:   Mon Dec 4 14:20:29 2017 +0200
+
+    make continent relation with country
