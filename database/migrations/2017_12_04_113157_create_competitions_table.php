@@ -16,8 +16,8 @@ class CreateCompetitionsTable extends Migration
         Schema::create('competitions', function (Blueprint $table) {
             $table->increments('id');
             $table->string("name");
-            $table->integer('comp_type_id');
-            $table->integer('comp_scope_id');
+            $table->integer('comp_type_id'); // competitions type
+            $table->integer('comp_scope_id'); //Copmetition Scope
             $table->timestamps();
         });
     }
