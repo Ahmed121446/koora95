@@ -11,37 +11,34 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-     //    //remove from the database all the recordes in table continents
-    	// DB::table('continents')->truncate();
-     //    // run  ContinentSeeder seeder 
-     //    $this->call(ContinentSeeder::class);
-
-
-     //    //remove from the database all the recordes in table countries
-     //    DB::table('countries')->truncate();
-     //    // run  CountrySeeder seeder 
-     //    $this->call(CountrySeeder::class);
-
-     //    //remove from the database all the recordes in table players
-     //    DB::table('players')->truncate();
-     //    // run  PlayerSeeder seeder 
-     //    $this->call(PlayerSeeder::class);
-
-     //    //remove from the database all the recordes in table seasons
-     //    DB::table('seasons')->truncate();
-     //    // run  SeasonSeeder seeder 
-     //    $this->call(SeasonSeeder::class);
-
-
+        //remove from the database all the recordes in table continents
+    	DB::table('continents')->truncate();
+        // run  ContinentSeeder seeder 
+        $this->call(ContinentSeeder::class);
 
         //remove from the database all the recordes in table countries
-        DB::table('competition_types')->truncate();
+        DB::table('countries')->truncate();
         // run  CountrySeeder seeder 
+        $this->call(CountrySeeder::class);
+
+        //remove from the database all the recordes in table players
+        DB::table('players')->truncate();
+        // run  PlayerSeeder seeder 
+        $this->call(PlayerSeeder::class);
+
+        //remove from the database all the recordes in table seasons
+        DB::table('seasons')->truncate();
+        // run  SeasonSeeder seeder 
+        $this->call(SeasonSeeder::class);
+
+        //remove from the database all the recordes in table competition_types
+        DB::table('competition_types')->truncate();
+        // run  competition_types_Seeder seeder 
         $this->call(competition_types_Seeder::class);
 
-          //remove from the database all the recordes in table countries
+          //remove from the database all the recordes in table competition_scopes
         DB::table('competition_scopes')->truncate();
-        // run  CountrySeeder seeder 
+        // run  competition_scopes_Seeder seeder 
         $this->call(competition_scopes_Seeder::class);
 
         
