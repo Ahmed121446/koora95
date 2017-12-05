@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class competition extends Model
+class competition extends BaseModel
 {
     public function seasons()
     {
-    	return $this->belongsToMany(season::class);
+    	return $this->hasMany(Season::class);
     }
 }

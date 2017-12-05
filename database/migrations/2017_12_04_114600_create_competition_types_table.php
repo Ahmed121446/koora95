@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCompetitonScopesTable extends Migration
+class CreateCompetitionTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCompetitonScopesTable extends Migration
      */
     public function up()
     {
-        Schema::create('competiton_scopes', function (Blueprint $table) {
+        Schema::create('competition_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateCompetitonScopesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('competiton_scopes');
+        Schema::dropIfExists('competition_types');
     }
 }

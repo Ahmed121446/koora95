@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class competiton_scope extends Model
+class BaseModel extends Model
 {
-    //
+    protected $guarded = [];
 }
