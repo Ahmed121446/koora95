@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 
 
 Route::group(['prefix' => 'competitions'], function() {
-   Route::get('/', 'CompetitionsController@findAll');
+    Route::get('/', 'CompetitionsController@findAll');
 	Route::get('/{competition}', 'CompetitionsController@findById');
 	Route::post('/', 'CompetitionsController@create');
 	Route::put('/upate/{competition}', 'CompetitionsController@update');
