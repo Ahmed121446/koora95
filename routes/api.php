@@ -13,16 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
-<<<<<<< HEAD
-Route::get('/competitions', 'CompetitionsController@findAll');
-Route::get('/competitions/{competition}', 'CompetitionsController@findById');
-Route::post('/competitions', 'CompetitionsController@create');
-Route::put('/competitions/upate/{competition}', 'CompetitionsController@update');
-Route::delete('competitions/delete/{competition}', 'CompetitionsController@delete');
+Route::group(['prefix' => 'competitions'], function() {
+   Route::get('/', 'CompetitionsController@findAll');
+	Route::get('/{competition}', 'CompetitionsController@findById');
+	Route::post('/', 'CompetitionsController@create');
+	Route::put('/upate/{competition}', 'CompetitionsController@update');
+	Route::delete('/delete/{competition}', 'CompetitionsController@delete');
+});
 
-Route::post('/teams', 'TeamsController@create');
+Route::group(['prefix' => 'teams'], function() {
+	Route::post('/', 'TeamsController@create');
+});
 
-=======
+
 Route::group(['prefix' => 'Continent'], function() {
     Route::get('All-Continent','ContinentController@Get_All_Continents');
 	Route::get('{id}','ContinentController@Get_Continent');
@@ -63,8 +66,6 @@ Route::group(['prefix' => 'player'], function() {
 
     // delete request for deleting country it will take id
 	Route::delete('{id}','PlayerController@destroy');
-
-
 });
 
 
@@ -73,4 +74,3 @@ Route::group(['prefix' => 'player'], function() {
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
->>>>>>> 3cce80a782f5afba1cefe38abe97b0b9973284c6
