@@ -9,7 +9,7 @@
 <h1>Update player</h1>
 
 
-<form action="/api/country/Update/{{$player->id}}" method="put">
+<form action="/api/Player/Update/{{$player->id}}" method="put">
 	{{csrf_field()}}
 	<div class="form-group">
 		<label for="name">player Name : </label>

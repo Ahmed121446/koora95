@@ -18,6 +18,7 @@ class CreateSeasonsTable extends Migration
             $table->string('name');
             $table->integer('comp_id'); //competition id 
             $table->boolean('active');
+            $table->unique(['name','comp_id']);
             $table->timestamps();
         });
     }
