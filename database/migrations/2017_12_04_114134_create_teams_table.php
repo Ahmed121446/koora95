@@ -16,9 +16,13 @@ class CreateTeamsTable extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('team_scope_id');
-            $table->integer('continent_id');
+            $table->integer('type_id');
+            $table->text('logo');
+            $table->string('stadium');
             $table->integer('country_id');
+
+
+            $table->unique(['country_id','name']);
             $table->timestamps();
         });
     }
