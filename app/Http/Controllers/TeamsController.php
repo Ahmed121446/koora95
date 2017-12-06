@@ -85,28 +85,6 @@ class TeamsController extends Controller
     }
 
 
-
-
-    public function Update_Teams(Request $request , $id){
-=======
-        $Team->name         = $name ;
-        $Team->type_id      = $type_id ;
-        $Team->logo         = $logo ;
-        $Team->stadium      = $stadium ;
-        $Team->country_id   = $country_id ;
-
-        if (!$Team->save()) {
-            return response()->json([
-                'Message' => 'this Team can not be saved X-X '
-            ],401);
-        }
-
-        return response()->json([
-                'Message' => 'this Team is created successfully ',
-                'Team_information' => $Team->toArray()
-        ],200);   
-    }
-
     public function Update_Team(Request $request ,$id){
         $Team = Team::find($id);
         if (!$Team) {
@@ -114,8 +92,6 @@ class TeamsController extends Controller
                 'Message' => ' Team not found'
             ],404);
         } 
-
-
         $this->validate($request,[
             'name'          =>  'required|min:2|max:25',
             'type_id'       =>  'required|numeric',
