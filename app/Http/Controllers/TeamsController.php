@@ -9,6 +9,14 @@ use App\Team;
 class TeamsController extends Controller
 {
     
+
+
+
+
+
+
+
+    
     public function Get_All_Teams(){
         $Teams = Team::all();
         if (!$Teams->first()) {
