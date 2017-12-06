@@ -12,11 +12,14 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::group(['prefix' => 'Continent'], function() {
     Route::get('All-Continent','ContinentController@Get_All_Continents');
 	Route::get('{id}','ContinentController@Get_Continent');
 });
-Route::group(['prefix' => 'country'], function() {
+
+
+Route::group(['prefix' => 'Country'], function() {
 	//get request to retrive all countries
     Route::get('All-countries','CountryController@Get_All_Countries');
     //get request to render the create.blade.php   [[  create new country form   ]]
@@ -65,7 +68,58 @@ Route::group(['prefix' => 'teams'], function() {
 });
 
 
-Route::group(['prefix' => 'player'], function() {
+Route::group(['prefix' => 'Competitions'], function() {
+    Route::get('/', 'CompetitionsController@findAll');
+	Route::get('/{competition}', 'CompetitionsController@findById');
+	Route::post('/', 'CompetitionsController@create');
+	Route::put('/upate/{competition}', 'CompetitionsController@update');
+	Route::delete('/delete/{competition}', 'CompetitionsController@delete');
+});
+
+Route::group(['prefix' => 'Seasons'], function() {
+	//get request to retrive all Seasons
+	Route::get('All-Seasons', 'SeasonController@Get_All_Seasons');
+	//get request to render the create.blade.php   [[  create new Season form   ]]
+	Route::get('Create', 'SeasonController@Get_Create_View_Seasons');
+	//get request to render the update.blade.php   [[  update Season form   ]]
+	Route::get('Update/{id}', 'SeasonController@Get_Update_View_Seasons');
+	//get request to retrive specific Seasons
+	Route::get('{id}', 'SeasonController@Get_Season');
+	//post request for create new Season
+	Route::post('Create', 'SeasonController@Create_Season');
+	//put request for update Season and it will take id
+	Route::put('Update/{id}', 'SeasonController@Update_Season');
+	// delete request for deleting Season it will take id
+	Route::delete('Delete/{id}', 'SeasonController@Destroy_Season');
+});
+
+
+
+Route::group(['prefix' => 'Teams'], function() {
+	//get request to retrive all Teams
+	Route::get('All-Teams', 'TeamsController@Get_All_Teams');
+	//get request to render the create.blade.php   [[  create new Team form   ]]
+	Route::get('Create', 'TeamsController@Get_Create_View_Teams');
+	//get request to render the update.blade.php   [[  update Team form   ]]
+	Route::get('Update/{id}', 'TeamsController@Get_Update_View_Teams');
+	//get request to retrive specific Seasons
+	Route::get('{id}', 'TeamsController@Get_Team');
+
+	//post request for create new Team
+	Route::post('Create', 'TeamsController@Create_Team');
+	//put request for update Team and it will take id
+	Route::put('Update/{id}', 'TeamsController@Update_Team');
+	// delete request for deleting Team it will take id
+	Route::delete('Delete/{id}', 'TeamsController@Destroy_Team');
+
+
+});
+
+
+
+
+
+Route::group(['prefix' => 'Player'], function() {
 	//get request to render the create.blade.php   [[  create new player form   ]]
     Route::get('Create','PlayerController@Get_Player_Create_View');
     //get request to render the update.blade.php   [[  update player form   ]]

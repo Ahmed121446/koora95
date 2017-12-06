@@ -81,9 +81,10 @@ class SeasonController extends Controller
     	$season->comp_id = $competition_id;
     	$season->active = $is_active_season;
 
-    	if (!$season->save()) {
+
+    	if (!$Season->save()) {
     		return response()->json([
-    			'Message' => 'this season can not be created'
+    			'Message' => 'this season can not be saved X-X '
     		],401);
     	}
 
@@ -100,10 +101,28 @@ class SeasonController extends Controller
 				'Message' => ' Season not found'
 			],404);
 		} 
+		$this->validate($request,[
+    		'name' 				=> 	'required|min:2|max:25',
+    		'competition_id'	=>	'required|numeric',
+    		'active_value'		=>	'required|boolean'
+    	]);
 
-		$Season->name = $request->input('name');
-		$Season->comp_id = $request->input('competition_id');
-    	$Season->active = $request->input('is_active_season');
+		$name 				= $request->get('name');
+    	$competition_id 	= $request->get('competition_id');
+    	$active_value 		= $request->get('active_value');
+
+    	$Find_Dublicate = Season::where('name',$name)
+    							->where('comp_id',$competition_id)
+    							->count();
+    	if ($Find_Dublicate != 0) {
+    		return response()->json([
+    			'Message' => 'this season is already created before with the same name and competition, please check it .'
+    		],401);
+    	}
+
+    	$Season->name 		= $name;
+    	$Season->comp_id 	= $competition_id;
+    	$Season->active 	= $active_value;
 
 		if (!$Season->update()) {
 			return response()->json([
@@ -117,8 +136,10 @@ class SeasonController extends Controller
 		],200); 
 	}
 
-   	public function destroy($id){
-		$Season = Season::find($id);
+
+
+    public function Destroy_Season($id){
+    	$Season = Season::find($id);
 
 		if (!$Season) {
 			return response()->json([
@@ -136,6 +157,7 @@ class SeasonController extends Controller
 			'Message' => ' Season is deleted successfully '
 		],200);
 	}
+
 
 
 }
