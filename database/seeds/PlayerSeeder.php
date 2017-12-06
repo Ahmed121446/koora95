@@ -22,7 +22,7 @@ class PlayerSeeder extends Seeder
     		'GK'
     	];
         $faker = Faker::create();
-        for ($i=0; $i < 100; $i++) { 
+        for ($i=0; $i < 200; $i++) { 
 
         	$k = array_rand($positions);
 			$v = $positions[$k];
