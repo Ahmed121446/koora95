@@ -21,33 +21,61 @@ class DatabaseSeeder extends Seeder
         // run  CountrySeeder seeder 
         $this->call(CountrySeeder::class);
 
-        //remove from the database all the recordes in table players
-        DB::table('players')->truncate();
-        // run  PlayerSeeder seeder 
-        $this->call(PlayerSeeder::class);
 
-        
-        //remove from the database all the recordes in table seasons
+         //remove from the database all the recordes in table competition_types
+        DB::table('competition_types')->truncate();
+        // run  competition_types_Seeder seeder 
+        $this->call(competition_types_Seeder::class);
+
+        //remove from the database all the recordes in table competition_scopes
+        DB::table('competition_scopes')->truncate();
+        // run  competition_scopes_Seeder seeder 
+        $this->call(competition_scopes_Seeder::class);
+
+         //remove from the database all the recordes in table competition_scopes
         DB::table('competitions')->truncate();
-        // run  SeasonSeeder seeder 
+        // run  CompetitionSeader seeder 
         $this->call(CompetitionSeader::class);
+       
 
-        
         //remove from the database all the recordes in table seasons
         DB::table('seasons')->truncate();
         // run  SeasonSeeder seeder 
         $this->call(SeasonSeeder::class);
 
-        //remove from the database all the recordes in table competition_types
-        DB::table('competition_types')->truncate();
-        // run  competition_types_Seeder seeder 
-        $this->call(competition_types_Seeder::class);
 
-          //remove from the database all the recordes in table competition_scopes
-        DB::table('competition_scopes')->truncate();
-        // run  competition_scopes_Seeder seeder 
-        $this->call(competition_scopes_Seeder::class);
+        // // should put TeamSeeder here ------------------------
+        
+        
+        //remove from the database all the recordes in table team
+        DB::table('teams')->truncate();
+        // run  Registered_Team_Seeder seeder 
+        $this->call(TeamSeeder::class);
+        
+        //remove from the database all the recordes in table registered_teams
+        DB::table('registered_teams')->truncate();
+        // run  Registered_Team_Seeder seeder 
+        $this->call(Registered_Team_Seeder::class);
 
+
+
+
+        //remove from the database all the recordes in table players
+        DB::table('players')->truncate();
+        // run  PlayerSeeder seeder 
+        $this->call(PlayerSeeder::class);
+
+
+
+
+
+        //remove from the database all the recordes in table registered_players
+        DB::table('registered_players')->truncate();
+        // run  RegisterPlayersSeeder seeder 
+        $this->call(RegisterPlayersSeeder::class);
+        
+        
+       
         
     }
 }

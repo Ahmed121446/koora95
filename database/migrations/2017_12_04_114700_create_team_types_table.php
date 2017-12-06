@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCompetitionSeasonsTable extends Migration
+class CreateTeamTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCompetitionSeasonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('competition_seasons', function (Blueprint $table) {
+        Schema::create('team_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('competition_id');
-            $table->integer('season_id');
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +27,6 @@ class CreateCompetitionSeasonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('competition_seasons');
+        Schema::dropIfExists('team_types');
     }
 }

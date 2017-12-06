@@ -15,11 +15,12 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
+
     	$faker = Faker::create();
-        for ($i=0; $i < 300; $i++) { 
+        for ($i=0; $i < 10; $i++) { 
 
         	DB::table('countries')->insert([
-        		'name' => $faker->city,
+        		'name' => $faker->country,
         		'continent_id' => continent::all()->random()->id,
         		'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
 				'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
