@@ -17,7 +17,7 @@ Route::group(['prefix' => 'competitions'], function() {
 	Route::get('/', 'CompetitionsController@findAll');
 	Route::get('/{competition}', 'CompetitionsController@findById');
 	Route::post('/', 'CompetitionsController@create');
-	Route::put('/upate/{competition}', 'CompetitionsController@update');
+	Route::put('/update/{competition}', 'CompetitionsController@update');
 	Route::delete('/delete/{competition}', 'CompetitionsController@delete');
 });
 
