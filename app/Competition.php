@@ -10,4 +10,9 @@ class competition extends BaseModel
 	{
 		return $this->morphTo();
 	}
+	// Competition Has Many Seasons
+    public function seasons(){
+    	return $this->hasMany(Season::class);
+    }
+
 }
