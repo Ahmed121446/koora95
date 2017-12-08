@@ -42,14 +42,12 @@ class CompetitionRequest extends FormRequest
             $continent_id = $this->get('continent');
             $location = continent::find($continent_id);
         }
-        // dd($location);
         $competition =  new Competition([
                 'name' => $this->get('name'),
                 'comp_type_id' => $this->get('type')
             ]);
 
         $location->competitions()->save($competition);
-        dd($location);
         return $competition;
     }
 

@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-<<<<<<< HEAD
 Route::group(['prefix' => 'competitions'], function() {
 	Route::get('/', 'CompetitionsController@findAll');
 	Route::get('/{competition}', 'CompetitionsController@findById');
@@ -23,14 +22,6 @@ Route::group(['prefix' => 'competitions'], function() {
 });
 
 
-Route::group(['prefix' => 'teams'], function() {
-	Route::post('/', 'TeamsController@create');
-	Route::get('/{team}', 'TeamsController@findById');
-});
-
-
-=======
->>>>>>> c354f661ddeaace3f0161abd483821e6c9815a98
 Route::group(['prefix' => 'Continent'], function() {
     Route::get('All-Continent','ContinentController@Get_All_Continents');
 	Route::get('{id}','ContinentController@Get_Continent');
