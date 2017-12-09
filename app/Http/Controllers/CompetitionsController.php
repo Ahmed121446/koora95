@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CompetitionRequest;
+
 use Illuminate\Http\Request;
 use App\Competition;
 use App\CompetitionType;
 use App\CompetitionScope;
+use App\Country;
+use App\continent;
 
 class CompetitionsController extends Controller
 {
@@ -19,32 +23,16 @@ class CompetitionsController extends Controller
     public function findById(Competition $competition){
 
     	if(! $competition){
-    		return response()->json(['error' => 'competition not found']);
+    		return response()->json(['error' => 'competition not found']. 404);
     	}
 
     	return response()->json(['data' => $competition], 200);
     }
 
     // Create New Competition
-    public function create(){
-
-    	$type = CompetitionType::where('name', Request('type'))->first();
-
-    	$scope = CompetitionScope::where('name', Request('scope'))->first();
-    	
-    	$competition =  new Competition([
-	    		'name' => Request('name'),
-	    		'comp_type_id' => $type->id,
-	    		'comp_scope_id' => $scope->id
-	    	]);
-
-        $competition->save();
-
-        // $season = new Season([
-        //         'season_year' => Request('season')
-        //     ]);
-
-        // $competition->seasons()->save($season);
+    public function create(CompetitionRequest $request)
+    {   
+        $competition = $request->store();
 
     	return response()->json(['data' => $competition], 201);
 
@@ -52,9 +40,9 @@ class CompetitionsController extends Controller
 
 
     // Update a Competition Data
-    public function update(Request $request, Competition $competition)
+    public function update(CompetitionRequest $request, Competition $competition)
     {
-    	$competition->update($request->all());
+    	$competition = $request->update($competition);
 
     	response()->json(['data' => $competition], 200);
     }
