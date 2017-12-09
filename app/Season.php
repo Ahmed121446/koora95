@@ -9,6 +9,6 @@ class Season extends BaseModel
 
 	//relation 1-comp - M-Seasons
    public function competiton(){
-   	return $this->belongTo(competition::class);
+   	return $this->belongsTo(competition::class,'comp_id');
    }
 }

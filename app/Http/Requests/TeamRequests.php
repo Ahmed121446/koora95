@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TeamRequests extends FormRequest
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,12 +25,36 @@ class TeamRequests extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name'          =>  'required|min:2|max:25',
-            'type_id'       =>  'required|numeric',
-            'logo'          =>  'required',
-            'stadium'       =>  'required|min:2|max:25',
-            'country_id'    =>  'required|numeric|unique:teams,name|unique:teams,country_id'
-        ];
-    }
+        switch ($this->method())
+        {
+            case 'POST':
+            {
+                return [
+                    'name'          =>  'required|min:2|max:25',
+                    'type_id'       =>  'required|numeric',
+                    'logo'          =>  'required',
+                    'stadium'       =>  'required|min:2|max:25',
+                    'country_id'    =>  'required|numeric|unique:teams,name|unique:teams,country_id'
+                ];
+            }
+            case 'PUT':
+            case 'PATCH':
+            {
+                return [
+                    'name'          =>  'required|min:2|max:25',
+                    'type_id'       =>  'required|numeric',
+                    'logo'          =>  'required',
+                    'stadium'       =>  'required|min:2|max:25',
+                    'country_id'    =>  [
+                        'required',
+                        'numeric',
+                        Rule::unique('teams')->where(function ($query) {
+                            return $query->where('name', $this->get('name'));
+                        })->ignore(2)
+                    ]
+                ];
+            }
+            default: return [];
+        }
+    }      
 }

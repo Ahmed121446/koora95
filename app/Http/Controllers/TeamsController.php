@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Validation\Rule;
+
 use App\Http\Requests\TeamRequests;
 
 use Illuminate\Http\Request;
@@ -11,7 +13,7 @@ use App\Team;
 class TeamsController extends Controller
 {
 
-    public function __construct(TeamRequests $teamRequest)
+    public function __construct()
     {
 
     }
@@ -52,7 +54,7 @@ class TeamsController extends Controller
     }
 
 
-    public function Create_Team(Request $request){
+    public function Create_Team(Request $request, TeamRequests $teamRequest){
 
         $name           =   $request->input('name');
         $type_id        =   $request->input('type_id');
@@ -82,33 +84,28 @@ class TeamsController extends Controller
 
 
 
-
-    public function Update_Teams(Request $request , $id){
-        $Team->name         = $name ;
-        $Team->type_id      = $type_id ;
-        $Team->logo         = $logo ;
-        $Team->stadium      = $stadium ;
-        $Team->country_id   = $country_id ;
-
-        if (!$Team->save()) {
-            return response()->json([
-                'Message' => 'this Team can not be saved X-X '
-            ],401);
-        }
-
-        return response()->json([
-                'Message' => 'this Team is created successfully ',
-                'Team_information' => $Team->toArray()
-        ],200);   
-    }
-
     public function Update_Team(Request $request ,$id){
         $Team = Team::find($id);
+
         if (!$Team) {
             return response()->json([
                 'Message' => ' Team not found'
             ],404);
         } 
+
+        $this->validate($request,[
+            'name'          =>  'required|min:2|max:25',
+            'type_id'       =>  'required|numeric',
+            'logo'          =>  'required',
+            'stadium'       =>  'required|min:2|max:25',
+            'country_id'    =>  [
+                'required',
+                'numeric',
+                Rule::unique('teams')->where(function ($query) {
+                    return $query->where('name', Request('name'));
+                })->ignore($Team->id)
+            ]
+        ]);
 
         $name               = $request->get('name');
         $type_id            = $request->get('type_id');
@@ -139,7 +136,6 @@ class TeamsController extends Controller
 
     public function Destroy_Team($id){
         $Team = Team::find($id);
-
         if (!$Team) {
             return response()->json([
                 'Message' => ' Team not found'

@@ -15,8 +15,8 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'competitions'], function() {
 	Route::get('/', 'CompetitionsController@findAll');
-	Route::get('/{competition}', 'CompetitionsController@findById');
 	Route::post('/', 'CompetitionsController@create');
+	Route::get('/{competition}', 'CompetitionsController@findById');
 	Route::put('/update/{competition}', 'CompetitionsController@update');
 	Route::delete('/delete/{competition}', 'CompetitionsController@delete');
 });
@@ -44,46 +44,7 @@ Route::group(['prefix' => 'Country'], function() {
 	// delete request for deleting country it will take id
 	Route::delete('{id}','CountryController@destroy');
 });
-Route::group(['prefix' => 'competitions'], function() {
-	Route::get('/', 'CompetitionsController@findAll');
-	Route::get('/{competition}', 'CompetitionsController@findById');
-	Route::post('/', 'CompetitionsController@create');
-	Route::put('/upate/{competition}', 'CompetitionsController@update');
-	Route::delete('/delete/{competition}', 'CompetitionsController@delete');
-});
-Route::group(['prefix' => 'Season'], function() {
-	Route::get('All-Seasons', 'SeasonController@Get_All_Seasons');
-	Route::get('Create', 'SeasonController@Get_Create_View_Season');
-	Route::get('{Season}', 'SeasonController@Get_Season');
-	Route::post('Create', 'SeasonController@Add_Season');
-	//put request for update Season and it will take id
-	Route::put('Update/{id}','SeasonController@Update_Season');
-    // delete request for deleting Season it will take id
-	Route::delete('{id}','SeasonController@destroy');
-});
 
-
-Route::group(['prefix' => 'teams'], function() {
-	Route::get('All-Teams', 'TeamsController@Get_All_Teams');
-	Route::get('{id}', 'TeamsController@Get_Team');
-
-	Route::post('/Create', 'TeamsController@Create_Team');
-
-	//put request for update Season and it will take id
-	Route::put('Update/{id}','TeamsController@Update_Teams');
-	// delete request for deleting Season it will take id
-	Route::delete('{id}','TeamsController@destroy');
-
-});
-
-
-Route::group(['prefix' => 'Competitions'], function() {
-    Route::get('/', 'CompetitionsController@findAll');
-	Route::get('/{competition}', 'CompetitionsController@findById');
-	Route::post('/', 'CompetitionsController@create');
-	Route::put('/upate/{competition}', 'CompetitionsController@update');
-	Route::delete('/delete/{competition}', 'CompetitionsController@delete');
-});
 
 Route::group(['prefix' => 'Seasons'], function() {
 	//get request to retrive all Seasons
