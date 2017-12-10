@@ -26,6 +26,8 @@ class CreateMatchesTable extends Migration
 
             $table->integer('red_cards');
             $table->integer('yellow_cards');
+
+            $table->morphs('stage');
             $table->timestamps();
         });
     }
