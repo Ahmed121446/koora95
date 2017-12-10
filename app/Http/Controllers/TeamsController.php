@@ -17,18 +17,9 @@ class TeamsController extends Controller
     {
 
     }
-    
-
-<<<<<<< HEAD
-
-
-
-
-
 
     
-=======
->>>>>>> master
+
     public function Get_All_Teams(){
         $Teams = Team::all();
         if (!$Teams->first()) {
