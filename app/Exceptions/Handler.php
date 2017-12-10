@@ -50,7 +50,6 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if($exception instanceof ValidationException){
-            // return session('errors');
             return response()->json(['error' => 'Missing/Invalid Data!'], 400);
         }
         return parent::render($request, $exception);

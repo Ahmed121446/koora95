@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisteredTeamRequests;
 use Illuminate\Http\Request;
+
 use App\Season;
 use App\RegisteredTeam;
 
@@ -29,13 +31,9 @@ class RegisteredTeamsController extends Controller
 
 	
 	// Add a Team to The Current Season
-	public function create(Season $season, Request $request)
+	public function create(Season $season, Request $request, RegisteredTeamRequests $teamRequest)
 	{
-		if(!$season->active){
-			return response()->json(["message" => "Season is Ended"]);
-		}
-		$team = new RegisteredTeam($request->all());
-		$team = $season->registeredTeams()->save($team);
+		$team = $teamRequest->store($season);
 
 		return response()->json(['data' => $team], 201);
 	}
