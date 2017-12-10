@@ -24,6 +24,7 @@ class CreateRegisteredPlayersTable extends Migration
             $table->integer('assists');
             $table->integer('red_cards');
             $table->integer('yellow_cards');
+            
 
             $table->timestamps();
         });
