@@ -17,6 +17,7 @@ class TeamsController extends Controller
     {
 
     }
+
     
 
     public function Get_All_Teams(){
@@ -28,6 +29,7 @@ class TeamsController extends Controller
         }
         return response()->json([
             'Message' => ' Teams Found Congrats .',
+            
             'Teams_data' => $Teams->toArray()
         ],200);
     }
@@ -92,7 +94,6 @@ class TeamsController extends Controller
                 'Message' => ' Team not found'
             ],404);
         } 
-
         $this->validate($request,[
             'name'          =>  'required|min:2|max:25',
             'type_id'       =>  'required|numeric',
