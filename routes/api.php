@@ -69,12 +69,14 @@ Route::group(['prefix' => 'Seasons'], function() {
 	Route::delete('Delete/{id}', 'SeasonController@Destroy_Season');
 
 
-	// Handling Teams through a Season
+	// Handling Teams through a Competition
+
 	Route::get('/{season}/teams', 'RegisteredTeamsController@findAll');
 	Route::post('/{season}/teams', 'RegisteredTeamsController@create');
 	Route::get('/{season}/teams/{team_id}', 'RegisteredTeamsController@findById');
 	Route::put('{season}/update-team/{team_id}', 'RegisteredTeamsController@update');
 	Route::delete('/{season}/delete-team/{team_id}', 'RegisteredTeamsController@delete');
+
 
 
 
@@ -85,6 +87,7 @@ Route::group(['prefix' => 'Seasons'], function() {
 	Route::put('{season}/{team}/{player}/update', 'RegisteredPlayersController@Update_Player_From_RegisteredTeam');
 	Route::delete('/{season}/{team}/{player}', 'RegisteredPlayersController@Delete_Player_From_RegisteredTeam');
 	
+
 });
 
 

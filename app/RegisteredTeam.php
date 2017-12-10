@@ -15,4 +15,5 @@ class RegisteredTeam extends BaseModel
     public function registeredPlayers(){
     	return $this->hasMany(RegisteredPlayer::class);
     }
+
 }
