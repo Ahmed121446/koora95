@@ -76,11 +76,11 @@ Route::group(['prefix' => 'Seasons'], function() {
 	Route::delete('/{season}/delete-team/{team_id}', 'RegisteredTeamsController@delete');
 
 	// Handling Matches through a Season
-	Route::get('/{season}/matches', 'MatchesController@findAll');
-	Route::post('/{season}/matches', 'MatchesController@create');
+	Route::get('/{season}/matches', 'MatchesController@getSeasonMatches');
+	Route::post('/{season}/matches', 'MatchesController@addMatch');
 	Route::get('/{season}/matches/{match}', 'MatchesController@findById');
 	Route::put('{season}/update-match/{match}', 'MatchesController@update');
-	Route::delete('/{season}/delete-match/{match}', 'MatchesController@delete');
+	Route::delete('{season}/delete-match/{match}', 'MatchesController@delete');
 
 
 	// Handling players through a Season
@@ -135,7 +135,7 @@ Route::group(['prefix' => 'Players'], function() {
 
 Route::group(['prefix' => 'matches'], function() {
 	Route::get('/', 'MatchesController@findAll');
-	Route::post('/matches', 'MatchesController@create');
+	Route::post('/matches', 'MatchesController@addMatch');
 	Route::get('/{match}', 'MatchesController@findById');
 	Route::get('/{date}', 'MatchesController@findByDay');
 	Route::get('/{week}', 'MatchesController@findByStages');

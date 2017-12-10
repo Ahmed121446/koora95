@@ -15,4 +15,10 @@ class Season extends BaseModel
     public function registeredTeams(){
    		return $this->hasMany(RegisteredTeam::class);
    }
+
+
+   public function matches()
+   {
+   		return $this->hasMany(Match::class);
+   }
 }

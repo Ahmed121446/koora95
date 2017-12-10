@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Round extends Model
 {
-    public function matchs()
+    public function matches()
     {
-    	return $this->morphMany('App\Match','Match');
+    	return $this->morphMany('App\Match','stage');
     }
 }
