@@ -116,33 +116,4 @@ class PlayersController extends Controller
 		],200);
 	}
 
-
-
-
-
-
-
-	// public function Get_Player_For_Specific_Team($team){
-	    // 	$team = Team::find($team);
-	    // 	if (!$team) {
-	    // 		return response()->json([
-	    // 			'Message' => 'This team is not found X-X'
-	    // 		],404);
-	    // 	}
-
-	    // 	$players = player::where('team_id',$team->id);
-
-	    // 	if (!$players->first()) {
-	    // 		return response()->json([
-	    // 			'Message' => 'no player in this team'
-	    // 		],404);
-	    // 	}
-
-	    // 	return response()->json([
-	    // 			'Message' => 'player in this team successfully featched',
-	    // 			'team_information' => $team,
-	    // 			'players_information' => $players->toArray()
-	    // 	],200);
-    // }
-
 }
