@@ -24,6 +24,7 @@ class SeasonSeeder extends Seeder
         for ($i=0; $i < count($Seasons); $i++) { 
         	DB::table('seasons')->insert([
         		'name' => $Seasons[$i],
+
                 'comp_id' => 1,
                 'active' => 0,
         		'created_at' => Carbon::now()->format('Y-m-d H:i:s'),

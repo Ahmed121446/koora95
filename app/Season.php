@@ -6,16 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Season extends BaseModel
 {
-    public function competitions()
-    {
-    	return $this->belongsTo(Competition::class);
-    }
 
+	//relation 1-comp - M-Seasons
+   public function competiton(){
+   		return $this->belongsTo(competition::class,'comp_id');
+   }
 
-     //many players play in many seasons
-    // M-M
-    public function Players()
-    {
-    	return $this->belongsToMany(player::class);
-    }
+    public function registeredTeams(){
+   		return $this->hasMany(RegisteredTeam::class);
+   }
 }

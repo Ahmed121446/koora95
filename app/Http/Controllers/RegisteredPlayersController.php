@@ -69,7 +69,7 @@ class RegisteredPlayersController extends Controller
             'assists' => 'required|numeric',
             'red_cards' => 'required|numeric',
             'yellow_cards' => 'required|numeric'
-        ]);  
+        ]);
 
         $team       = $season->registeredTeams()->find($team)->first();
         $player     = $team->registeredPlayers()->find($player);

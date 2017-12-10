@@ -6,15 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class competition extends BaseModel
 {
+	public function location()
+	{
+		return $this->morphTo();
+	}
 	// Competition Has Many Seasons
-    public function seasons()
-    {
-    	return $this->hasMany(Season::class);
+    public function seasons(){
+    	return $this->hasMany(Season::class,'comp_id');
     }
 
-    // Competition contains many Teams
-    public function teams()
-    {
-    	return $this->belongsToMany(team::class);
-    }
 }

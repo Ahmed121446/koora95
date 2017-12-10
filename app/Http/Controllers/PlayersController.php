@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\player;
+use App\Team;
 
 class PlayersController extends Controller
 {
     public function Get_All_Players(){
-		
     	$players = player::all();
 
     	if (!$players->first()) {

@@ -2,14 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Validation\Rule;
+
+use App\Http\Requests\TeamRequests;
+
 use Illuminate\Http\Request;
 use App\Team;
 
 
 class TeamsController extends Controller
 {
+
+    public function __construct()
+    {
+
+    }
     
 
+<<<<<<< HEAD
 
 
 
@@ -17,6 +27,8 @@ class TeamsController extends Controller
 
 
     
+=======
+>>>>>>> master
     public function Get_All_Teams(){
         $Teams = Team::all();
         if (!$Teams->first()) {
@@ -31,6 +43,7 @@ class TeamsController extends Controller
         ],200);
     }
 
+
     public function Get_Team($id){
         $Team = Team::find($id);
         if (!$Team) {
@@ -44,70 +57,64 @@ class TeamsController extends Controller
         ],200);
     }
 
+
     public function Get_Create_View_Teams(){
       
     }
     public function Get_Update_View_Teams($id){
     }
 
-    public function Create_Team(Request $request){
-        $this->validate($request,[
-            'name'          =>  'required|min:2|max:25',
-            'type_id'       =>  'required|numeric',
-            'logo'          =>  'required',
-            'stadium'       =>  'required|min:2|max:25',
-            'country_id'    =>  'required|numeric'
-        ]);
 
-        $name               = $request->get('name');
-        $type_id            = $request->get('type_id');
-        $logo               = $request->get('logo');
-        $stadium            = $request->get('stadium');
-        $country_id         = $request->get('country_id');
+    public function Create_Team(Request $request, TeamRequests $teamRequest){
 
-        $Find_Dublicate = Team::where('name',$name)
-                                ->where('country_id',$country_id)
-                                ->count();
+        $name           =   $request->input('name');
+        $type_id        =   $request->input('type_id');
+        $logo           =   $request->input('logo');
+        $stadium        =   $request->input('stadium');
+        $country_id     =   $request->input('country_id');
 
-        if ($Find_Dublicate != 0) {
-            return response()->json([
-                'Message' => 'this Team is already created with in the same country '
-            ],401);
-        }
 
         $Team = new Team();
-        $Team->name         = $name ;
-        $Team->type_id      = $type_id ;
-        $Team->logo         = $logo ;
-        $Team->stadium      = $stadium ;
-        $Team->country_id   = $country_id ;
+        $Team->name         = $name;
+        $Team->type_id      = $type_id;
+        $Team->logo         = $logo;
+        $Team->stadium      = $stadium;
+        $Team->country_id   = $country_id;
 
         if (!$Team->save()) {
             return response()->json([
-                'Message' => 'this Team can not be saved X-X '
-            ],401);
+                'Message' => 'Team cannot be created'
+            ],400);
         }
 
         return response()->json([
-                'Message' => 'this Team is created successfully ',
-                'Team_information' => $Team->toArray()
-        ],200);   
+            'Message' => 'Team is created successfully',
+            'Team_Data' => $Team->toArray() 
+        ],200);
     }
+
+
 
     public function Update_Team(Request $request ,$id){
         $Team = Team::find($id);
+
         if (!$Team) {
             return response()->json([
                 'Message' => ' Team not found'
             ],404);
         } 
-
         $this->validate($request,[
             'name'          =>  'required|min:2|max:25',
             'type_id'       =>  'required|numeric',
             'logo'          =>  'required',
             'stadium'       =>  'required|min:2|max:25',
-            'country_id'    =>  'required|numeric'
+            'country_id'    =>  [
+                'required',
+                'numeric',
+                Rule::unique('teams')->where(function ($query) {
+                    return $query->where('name', Request('name'));
+                })->ignore($Team->id)
+            ]
         ]);
 
         $name               = $request->get('name');
@@ -116,15 +123,6 @@ class TeamsController extends Controller
         $stadium            = $request->get('stadium');
         $country_id         = $request->get('country_id');
 
-        $Find_Dublicate = Team::where('name',$name)
-                                ->where('country_id',$country_id)
-                                ->count();
-
-        if ($Find_Dublicate != 0) {
-            return response()->json([
-                'Message' => 'this Team is already created with in the same country '
-            ],401);
-        }
 
         $Team->name         = $name ;
         $Team->type_id      = $type_id ;
@@ -144,9 +142,10 @@ class TeamsController extends Controller
         ],200); 
     }
 
+
+
     public function Destroy_Team($id){
         $Team = Team::find($id);
-
         if (!$Team) {
             return response()->json([
                 'Message' => ' Team not found'

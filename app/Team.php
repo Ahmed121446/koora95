@@ -18,7 +18,6 @@ class Team extends BaseModel
     // M player  --> 1 team    ===>  M to 1
     public function players(){
     	return $this->hasMany(player::class);
-     	
     } 
     
 }
