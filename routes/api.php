@@ -19,6 +19,8 @@ Route::group(['prefix' => 'competitions'], function() {
 	Route::get('/{competition}', 'CompetitionsController@findById');
 	Route::put('/update/{competition}', 'CompetitionsController@update');
 	Route::delete('/delete/{competition}', 'CompetitionsController@delete');
+
+	
 });
 
 
@@ -61,6 +63,13 @@ Route::group(['prefix' => 'Seasons'], function() {
 	Route::put('Update/{id}', 'SeasonController@Update_Season');
 	// delete request for deleting Season it will take id
 	Route::delete('Delete/{id}', 'SeasonController@Destroy_Season');
+
+	// Handling Teams through a Competition
+	Route::get('/{season}/teams', 'RegisteredTeamsController@findAll');
+	Route::post('/{season}/teams', 'RegisteredTeamsController@create');
+	Route::get('/{season}/teams/{team_id}', 'RegisteredTeamsController@findById');
+	Route::put('{season}/update-team/{team_id}', 'RegisteredTeamsController@update');
+	Route::delete('/{season}/delete-team/{team_id}', 'RegisteredTeamsController@delete');
 });
 
 

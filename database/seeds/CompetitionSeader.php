@@ -29,8 +29,8 @@ class CompetitionSeader extends Seeder
 	      	DB::table('competitions')->insert([
 		       	'name' => $competitions[$i],
 		       	'comp_type_id' => 1,
-		       	'comp_scope_id' => 1,
-                'country_id' => Country::all()->random()->id
+                'location_id' => Country::all()->random()->id,
+                'location_type' => 'App\Country'
 	       ]);
     	}
     }
