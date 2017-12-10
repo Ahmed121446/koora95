@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Validation\Rule;
+
 use Illuminate\Http\Request;
+
 use App\Season;
 use App\competition;
 
@@ -48,41 +51,32 @@ class SeasonController extends Controller
 
     public function Add_Season(Request $request){
     	$competition_id = $request->input('competition_id');
-    	$find_comp = competition::find($competition_id);
+    	$competition = competition::find($competition_id);
     	
-    	if (!$find_comp) {
+    	if (!$competition) {
     		return response()->json([
     			'Message' => 'this competition id is not found'
     		],404);
     	}
 
-    	$find_comp_id = $find_comp->id;
     	$this->validate($request,[
     		'name' => 'required|min:2|max:25',
-    		'competition_id' => 'required|numeric',
+    		'competition_id' => 'required|numeric|unique:seasons,name|unique:seasons,comp_id',
     		'is_active_season' => 'required|boolean'
     	]);
 
     	$season_name = $request->input('name');
     	$is_active_season = $request->input('is_active_season');
 
-    	$Find_Duplicate = Season::where('name',$season_name)
-    							->where('comp_id',$competition_id)
-    							->count();
-    	
-    	if ($Find_Duplicate != 0) {
-    		return response()->json([
-    			'Message' => 'this season is already created'
-    		],401);
-    	}
 
     	$season = new Season();
     	$season->name = $season_name;
-    	$season->comp_id = $competition_id;
     	$season->active = $is_active_season;
 
+        $season = $competition->seasons()->save($season);
 
-    	if (!$Season->save()) {
+
+    	if (!$season) {
     		return response()->json([
     			'Message' => 'this season can not be saved X-X '
     		],401);
@@ -100,10 +94,19 @@ class SeasonController extends Controller
 			return response()->json([
 				'Message' => ' Season not found'
 			],404);
-		} 
+		}
+
+
 		$this->validate($request,[
-    		'name' 				=> 	'required|min:2|max:25',
-    		'competition_id'	=>	'required|numeric',
+    		'name' 				=> 	[
+                'required',
+                'min:2',
+                'max:25',
+                Rule::unique('seasons')->where(function ($query) {
+                    return $query->where('comp_id', Request('competition_id'));
+                })->ignore($Season->id)
+            ],
+            'competition_id' => 'required|numeric',
     		'active_value'		=>	'required|boolean'
     	]);
 
@@ -111,14 +114,6 @@ class SeasonController extends Controller
     	$competition_id 	= $request->get('competition_id');
     	$active_value 		= $request->get('active_value');
 
-    	$Find_Dublicate = Season::where('name',$name)
-    							->where('comp_id',$competition_id)
-    							->count();
-    	if ($Find_Dublicate != 0) {
-    		return response()->json([
-    			'Message' => 'this season is already created before with the same name and competition, please check it .'
-    		],401);
-    	}
 
     	$Season->name 		= $name;
     	$Season->comp_id 	= $competition_id;

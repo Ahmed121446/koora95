@@ -12,7 +12,7 @@ class competition extends BaseModel
 	}
 	// Competition Has Many Seasons
     public function seasons(){
-    	return $this->hasMany(Season::class);
+    	return $this->hasMany(Season::class,'comp_id');
     }
 
 }
