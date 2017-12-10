@@ -26,6 +26,7 @@ class TeamsController extends Controller
         }
         return response()->json([
             'Message' => ' Teams Found Congrats .',
+            
             'Teams_data' => $Teams->toArray()
         ],200);
     }
