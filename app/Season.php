@@ -21,4 +21,10 @@ class Season extends BaseModel
    {
    		return $this->hasMany(Match::class);
    }
+
+
+   public function stages()
+   {
+         return $this->hasMany(Stage::class);
+   }
 }

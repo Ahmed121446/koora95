@@ -4,20 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Match extends BaseModel
+class Stage extends Model
 {
-    // public function stage()
-    // {
-    // 	return $this->morphTo();
-    // }
-
     public function stage()
     {
-    	return $this->belongsTo(Stage::class);
+    	return $this->morphTo();
     }
 
     public function season()
     {
     	return $this->belongsTo(Season::class);
+    }
+
+    public function matches()
+    {
+    	return $this->hasMany(Match::class);
     }
 }

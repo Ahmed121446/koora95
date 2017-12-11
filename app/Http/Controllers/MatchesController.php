@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MatchRequest;
+
 use Illuminate\Http\Request;
 use App\Match;
 use App\Season;
@@ -12,36 +14,15 @@ class MatchesController extends Controller
 {
     public function getSeasonMatches(Season $season)
     {
-     	$matches = Match::all();
+    	$matches = $season->matches;
      	return $matches;
     }
 
 
-    public function addMatch(Season $season, Request $request)
+    public function addMatch(Season $season, MatchRequest $request)
     {
-    	if($request->get('week_id')) {
-            $week_id = $request->get('week_id');
-            $stage = Week::find($week_id);
-        }else{
-            $round_id = $request->get('round_id');
-            $stage = Round::find($round_id);
-        }
-        $match =  new Match([
-        	'date'  => $request->get('date'),
-        	'register_team_1_id' => $request->get('register_team_1_id'),
-			'register_team_2_id' => $request->get('register_team_2_id'),
-			'stadium' => $request->get('stadium'),
-			'team_1_goals' => $request->get('team_1_goals'),
-			'team_2_goals' => $request->get('team_2_goals'),
-			'red_cards' => $request->get('red_cards'),
-			'yellow_cards' => $request->get('yellow_cards')
-        ]);
-
-        $stage->matches()->save($match);
-
-        $season->matches()->save($match);
-
-    	return $match;
+    	$match = $request->add($season);
+    	return response()->json(['data' => $match],201);
     }
 
 
@@ -53,6 +34,8 @@ class MatchesController extends Controller
     	
     	return $match;
     }
+
+
     public function delete(Season $season,Match $match)
     {
     	$match = $season->matches()->find($match->id);
@@ -64,6 +47,13 @@ class MatchesController extends Controller
     	return response()->json([
     			'Message'=>'match deleted successfully '
     	],204);
+    }
+
+    public function findByStage(Season $season, $stage_id)
+    {
+    	$stage = $season->stages()->find($stage_id);
+    	$matches = $stage->matches;
+    	return $matches;
     }
 
 }

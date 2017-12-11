@@ -55,16 +55,14 @@ Route::group(['prefix' => 'Seasons'], function() {
 	Route::get('Update/{id}', 'SeasonController@Get_Update_View_Seasons');
 	//get request to retrive specific Seasons
 	Route::get('{id}', 'SeasonController@Get_Season');
-
-
-
-
 	//post request for create new Season
 	Route::post('Create', 'SeasonController@Create_Season');
 	//put request for update Season and it will take id
 	Route::put('Update/{id}', 'SeasonController@Update_Season');
 	// delete request for deleting Season it will take id
 	Route::delete('Delete/{id}', 'SeasonController@Destroy_Season');
+
+
 
 	// Handling Teams through a Season
 	Route::get('/{season}/teams', 'RegisteredTeamsController@findAll');
@@ -73,12 +71,18 @@ Route::group(['prefix' => 'Seasons'], function() {
 	Route::put('{season}/update-team/{team_id}', 'RegisteredTeamsController@update');
 	Route::delete('/{season}/delete-team/{team_id}', 'RegisteredTeamsController@delete');
 
+
+
 	// Handling Matches through a Season
 	Route::get('/{season}/matches', 'MatchesController@getSeasonMatches');
 	Route::post('/{season}/matches', 'MatchesController@addMatch');
 	Route::get('/{season}/matches/{match}', 'MatchesController@findById');
 	Route::put('{season}/update-match/{match}', 'MatchesController@update');
 	Route::delete('{season}/delete-match/{match}', 'MatchesController@delete');
+
+	Route::get('/{season}/matches/stage/{stage_id}', 'MatchesController@findByStage');
+
+
 
 
 	// Handling players through a Season
@@ -130,22 +134,6 @@ Route::group(['prefix' => 'Players'], function() {
     // delete request for deleting country it will take id
 	Route::delete('{id}','PlayersController@destroy');
 });
-
-
-Route::group(['prefix' => 'matches'], function() {
-	Route::get('/', 'MatchesController@findAll');
-	Route::post('/matches', 'MatchesController@addMatch');
-	Route::get('/{match}', 'MatchesController@findById');
-	Route::get('/{date}', 'MatchesController@findByDay');
-	Route::get('/{week}', 'MatchesController@findByStages');
-	Route::put('/update/{match}', 'MatchesController@update');
-	Route::delete('/delete/{match}', 'MatchesController@delete');
-});
-
-
-
-
-
 
 
 
