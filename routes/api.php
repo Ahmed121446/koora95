@@ -76,7 +76,11 @@ Route::group(['prefix' => 'Seasons'], function() {
 	// Handling Matches through a Season
 	Route::get('/{season}/matches', 'MatchesController@getSeasonMatches');
 	Route::post('/{season}/matches', 'MatchesController@addMatch');
-	Route::get('/{season}/matches/{match}', 'MatchesController@findById');
+	//find match by date
+	Route::get('{season}/matches/{date}', 'MatchesController@Find_Date');
+	//find matches for this team 
+	Route::get('{season}/{team}/matches', 'MatchesController@Find_Team_Matches');
+
 	Route::put('{season}/update-match/{match}', 'MatchesController@update');
 	Route::delete('{season}/delete-match/{match}', 'MatchesController@delete');
 
@@ -136,6 +140,15 @@ Route::group(['prefix' => 'Players'], function() {
 });
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+>>>>>>> c9d49aa4166212cad17da8443f8eab9dc4687738
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
