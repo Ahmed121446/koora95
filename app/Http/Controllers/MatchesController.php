@@ -91,6 +91,7 @@ class MatchesController extends Controller
             'Message' =>'this team is not in this season'
            ],404);
         }
+        
         $matches = $season->matches;
         $team_matches1 = $matches->where('register_team_1_id',$team->id);
         $team_matches2 = $matches->where('register_team_2_id',$team->id);
@@ -106,5 +107,9 @@ class MatchesController extends Controller
             ],200);
         }
     }
+
+
+
+
 
 }
