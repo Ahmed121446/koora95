@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //remove from the database all the recordes in table continents
+        // remove from the database all the recordes in table continents
     	DB::table('continents')->truncate();
         // run  ContinentSeeder seeder 
         $this->call(ContinentSeeder::class);
@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SeasonSeeder::class);
 
 
-        // // should put TeamSeeder here ------------------------
+     //    // // should put TeamSeeder here ------------------------
         
         
         //remove from the database all the recordes in table team
@@ -52,7 +52,12 @@ class DatabaseSeeder extends Seeder
         // run  Registered_Team_Seeder seeder 
         $this->call(TeamSeeder::class);
         
+        
         //remove from the database all the recordes in table registered_teams
+        DB::table('registered_teams')->truncate();
+        // run  Registered_Team_Seeder seeder 
+        $this->call(Registered_Team_Seeder::class);
+        // remove from the database all the recordes in table registered_teams
         DB::table('registered_teams')->truncate();
         // run  Registered_Team_Seeder seeder 
         $this->call(Registered_Team_Seeder::class);
@@ -81,9 +86,7 @@ class DatabaseSeeder extends Seeder
         //remove from the database all the recordes in table rounds
         DB::table('rounds')->truncate();
         // run  RoundSeeder seeder 
-        $this->call(RoundSeeder::class);
-        
-       
+        $this->call(RoundSeeder::class); 
         
     }
 }

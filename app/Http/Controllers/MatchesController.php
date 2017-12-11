@@ -14,8 +14,6 @@ class MatchesController extends Controller
     {
      	$matches = Match::all();
      	return $matches;
-
-        
     }
 
 
