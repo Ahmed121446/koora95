@@ -53,7 +53,7 @@ class MatchesController extends Controller
     	
     	return $match;
     }
-    public function delete( Season $season,Match $match)
+    public function delete(Season $season,Match $match)
     {
     	$match = $season->matches()->find($match->id);
     	if (!$match->delete()) {
