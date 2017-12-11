@@ -140,16 +140,6 @@ Route::group(['prefix' => 'Players'], function() {
 });
 
 
-<<<<<<< HEAD
-=======
-
-
-
-
-
-
->>>>>>> c9d49aa4166212cad17da8443f8eab9dc4687738
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
