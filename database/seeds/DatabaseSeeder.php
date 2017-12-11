@@ -57,10 +57,7 @@ class DatabaseSeeder extends Seeder
         DB::table('registered_teams')->truncate();
         // run  Registered_Team_Seeder seeder 
         $this->call(Registered_Team_Seeder::class);
-        // remove from the database all the recordes in table registered_teams
-        DB::table('registered_teams')->truncate();
-        // run  Registered_Team_Seeder seeder 
-        $this->call(Registered_Team_Seeder::class);
+
 
 
 
