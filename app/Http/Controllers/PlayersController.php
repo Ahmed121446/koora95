@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\player;
 use App\Team;
+use App\Country;
+use App\Http\Requests\CreatePlayerRequest;
+
+
+
 
 class PlayersController extends Controller
 {
@@ -38,7 +43,10 @@ class PlayersController extends Controller
     }
     public function Get_Player_Create_View(){
     	//get player create.blade.php
-    	return view('player.create');
+    	$Teams = Team::all();   
+    	$countries = Country::all(); 
+    	
+    	return view('player.create',compact('Teams','countries'));
     }
     public function Get_Player_Update_View($id){
 		$player = player::find($id);
@@ -49,18 +57,19 @@ class PlayersController extends Controller
 		} 
 		return view('player.update',compact('player'));
 	}
-	public function Create_Player(Request $request){
-		$this->validate($request,[
-			'name'=>'required|max:25|min:2'
-		]);
+	public function Create_Player(CreatePlayerRequest $request){
 
 		$name = $request->input('name');
 		$player_position = $request->input('player_position');
+		$team_id = $request->input('team_id');
+		$country_id = $request->input('country_id');
 
 
 		$player = new player();
 		$player->name = $name;
 		$player->position = $player_position;
+		$player->team_id = $team_id;
+		$player->country_id = $country_id;
 
 
 		if (!$player->save()) {

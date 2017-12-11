@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Season;
 use App\competition;
 
+use App\Http\Requests\AddSeasonRequest;
+
+
 class SeasonController extends Controller
 {
 
@@ -49,7 +52,7 @@ class SeasonController extends Controller
     	}
     }
 
-    public function Add_Season(Request $request){
+    public function Add_Season(AddSeasonRequest $request){
     	$competition_id = $request->input('competition_id');
     	$competition = competition::find($competition_id);
     	
@@ -59,11 +62,7 @@ class SeasonController extends Controller
     		],404);
     	}
 
-    	$this->validate($request,[
-    		'name' => 'required|min:2|max:25',
-    		'competition_id' => 'required|numeric|unique:seasons,name|unique:seasons,comp_id',
-    		'is_active_season' => 'required|boolean'
-    	]);
+
 
     	$season_name = $request->input('name');
     	$is_active_season = $request->input('is_active_season');

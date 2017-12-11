@@ -7,6 +7,10 @@ use App\Season;
 use App\RegisteredTeam;
 use App\RegisteredPlayer;
 
+use App\Http\Requests\AddRegisteredPlayerRequest;
+
+
+
 
 class RegisteredPlayersController extends Controller
 {
@@ -18,7 +22,6 @@ class RegisteredPlayersController extends Controller
             'players_data_in_team' => $players
         ], 200);
     }
-
     // Retrieve a Team form Specific Season
     public function findById(Season $season,RegisteredTeam $team ,$player){
         $team       = $season->registeredTeams()->find($team)->first();
@@ -26,11 +29,7 @@ class RegisteredPlayersController extends Controller
         return $player ;
     }
 
-    public function Add_Player_In_RegisteredTeam(Request $request , Season $season,RegisteredTeam $team){
-        $this->validate($request,[
-            'registered_team_id' => 'required|numeric',
-            'player_id' => 'required|numeric'
-        ]);
+    public function Add_Player_In_RegisteredTeam(AddRegisteredPlayerRequest $request , Season $season,RegisteredTeam $team){
 
         $registered_team_id     = $request->get('registered_team_id');
         $player_id              = $request->get('player_id');
@@ -59,17 +58,9 @@ class RegisteredPlayersController extends Controller
         ], 201);
     }
 
-    public function Update_Player_From_RegisteredTeam(Request $request , Season $season,RegisteredTeam $team,$player){
+    public function Update_Player_From_RegisteredTeam(AddRegisteredPlayerRequest $request , Season $season,RegisteredTeam $team,$player){
 
-        $this->validate($request,[
-            'registered_team_id' => 'required|numeric',
-            'player_id' => 'required|numeric',
-            'played' => 'required|numeric',
-            'goals' => 'required|numeric',
-            'assists' => 'required|numeric',
-            'red_cards' => 'required|numeric',
-            'yellow_cards' => 'required|numeric'
-        ]);
+
 
         $team       = $season->registeredTeams()->find($team)->first();
         $player     = $team->registeredPlayers()->find($player);

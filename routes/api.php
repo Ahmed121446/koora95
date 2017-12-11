@@ -19,8 +19,6 @@ Route::group(['prefix' => 'competitions'], function() {
 	Route::get('/{competition}', 'CompetitionsController@findById');
 	Route::put('/update/{competition}', 'CompetitionsController@update');
 	Route::delete('/delete/{competition}', 'CompetitionsController@delete');
-
-	
 });
 
 
@@ -89,7 +87,7 @@ Route::group(['prefix' => 'Seasons'], function() {
 	Route::post('/{season}/{team}/Create', 'RegisteredPlayersController@Add_Player_In_RegisteredTeam');
 	Route::put('{season}/{team}/{player}/update', 'RegisteredPlayersController@Update_Player_From_RegisteredTeam');
 	Route::delete('/{season}/{team}/{player}', 'RegisteredPlayersController@Delete_Player_From_RegisteredTeam');
-	
+
 });
 
 
@@ -133,6 +131,7 @@ Route::group(['prefix' => 'Players'], function() {
 	Route::delete('{id}','PlayersController@destroy');
 });
 
+
 Route::group(['prefix' => 'matches'], function() {
 	Route::get('/', 'MatchesController@findAll');
 	Route::post('/matches', 'MatchesController@addMatch');
@@ -142,6 +141,7 @@ Route::group(['prefix' => 'matches'], function() {
 	Route::put('/update/{match}', 'MatchesController@update');
 	Route::delete('/delete/{match}', 'MatchesController@delete');
 });
+
 
 
 

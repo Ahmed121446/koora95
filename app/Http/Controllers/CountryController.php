@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Country;
+use App\Http\Requests\CreateCountryRequest;
 
 class CountryController extends Controller
 {
@@ -49,11 +50,7 @@ class CountryController extends Controller
 		return view('country.create');
 	}
 
-	public function Create_Country(Request $request){
-		$this->validate($request,[
-			'name'=>'required|unique:countries|max:25|min:2'
-		]);
-
+	public function Create_Country(CreateCountryRequest $request){
 		$name = $request->input('name');
 		$Continent_id = $request->input('Continent_id');
 
@@ -87,7 +84,7 @@ class CountryController extends Controller
 		return view('country.update',compact('Country_data'));
 	}
 	
-	public function Update_Country(Request $request , $id){
+	public function Update_Country(CreateCountryRequest $request , $id){
 		$Country = Country::find($id);
 		if (!$Country) {
 			return response()->json([

@@ -33,6 +33,25 @@
             <option value='GK'>GK</option>
           </select>
 	</div>
+
+    <div class="form-group">
+          <label for="team_name">Team Name : </label>
+          <select name='team_id' class='form-control' id="team_name">
+            @foreach ($Teams as $team)
+               <option value='{{$team->id}}'>{{$team->name}}</option>
+            @endforeach
+          </select>
+  </div>
+
+  <div class="form-group">
+          <label for="Country_name">Country Name : </label>
+          <select name='country_id' class='form-control' id="Country_name">
+            @foreach ($countries as $country)
+               <option value='{{$country->id}}'>{{$country->name}}</option>
+            @endforeach
+          </select>
+  </div>
+
 	<input type="submit" class="btn btn-primary" value="Create">
 </form>
 
