@@ -12,7 +12,7 @@ class MatchesController extends Controller
 {
     public function getSeasonMatches(Season $season)
     {
-     	$matches = Match::all();
+     	$matches =$season->matches;
      	return $matches;
     }
 
