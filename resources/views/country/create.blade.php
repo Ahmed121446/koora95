@@ -9,6 +9,7 @@
 <h1>Create New Country</h1>
 
 
+
 <form action="/api/country/Create" method="put">
 	{{csrf_field()}}
 	<div class="form-group">
