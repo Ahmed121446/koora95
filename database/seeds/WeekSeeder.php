@@ -11,7 +11,7 @@ class WeekSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=1; $i < 37 ; $i++) { 
+        for ($i=1; $i < 100 ; $i++) { 
         	DB::table('weeks')->insert([
         		'number' => $i
         	]);

@@ -47,6 +47,10 @@ Route::group(['prefix' => 'Country'], function() {
 
 
 Route::group(['prefix' => 'Seasons'], function() {
+
+		 Route::get('Season/{season}/Stage','SeasonController@Season_Stages');
+
+	
 	//get request to retrive all Seasons
 	Route::get('All-Seasons', 'SeasonController@Get_All_Seasons');
 	//get request to render the create.blade.php   [[  create new Season form   ]]
@@ -118,6 +122,8 @@ Route::group(['prefix' => 'Seasons'], function() {
 	    //delete Specific team in Specific group
 	    Route::delete('Season/{season}/group/{group}/delete-team/{team}', 'GroupTeamsController@Delete_Team_From_Group');
 	});
+
+
 
 });
 

@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 
 use App\Season;
 use App\competition;
+use App\Stage;
+use App\RegisteredTeam;
+use App\Week;
+use App\Round;
 
 use App\Http\Requests\AddSeasonRequest;
 
@@ -151,6 +155,25 @@ class SeasonController extends Controller
 			'Message' => ' Season is deleted successfully '
 		],200);
 	}
+
+
+
+    public function Season_Stages(Season $season){
+        $number_of_teams = count($season->registeredTeams);
+        $number_of_teams *=  2;
+
+        
+
+        $weeks = Week::all()->take($number_of_teams);
+        foreach ($weeks as $week) {
+            $stage = new Stage();
+            $stage->season_id = $season->id;
+            $week->stages()->save($stage);
+        }
+          
+           
+
+    }
 
 
 
