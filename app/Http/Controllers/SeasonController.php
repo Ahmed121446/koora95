@@ -158,17 +158,30 @@ class SeasonController extends Controller
 
 
 
-    public function Season_Stages(Season $season){
-        $number_of_teams = count($season->registeredTeams);
-        $number_of_teams *=  2;
+    public function Season_Stages(Season $season)
+    {
+        $competition = $season->competition;
 
-        
+        if($competition->is_cup()){
 
-        $weeks = Week::all()->take($number_of_teams);
-        foreach ($weeks as $week) {
-            $stage = new Stage();
-            $stage->season_id = $season->id;
-            $week->stages()->save($stage);
+            $number_of_teams = count($season->registeredTeams);
+            $number_of_teams *=  2;
+
+            $weeks = Week::all()->take($number_of_teams);
+            foreach ($weeks as $week) {
+                $stage = new Stage();
+                $stage->season_id = $season->id;
+                $week->stages()->save($stage);
+            }
+
+        }else{
+            $rounds = Round::all();
+            
+            foreach ($rounds as $round) {
+                $stage = new Stage();
+                $stage->season_id = $season->id;
+                $round->stages()->save($stage);
+            }
         }
           
            
