@@ -92,6 +92,13 @@ Route::group(['prefix' => 'Seasons'], function() {
 	Route::put('{season}/{team}/{player}/update', 'RegisteredPlayersController@Update_Player_From_RegisteredTeam');
 	Route::delete('/{season}/{team}/{player}', 'RegisteredPlayersController@Delete_Player_From_RegisteredTeam');
 
+
+
+	// Handling groups through a Season
+	Route::get('/{season}/groups', 'GroupController@Get_All_Groups_In_Season');
+	Route::get('/{season}/{group}', 'GroupController@Get_Group_In_Season');
+	Route::get('/{season}/Group/{group}/Delete', 'GroupController@delete');
+	Route::post('/{season}/Create-group', 'GroupController@Add_Group');
 });
 
 
