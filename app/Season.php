@@ -16,7 +16,6 @@ class Season extends BaseModel
    		return $this->hasMany(RegisteredTeam::class);
    }
 
-
    public function matches()
    {
    		return $this->hasMany(Match::class);
@@ -27,4 +26,10 @@ class Season extends BaseModel
    {
          return $this->hasMany(Stage::class);
    }
+   
+   public function groups()
+   {
+         return $this->hasMany(Group::class);
+   }
+
 }

@@ -15,7 +15,7 @@ class Registered_Team_Seeder extends Seeder
      */
             public function run()
             {
-                for ($i=0; $i < 4; $i++) { 
+                for ($i=0; $i < 30; $i++) { 
                    DB::table('registered_teams')->insert([
                       'team_id' =>Team::all()->random()->id, 
                       'season_id' => 9,

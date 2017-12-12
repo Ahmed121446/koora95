@@ -96,11 +96,13 @@ class MatchesController extends Controller
            ],404);
         }
         
-        $matches = $season->matches;
-        $team_matches1 = $matches->where('register_team_1_id',$team->id);
-        $team_matches2 = $matches->where('register_team_2_id',$team->id);
-        $team_matches = $team_matches1->merge($team_matches2);
-        if (!$team_matches->first()) {
+        $matches = $season->matches();
+        $team_matches = $matches
+            ->where('register_team_1_id',$team->id)
+            ->orWhere('register_team_2_id',$team->id)->get();
+
+           // dd($team_matches->get());
+        if (!$team_matches->count()) {
            return response()->json([
             'Message' =>'there is not matches for this team'
            ],404);
