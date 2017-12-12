@@ -17,7 +17,7 @@ class RegisteredTeam extends BaseModel
     }
 
     public function calculate_goals($goals_for ,$goals_against){
-    	$this->goals_for += $goals_for
+    	$this->goals_for += $goals_for;
         $this->goals_against += $goals_against;
     }
 

@@ -167,6 +167,8 @@ class MatchesController extends Controller
         $match->match_played($first_team,$second_team);
         $match->match_winner($first_team_goals,$second_team_goals);
 
+        $match->calculate_goals($first_team_goals,$second_team_goals);
+        
         //to register team  model
         $first_team->calculate_goals($first_team_goals,$second_team_goals);
         $second_team->calculate_goals($second_team_goals,$first_team_goals);
