@@ -16,22 +16,10 @@ class RegisteredTeam extends BaseModel
     	return $this->hasMany(RegisteredPlayer::class);
     }
 
-    public function calculate_goals($goals_for ,$goals_against){
+    public function storeTeamGolas($goals_for ,$goals_against){
     	$this->goals_for += $goals_for;
         $this->goals_against += $goals_against;
     }
 
-    public function is_winner($is_cup)
-    {
-    	$this->wins +=1;
-        if(!$is_cup){
-            $this->points +=3;
-        }
-    }
-    public function is_draw()
-    {
-    	$this->draws +=1;
-    	$this->points +=1;
-    }
     
 }

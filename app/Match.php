@@ -29,21 +29,34 @@ class Match extends BaseModel
         $second_team = RegisteredTeam::find($this->register_team_2_id);
 
         if ($team_1_goals > $team_2_goals) {
-           $this->winner_id = $first_team->id;
-           $first_team->is_winner($is_cup);
-           $second_team->losses +=1;
+           $this->set_winner($first_team, $second_team, $is_cup);
         }
         else if($team_1_goals < $team_2_goals){        
-            $this->winner_id = $second_team->id;
-            $second_team->is_winner($is_cup);
-            $first_team->losses +=1;
+            $this->set_winner($second_team, $first_team, $is_cup);
         }else if(!$is_cup){
-            $first_team->is_draw();
-            $second_team->is_draw();
+            $this->set_draw($first_team, $second_team);
         }
 
         $first_team->save();
         $second_team->save();
+    }
+
+
+    public function set_winner($winner, $loser, $is_cup)
+    {
+        $this->winner_id = $winner->id;
+        if(!$is_cup){
+            $winner->points += 3;
+        }
+        $winner->wins += 1;
+        $loser->losses += 1;
+    }
+
+
+    public function set_draw($first_team, $second_team)
+    {
+        $first_team->draws += 1;
+        $second_team->draws += 1;
     }
 
 
@@ -54,7 +67,7 @@ class Match extends BaseModel
     }
 
 
-    public function calculate_goals($team1_final_goals, $team2_final_goals)
+    public function storeMatchGoals($team1_final_goals, $team2_final_goals)
     {
         $this->team_1_goals = $team1_final_goals;
         $this->team_2_goals = $team2_final_goals;

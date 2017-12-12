@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MatchRequest;
 
+use App\Repositories\Matches as MatchesRepo;
 use Illuminate\Http\Request;
 use App\Match;
 use App\Season;
@@ -103,9 +104,9 @@ class MatchesController extends Controller
         }
         
         $matches = $season->matches();
-        $team_matches = $matches
-            ->where('register_team_1_id',$team->id)
-            ->orWhere('register_team_2_id',$team->id)->get();
+        $team_matches = $matches->where('register_team_1_id',$team->id)
+                                ->orWhere('register_team_2_id',$team->id)
+                                ->get();
 
            // dd($team_matches->get());
         if (!$team_matches->count()) {
@@ -160,35 +161,16 @@ class MatchesController extends Controller
 
 
 
-    public function confirmResult(Season $season, Match $match, Request $request)
+    public function confirmResult(Season $season, Match $match, MatchesRepo $matchRepo)
     {
-        $is_cup = $season->competition()->is_cup(); // T or F
 
-        $first_team = $match->register_team_1_id;
-        $second_team = $match->register_team_2_id;
+        $match_goals = [
+            'first_team_goals' => Request('first_team_goals'),
+            'second_team_goals' => Request('second_team_goals')
+        ];
 
-        $first_team = $season->registeredTeams()->find($first_team);
-        $second_team = $season->registeredTeams()->find($second_team);
-
-        $first_team_goals = $request->get('first_team_goals');
-        $second_team_goals = $request->get('second_team_goals');
-
-        //to match model
-        $match->match_played($first_team,$second_team);
+        $matchRepo->confirm($season, $match, $match_goals);
         
-        $match->match_winner($first_team_goals,$second_team_goals, $is_cup);
-
-        $match->calculate_goals($first_team_goals,$second_team_goals);
-        
-        //to register team  model
-        $first_team->calculate_goals($first_team_goals,$second_team_goals);
-        $second_team->calculate_goals($second_team_goals,$first_team_goals);
-
-        
-      
-        $match->save();
-        $first_team->save();
-        $second_team->save();
     }
 
 }
