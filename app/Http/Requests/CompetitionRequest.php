@@ -26,9 +26,19 @@ class CompetitionRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+        switch ($this->method())
+        {
+            case 'POST':
+            {
+                return [
+                    'name' =>  'required|min:2|max:25',
+                    'type' =>  'required|numeric|exists:competition_types,id',
+                    'country' => 'required_without:continent|numeric|exists:countries,id',
+                    'continent' => 'required_without:country|numeric|exists:continents,id'
+                ];
+            }
+            default: return [];
+        }
     }
 
     // create New Competition
@@ -47,7 +57,10 @@ class CompetitionRequest extends FormRequest
                 'comp_type_id' => $this->get('type')
             ]);
 
-        $location->competitions()->save($competition);
+        if(! $location->competitions()->save($competition)){
+            return response()->json(['message' => 'an error occured'], 500);
+        }
+
         return $competition;
     }
 
@@ -55,21 +68,20 @@ class CompetitionRequest extends FormRequest
     // Update Competiton Data
     public function update(Competition $competition)
     {
+        $data = $this->all();
+
+        if(! count($data)){
+            return response()->json(['message' => 'There is No inputs']);
+        }
 
         $requested_data = [];
 
-        foreach ($this->all() as $key => $value) {
+        foreach ($data as $key => $value) {
             switch($key){
                 case 'name' : 
                     $requested_data['name'] = $value;
                     break;
 
-                case 'scope' :{
-                        $scope = CompetitionScope::where('name', $value)->first();
-                        $requested_data['comp_scope_id'] = $scope->id;
-                    }
-                    break;
-                    
                 case 'type' : {
                         $type = CompetitionType::where('name', $value)->first();
                         $requested_data['comp_type_id'] = $type->id;
@@ -85,7 +97,9 @@ class CompetitionRequest extends FormRequest
             }
         }
 
-        $competition->update($requested_data);
+        if(! $competition->update($requested_data)){
+            return response()->json(['message' => 'an error occured'], 500);
+        }
         
         return $competition;
         

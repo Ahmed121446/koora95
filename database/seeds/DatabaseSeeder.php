@@ -53,7 +53,6 @@ class DatabaseSeeder extends Seeder
      //    $this->call(TeamSeeder::class);
         
         
-<<<<<<< HEAD
      //    //remove from the database all the recordes in table registered_teams
      //    DB::table('registered_teams')->truncate();
      //    // run  Registered_Team_Seeder seeder 
@@ -62,15 +61,11 @@ class DatabaseSeeder extends Seeder
      //    DB::table('registered_teams')->truncate();
      //    // run  Registered_Team_Seeder seeder 
      //    $this->call(Registered_Team_Seeder::class);
-=======
+
         //remove from the database all the recordes in table registered_teams
         DB::table('registered_teams')->truncate();
         // run  Registered_Team_Seeder seeder 
         $this->call(Registered_Team_Seeder::class);
-
->>>>>>> c9d49aa4166212cad17da8443f8eab9dc4687738
-
-
 
 
      //    //remove from the database all the recordes in table players

@@ -8,8 +8,6 @@ use App\Http\Requests\CreateCountryRequest;
 
 class CountryController extends Controller
 {
-
-
 	public function Get_All_Countries(){
 		//get all Countries form the DB and featch them all
 		$Countries = Country::all();
@@ -79,10 +77,10 @@ class CountryController extends Controller
 			],404);
 		} 
 
-		 //dd($Country_data);
 		//return update page 
 		return view('country.update',compact('Country_data'));
 	}
+	
 	
 	public function Update_Country(CreateCountryRequest $request , $id){
 		$Country = Country::find($id);

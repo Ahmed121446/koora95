@@ -25,6 +25,7 @@ class RegisteredTeamRequests extends FormRequest
      */
     public function rules()
     {
+        $season_id = $this->season->id;
         switch ($this->method())
         {
             case 'POST':
@@ -33,8 +34,7 @@ class RegisteredTeamRequests extends FormRequest
                     'team_id' => [
                         'required',
                         'numeric',
-                        'unique:registered_teams,team_id',
-                        'unique:registered_teams,season_id'
+                        'unique:registered_teams,team_id,NULL,NULL,season_id,' . $season_id
                     ]
                 ];
             }
@@ -63,6 +63,10 @@ class RegisteredTeamRequests extends FormRequest
         ]);
 
         $team = $season->registeredTeams()->save($team);
+
+        if(!$team){
+            return response()->json(['message' => 'An Error Occured'], 500);
+        }
 
         return $team;
     }

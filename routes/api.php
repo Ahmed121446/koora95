@@ -86,6 +86,8 @@ Route::group(['prefix' => 'Seasons'], function() {
 
 	Route::get('/{season}/matches/stage/{stage_id}', 'MatchesController@findByStage');
 
+	Route::post('/{season}/matches/{match}/confirm', 'MatchesController@confirmResult');
+
 
 
 
@@ -139,6 +141,7 @@ Route::group(['prefix' => 'Players'], function() {
 	Route::delete('{id}','PlayersController@destroy');
 });
 
+Route::get('/matches/today', 'MatchesController@todayMatches');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

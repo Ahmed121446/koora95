@@ -7,9 +7,6 @@ use App\continent;
 
 class ContinentController extends Controller
 {
-
-
-
     public function Get_All_Continents(){
     	//get all continent form the DB and featch them all
     	$Continents = continent::all();
@@ -26,6 +23,7 @@ class ContinentController extends Controller
     			'Continent' => $Continents->toArray()
     	],200);
     }
+
 
     public function Get_Continent($id){
     	//featch Continent by its id 

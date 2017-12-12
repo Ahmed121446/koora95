@@ -48,7 +48,7 @@ class TeamRequests extends FormRequest
                     'country_id'    =>  [
                         'required',
                         'numeric',
-                        Rule::unique('teams')->where(function ($query) {
+                        Rule::unique('teams','country_id')->where(function ($query) {
                             return $query->where('name', $this->get('name'));
                         })->ignore(2)
                     ]
