@@ -160,44 +160,20 @@ class MatchesController extends Controller
         $first_team = $season->registeredTeams()->find($first_team);
         $second_team = $season->registeredTeams()->find($second_team);
 
-        $match->is_played = true;
-        $first_team->played += 1;
-        $second_team->played += 1;
+        $first_team_goals = $request->get('first_team_goals');
+        $second_team_goals = $request->get('second_team_goals');
 
-        $match->team_1_goals = $request->get('first_team_goals');
-        $match->team_2_goals = $request->get('second_team_goals');
-        
-        if($match->team_1_goals > $match->team_2_goals){
-           
-            $match->winner_id = $match->register_team_1_id;
-            $first_team->wins += 1;
-            $first_team->points += 3;
-            $second_team->losses += 1;
+        //to match model
+        $match->match_played($first_team,$second_team);
+        $match->match_winner($first_team_goals,$second_team_goals);
 
-        }else if($match->team_1_goals < $match->team_2_goals){        
-           
-            $match->winner_id = $match->register_team_2_id;
-            $second_team->wins += 1;
-            $second_team->points += 3;
-            $first_team->losses += 1;
-
-        }else{
-            $match->winner_id = 0;
-            $first_team->draws += 1;
-            $second_team->draws += 1;
-            $first_team->points += 1;
-            $second_team->points += 1;
-        }
-
-        $first_team->goals_for += $match->team_1_goals;
-        $first_team->goals_against += $match->team_2_goals;
-        $second_team->goals_for += $match->team_2_goals;
-        $second_team->goals_against += $match->team_1_goals;
-
+        //to register team  model
+        $first_team->calculate_goals($first_team_goals,$second_team_goals);
+        $second_team->calculate_goals($second_team_goals,$first_team_goals);
+      
         $match->save();
         $first_team->save();
         $second_team->save();
-
     }
 
 }
