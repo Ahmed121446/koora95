@@ -55,16 +55,14 @@ Route::group(['prefix' => 'Seasons'], function() {
 	Route::get('Update/{id}', 'SeasonController@Get_Update_View_Seasons');
 	//get request to retrive specific Seasons
 	Route::get('{id}', 'SeasonController@Get_Season');
-
-
-
-
 	//post request for create new Season
 	Route::post('Create', 'SeasonController@Create_Season');
 	//put request for update Season and it will take id
 	Route::put('Update/{id}', 'SeasonController@Update_Season');
 	// delete request for deleting Season it will take id
 	Route::delete('Delete/{id}', 'SeasonController@Destroy_Season');
+
+
 
 	// Handling Teams through a Season
 	Route::get('/{season}/teams', 'RegisteredTeamsController@findAll');
@@ -73,16 +71,21 @@ Route::group(['prefix' => 'Seasons'], function() {
 	Route::put('{season}/update-team/{team_id}', 'RegisteredTeamsController@update');
 	Route::delete('/{season}/delete-team/{team_id}', 'RegisteredTeamsController@delete');
 
-	// Handling Matches through a Season
-	Route::get('/{season}/matches', 'MatchesController@getSeasonMatches');
-	Route::post('/{season}/matches', 'MatchesController@addMatch');
-	//find match by date
-	Route::get('{season}/matches/{date}', 'MatchesController@Find_Date');
-	//find matches for this team 
-	Route::get('{season}/{team}/matches', 'MatchesController@Find_Team_Matches');
 
-	Route::put('{season}/update-match/{match}', 'MatchesController@update');
-	Route::delete('{season}/delete-match/{match}', 'MatchesController@delete');
+	Route::group(['prefix' => 'Event'], function() {
+		// Handling Matches through a Season
+		Route::get('/{season}/matches', 'MatchesController@getSeasonMatches');
+		Route::post('/{season}/matches', 'MatchesController@addMatch');
+		//find match by date
+		Route::get('{season}/matches/{date}', 'MatchesController@Find_Date');
+		//find matches for this team 
+		Route::get('{season}/{team}/matches', 'MatchesController@Find_Team_Matches');
+		Route::put('{season}/update-match/{match}', 'MatchesController@update');
+		Route::delete('{season}/delete-match/{match}', 'MatchesController@delete');
+	});
+	
+
+
 
 
 	// Handling players through a Season
@@ -93,15 +96,24 @@ Route::group(['prefix' => 'Seasons'], function() {
 	Route::delete('/{season}/{team}/{player}', 'RegisteredPlayersController@Delete_Player_From_RegisteredTeam');
 
 
-
 	// Handling groups through a Season
 	Route::get('/{season}/groups', 'GroupController@Get_All_Groups_In_Season');
 	Route::get('/{season}/{group}', 'GroupController@Get_Group_In_Season');
 	Route::get('/{season}/Group/{group}/Delete', 'GroupController@delete');
 	Route::post('/{season}/Create-group', 'GroupController@Add_Group');
+
+	Route::group(['prefix' => 'Groups'], function() {
+		//get all teams in Specific group
+	    Route::get('Season/{season}/group/{group}/teams','GroupTeamsController@get_All_Teams_In_Specific_Group');
+	    //get Specific team in Specific group
+	    Route::get('Season/{season}/group/{group}/team/{team}','GroupTeamsController@get_Team_In_Specific_Group');
+	    //add new team in Specific group
+	    Route::post('Season/{season}/group/{group}/add-team', 'GroupTeamsController@Add_Team_In_Group');
+	    //delete Specific team in Specific group
+	    Route::delete('Season/{season}/group/{group}/delete-team/{team}', 'GroupTeamsController@Delete_Team_From_Group');
+	});
+
 });
-
-
 
 Route::group(['prefix' => 'Teams'], function() {
 	//get request to retrive all Teams
@@ -120,9 +132,6 @@ Route::group(['prefix' => 'Teams'], function() {
 	// delete request for deleting Team it will take id
 	Route::delete('Delete/{id}', 'TeamsController@Destroy_Team');
 });
-
-
-
 Route::group(['prefix' => 'Players'], function() {
 	//get request to render the create.blade.php   [[  create new player form   ]]
     Route::get('Create','PlayersController@Get_Player_Create_View');
@@ -141,14 +150,6 @@ Route::group(['prefix' => 'Players'], function() {
     // delete request for deleting country it will take id
 	Route::delete('{id}','PlayersController@destroy');
 });
-
-
-
-
-
-
-
-
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
