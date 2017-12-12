@@ -23,6 +23,7 @@ class MatchesController extends Controller
     }
 
 
+
     public function addMatch(Season $season, MatchRequest $request)
     {
     	if(!$season->active){
@@ -31,6 +32,7 @@ class MatchesController extends Controller
     	$match = $request->add($season);
     	return response()->json(['data' => $match],201);
     }
+
 
 
     public function update(Request $request, Season $season, Match $match)
@@ -48,6 +50,7 @@ class MatchesController extends Controller
     }
 
 
+
     public function delete(Season $season,Match $match)
     {
     	$match = $season->matches()->find($match->id);
@@ -62,12 +65,14 @@ class MatchesController extends Controller
     }
 
 
+
     public function findByStage(Season $season, $stage_id)
     {
     	$stage = $season->stages()->find($stage_id);
     	$matches = $stage->matches;
     	return $matches;
     }
+
 
 
     public function Find_Date(Season $season,$date)
@@ -85,6 +90,7 @@ class MatchesController extends Controller
                 'matches on this date' => $matchs
             ],200); 
     }
+
 
 
     public function Find_Team_Matches(Season $season,Team $team)
@@ -113,6 +119,7 @@ class MatchesController extends Controller
             ],200);
         }
     }
+
 
 
     public function findAllByDate($date)
@@ -152,8 +159,11 @@ class MatchesController extends Controller
     }
 
 
+
     public function confirmResult(Season $season, Match $match, Request $request)
     {
+        $is_cup = $season->competition()->is_cup(); // T or F
+
         $first_team = $match->register_team_1_id;
         $second_team = $match->register_team_2_id;
 
@@ -165,7 +175,8 @@ class MatchesController extends Controller
 
         //to match model
         $match->match_played($first_team,$second_team);
-        $match->match_winner($first_team_goals,$second_team_goals);
+        
+        $match->match_winner($first_team_goals,$second_team_goals, $is_cup);
 
         $match->calculate_goals($first_team_goals,$second_team_goals);
         

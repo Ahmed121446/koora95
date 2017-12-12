@@ -21,10 +21,12 @@ class RegisteredTeam extends BaseModel
         $this->goals_against += $goals_against;
     }
 
-    public function is_winner()
+    public function is_winner($is_cup)
     {
     	$this->wins +=1;
-    	$this->points +=3;
+        if(!$is_cup){
+            $this->points +=3;
+        }
     }
     public function is_draw()
     {
