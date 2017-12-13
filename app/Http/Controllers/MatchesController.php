@@ -38,7 +38,7 @@ class MatchesController extends Controller
 
     public function update(Request $request, Season $season, Match $match)
     {
-
+        
     	if(!$season->active){
     		return response()->json(['message' => 'Season is inactive'], 404);
     	}
@@ -157,6 +157,24 @@ class MatchesController extends Controller
         return response()->json([
                 'data' => $matches
             ],200);
+    }
+
+    public function Matches_InProgressed_state(Season $season)
+    {
+        if (!$season->active) {
+            return response()->json([
+                'Message' => 'this season is not in active mood'
+            ],404);
+        }
+        $match = $season->matches()->where('status' , 'In Progress')->get();
+        if (!$match->count()) {
+            return response()->json([
+                'Message' => 'no matches in Progress in this season now'
+            ],404);
+        }
+        return response()->json([
+                'Matches' => $match
+        ],200);
     }
 
 

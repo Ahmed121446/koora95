@@ -14,7 +14,7 @@ class GroupTeamsSeeder extends Seeder
      */
     public function run()
     {
-    	for ($i=0; $i < 10; $i++) { 
+    	for ($i=0; $i < 6; $i++) { 
     		 DB::table('group__teams')->insert([
 	        	'group_id' => Group::all()->random()->id,
 	        	'register_team_id' => RegisteredTeam::all()->random()->id,
