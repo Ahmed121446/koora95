@@ -13,10 +13,19 @@ class CreateGroupTeamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('group__teams', function (Blueprint $table) {
+        Schema::create('group_teams', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('group_id');
-            $table->integer('register_team_id')->unique();
+            $table->integer('register_team_id');
+            $table->integer('played');
+            $table->integer('wins');
+            $table->integer('losses');
+            $table->integer('draws');
+            $table->integer('goals_for');
+            $table->integer('goals_against');
+            $table->integer('points');
+            $table->integer('red_cards');
+            $table->integer('yellow_cards');
             $table->unique(['group_id','register_team_id']);
             $table->timestamps();
         });
@@ -29,6 +38,6 @@ class CreateGroupTeamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group__teams');
+        Schema::dropIfExists('group_teams');
     }
 }

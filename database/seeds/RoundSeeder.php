@@ -11,7 +11,7 @@ class RoundSeeder extends Seeder
      */
     public function run()
     {
-    	$rounds = ['First round','Round of 64','Round of 32','Round of 16','Round of 8','Round of 4','Final'];
+    	$rounds = ['First round','64','32','16','8','4','Final'];
          for ($i=0; $i < count($rounds) ; $i++) { 
         	DB::table('rounds')->insert([
         		'name' => $rounds[$i]

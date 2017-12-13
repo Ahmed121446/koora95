@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Group;
+use App\Stage;
 
 class GroupRequest extends FormRequest
 {
@@ -24,7 +26,32 @@ class GroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'group_name' => 'required|unique:groups,name,NULL,NULL,season_id,'.$this->season->id
+            'groups_number' => 'required|numeric'
         ];
     }
+
+
+    public function create_groups(Stage $stage)
+    {
+        $groups_number = $this->get('groups_number');
+
+        $start = ord('A');
+        $end = ord('A')+ $groups_number;
+
+        for ($i = $start; $i < $end; $i++) { 
+            $new_group = new Group();
+            $new_group->name = chr($i);
+
+            if ($group = !$stage->groups()->save($new_group) ) {
+                return response()->json([
+                    'Message' => 'An Error Occured'  
+                ], 500);
+            }
+        }
+       
+        return $stage->groups;
+    }
+
+
+    
 }

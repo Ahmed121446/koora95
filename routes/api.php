@@ -107,11 +107,15 @@ Route::group(['prefix' => 'Seasons'], function() {
 
 
 	// Handling groups through a Season
-	Route::get('/{season}/groups', 'GroupController@Get_All_Groups_In_Season');
-	Route::get('/{season}/{group}', 'GroupController@Get_Group_In_Season');
+	Route::get('/{season}/groups', 'GroupController@findAllGroups');
+	Route::get('/{season}/{group}', 'GroupController@findOne');
 	Route::get('/{season}/Group/{group}/Delete', 'GroupController@delete');
-	Route::post('/{season}/Create-group', 'GroupController@Add_Group');
+	
+	// Route::get('/{season}/stage/{stage}/groups', 'GroupController@createGroups');
+	Route::post('/{season}/stage/{stage}/groups', 'GroupController@createGroups');
+	Route::post('/{season}/stages/groups/{group}/teams', 'GroupController@addTeams');
 
+	// Group Teams
 	Route::group(['prefix' => 'Groups'], function() {
 		//get all teams in Specific group
 	    Route::get('Season/{season}/group/{group}/teams','GroupTeamsController@get_All_Teams_In_Specific_Group');
