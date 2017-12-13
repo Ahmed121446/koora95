@@ -15,10 +15,19 @@ class MatchResource extends Resource
     public function toArray($request)
     {
         return [
-            'season' => $this->season_id,
-            'stage' => $this->stage_id,
-            'team 1' => $this->register_team_1_id,
-            'team 2' => $this->register_team_2_id,
+            'season' => $this->season->name,
+            'stage' => [
+                            'Stage Type id' =>$this->stage->stage_id,
+                            'Stage Type' =>$this->stage->stage_type
+                        ],
+            'team 1' => [
+                            'name'=> $this->team1->name,
+                            'country name'=> $this->team1->country->name
+                        ],
+            'team 2' => [
+                            'name'=> $this->team2->name,
+                            'country name'=> $this->team2->country->name
+                        ],
             'match date' => $this->date,
             'match time' => $this->time,
             'match stadium' =>$this->stadium,

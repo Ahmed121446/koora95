@@ -13,6 +13,11 @@ class Team extends BaseModel
     	return $this->belongsToMany(competition::class);
     }
 
+    public function country()
+    {
+       return $this->belongsTo(Country::class);
+    }
+
 
     //relationship between team and player
     // M player  --> 1 team    ===>  M to 1
