@@ -169,7 +169,18 @@ class MatchesController extends Controller
             'second_team_goals' => Request('second_team_goals')
         ];
 
-        $matchRepo->confirm($season, $match, $match_goals);
+        $match_cards = [
+            'first_team_cards' => [
+               'first_team_yellow_cards' => Request('first_team_yellow_cards'),
+               'first_team_red_cards' => Request('first_team_red_cards')
+            ],
+            'second_team_cards' => [
+               'second_team_yellow_cards' => Request('second_team_yellow_cards'),
+               'second_team_red_cards' => Request('second_team_red_cards')
+            ]
+        ];
+
+        $matchRepo->confirm($season, $match, $match_goals,$match_cards);
         
     }
 

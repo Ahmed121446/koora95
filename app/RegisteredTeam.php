@@ -21,5 +21,12 @@ class RegisteredTeam extends BaseModel
         $this->goals_against += $goals_against;
     }
 
+    public function storeTeamCards($yellow_cards ,$red_cards){
+        $this->yellow_cards += $yellow_cards;
+        $this->red_cards += $red_cards;
+       
+    }
+
+
     
 }

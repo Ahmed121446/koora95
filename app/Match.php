@@ -73,5 +73,12 @@ class Match extends BaseModel
         $this->team_2_goals = $team2_final_goals;
     }
 
+    public function storeMatchCards($match_cards)
+    {
+       $this->red_cards = $match_cards['first_team_cards']['first_team_red_cards'] + $match_cards['second_team_cards']['second_team_red_cards'];
+
+        $this->yellow_cards = $match_cards['first_team_cards']['first_team_yellow_cards'] + $match_cards['second_team_cards']['second_team_yellow_cards'];
+    }
+
 
 }
