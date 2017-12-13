@@ -88,8 +88,16 @@ class DatabaseSeeder extends Seeder
         // run  RoundSeeder seeder 
         $this->call(StageSeeder::class); 
 
+        
+        
 
 
+        //remove from the database all the recordes in table group__teams
+        DB::table('groups')->truncate();
+        // run  GroupTeamsSeeder seeder 
+        $this->call(GroupsSeeder::class); 
+
+        
         //remove from the database all the recordes in table group__teams
         DB::table('group__teams')->truncate();
         // run  GroupTeamsSeeder seeder 
