@@ -18,7 +18,7 @@ use App\Http\Requests\AddSeasonRequest;
 
 class SeasonController extends Controller
 {
-
+    // Get Competition Seasons 
     public function Get_All_Seasons(){
     	$seasons = Season::all();
     	if (!$seasons->first()) {
@@ -32,6 +32,7 @@ class SeasonController extends Controller
     	],200);
     }
 
+    // Get Specific Season
     public function Get_Season($Season){
     	$Season = Season::find($Season);
     	if (!$Season) {
@@ -45,6 +46,8 @@ class SeasonController extends Controller
     		],200);
     }
 
+
+
     public function Get_Create_View_Season(){
     	$competitions_list = competition::all()->pluck('name');
     	$competitions_list_count = count($competitions_list);
@@ -56,6 +59,7 @@ class SeasonController extends Controller
     	}
     }
 
+    // Create New Season
     public function Add_Season(AddSeasonRequest $request){
     	$competition_id = $request->input('competition_id');
     	$competition = competition::find($competition_id);
@@ -91,6 +95,8 @@ class SeasonController extends Controller
     		],401);
     }
 
+
+    // Update Season
     public function Update_Season(Request $request , $id){
 		$Season = Season::find($id);
 		if (!$Season) {
@@ -135,7 +141,7 @@ class SeasonController extends Controller
 	}
 
 
-
+    // Delete Season
     public function Destroy_Season($id){
     	$Season = Season::find($id);
 
@@ -158,6 +164,7 @@ class SeasonController extends Controller
 
 
 
+    // Add Season Weeks/Rounds
     public function Season_Stages(Season $season)
     {
         $competition = $season->competition;

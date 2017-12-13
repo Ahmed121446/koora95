@@ -7,19 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
 
-    public function season()
+    public function stage()
     {
-    	return $this->belongsTo(Season::class);
+    	return $this->belongsTo(Stage::class);
     }
 
-    public function Group_Teams()
+    public function groupTeams()
     {
-    	return $this->hasMany(Group_Teams::class);
+    	return $this->hasMany(GroupTeams::class);
     }
 
-    public function getRouteKeyName()
-    {
-    	return 'name';
-    }
+
+
+    // public function getRouteKeyName()
+    // {
+    // 	return 'name';
+    // }
 
 }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Group_Teams extends Model
+class GroupTeams extends BaseModel
 {
     public function group()
     {

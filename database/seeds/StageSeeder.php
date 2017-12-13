@@ -13,7 +13,7 @@ class StageSeeder extends Seeder
     {
     	for ($i=1; $i <= 38 ; $i++) { 
         	DB::table('stages')->insert([
-        		'season_id' => 2,
+        		'season_id' => 9,
         		'stage_id' => $i,
         		'stage_type' => 'App\Week'
         	]);

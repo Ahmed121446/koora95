@@ -20,4 +20,10 @@ class Stage extends Model
     {
     	return $this->hasMany(Match::class);
     }
+
+
+    public function groups()
+    {
+        return $this->hasMany(Group::class);
+    }
 }

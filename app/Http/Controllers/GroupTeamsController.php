@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Season;
 use App\Group;
-use App\Group_Teams;
+use App\GroupTeams;
 
 
 class GroupTeamsController extends Controller
@@ -14,7 +14,7 @@ class GroupTeamsController extends Controller
 
     public function get_All_Teams_In_Specific_Group(Season $season ,Group $group){
     	$Find_Group_In_Season = $season->groups()->where('name',$group->name)->first();
-    	$This_Group = $Find_Group_In_Season->Group_Teams;
+    	$This_Group = $Find_Group_In_Season->GroupTeams;
 
     	if (!$This_Group->count()) {
     		return response()->json([
@@ -27,10 +27,10 @@ class GroupTeamsController extends Controller
     	],200);
     }
 
-    public function get_Team_In_Specific_Group(Season $season ,Group $group , Group_Teams $team){
+    public function get_Team_In_Specific_Group(Season $season ,Group $group , GroupTeams $team){
 
     	$Find_Group_In_Season = $season->groups()->where('name',$group->name)->first();
-    	$Find_Team_In_Group = $Find_Group_In_Season->Group_Teams()->where('register_team_id',$team->id)->first();
+    	$Find_Team_In_Group = $Find_Group_In_Season->GroupTeams()->where('register_team_id',$team->id)->first();
 
     	if (!$Find_Team_In_Group) {
     		return response()->json([
@@ -48,13 +48,13 @@ class GroupTeamsController extends Controller
 
     	$registered_team_id     = $request->get('registered_team_id');
 
-    	$New_Team = new Group_Teams();
+    	$New_Team = new GroupTeams();
     	$New_Team->register_team_id = $registered_team_id;
 
 
     	$Find_Group_In_Season = $season->groups()->where('name',$group->name)->first();
 
-    	if ($team_added = !$Find_Group_In_Season->Group_Teams()->save($New_Team)) {
+    	if ($team_added = !$Find_Group_In_Season->GroupTeams()->save($New_Team)) {
     		return response()->json([
 	            'Message' => 'can not save this team'
         	], 401);
@@ -66,10 +66,10 @@ class GroupTeamsController extends Controller
         ], 201);
     }
 
-    public function Delete_Team_From_Group(Season $season , Group $group ,Group_Teams $team){
+    public function Delete_Team_From_Group(Season $season , Group $group ,GroupTeams $team){
 
     	$Find_Group_In_Season = $season->groups()->where('name',$group->name)->first();
-    	$Find_Team_In_Group = $Find_Group_In_Season->Group_Teams()->where('register_team_id',$team->id)->first();
+    	$Find_Team_In_Group = $Find_Group_In_Season->GroupTeams()->where('register_team_id',$team->id)->first();
 
     	if (!$Find_Team_In_Group) {
     		return response()->json([
