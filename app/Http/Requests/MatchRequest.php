@@ -56,7 +56,7 @@ class MatchRequest extends FormRequest
             'register_team_1_id' => $this->get('team_1_id'),
             'register_team_2_id' => $this->get('team_2_id'),
             'stadium' => $this->get('stadium'),
-            'is_played' => 0,
+            'status' => "Not Player Yet",
             'team_1_goals' => 0,
             'team_2_goals' => 0,
             'winner_id' => 0,

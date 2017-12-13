@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MatchRequest;
 
 use App\Repositories\Matches as MatchesRepo;
+use App\Http\Resources\MatchResource  ;
+
 use Illuminate\Http\Request;
 use App\Match;
 use App\Season;
 use App\Team;
 use Carbon\Carbon;
+use App\RegisteredTeam;
+
 
 class MatchesController extends Controller
 {
@@ -20,7 +24,9 @@ class MatchesController extends Controller
     	}
 
     	$matches = $season->matches;
-     	return response()->json(['data' => $matches], 200);
+     	return response()->json([
+            'data' => MatchResource::collection($matches)
+        ], 200);
     }
 
 
@@ -31,14 +37,16 @@ class MatchesController extends Controller
     		return response()->json(['message' => 'Season is inactive'], 404);
     	}
     	$match = $request->add($season);
-    	return response()->json(['data' => $match],201);
+    	return response()->json([
+            'data' =>new MatchResource($match)
+        ],201);
     }
 
 
 
     public function update(Request $request, Season $season, Match $match)
     {
-
+        
     	if(!$season->active){
     		return response()->json(['message' => 'Season is inactive'], 404);
     	}
@@ -47,7 +55,9 @@ class MatchesController extends Controller
 
     	$match->update($request->all());
     	
-    	return $match;
+    	return response()->json([
+            'data' => new MatchResource($match)
+        ],201);
     }
 
 
@@ -71,7 +81,9 @@ class MatchesController extends Controller
     {
     	$stage = $season->stages()->find($stage_id);
     	$matches = $stage->matches;
-    	return $matches;
+    	return response()->json([
+            'data' => MatchResource::collection($matches)
+        ],201);
     }
 
 
@@ -87,16 +99,15 @@ class MatchesController extends Controller
         }
 
         return response()->json([
-                'Message' => 'found date',
-                'matches on this date' => $matchs
+                'matches on this date' => MatchResource::collection($matchs)
             ],200); 
     }
 
 
 
-    public function Find_Team_Matches(Season $season,Team $team)
+    public function Find_Team_Matches(Season $season,RegisteredTeam $team)
     {
-        $team_in_season = $season->registeredTeams()->where('team_id',$team->id)->first();
+        $team_in_season = $season->registeredTeams()->find($team->id)->first();
         if (!$team_in_season) {
             return response()->json([
             'Message' =>'this team is not in this season'
@@ -116,7 +127,7 @@ class MatchesController extends Controller
         }else{
             return response()->json([
                 'Message' =>'this team matches',
-                'matches' => $team_matches
+                'matches' => MatchResource::collection($team_matches)
             ],200);
         }
     }
@@ -134,7 +145,7 @@ class MatchesController extends Controller
         }
 
         return response()->json([
-                'data' => $matches
+                'data' =>  MatchResource::collection($matches)
             ],200); 
     }
 
@@ -155,8 +166,26 @@ class MatchesController extends Controller
         }
 
         return response()->json([
-                'data' => $matches
+                'data' => MatchResource::collection($matches)
             ],200);
+    }
+
+    public function Matches_InProgressed_state(Season $season)
+    {
+        if (!$season->active) {
+            return response()->json([
+                'Message' => 'this season is not in active mood'
+            ],404);
+        }
+        $match = $season->matches()->where('status' , 'In Progress')->get();
+        if (!$match->count()) {
+            return response()->json([
+                'Message' => 'no matches in Progress in this season now'
+            ],404);
+        }
+        return response()->json([
+                'Matches' => MatchResource::collection($match)
+        ],200);
     }
 
 
@@ -181,7 +210,6 @@ class MatchesController extends Controller
         ];
 
         $matchRepo->confirm($season, $match, $match_goals,$match_cards);
-        
     }
 
 }

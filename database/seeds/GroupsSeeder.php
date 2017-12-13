@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
-use App\Season;
+use App\Stage;
 
 class GroupsSeeder extends Seeder
 {
@@ -14,17 +14,16 @@ class GroupsSeeder extends Seeder
     public function run()
     {
     	$Groups =['A','B','C','D'];
-    	$seasons = Season::all();
-    	$season_count = count($seasons);
+    	$Stage = Stage::all()->first();
+    	
 
-    	foreach ($seasons as $season) {
+    	
     		for ($i=0; $i < count($Groups); $i++) { 
 	    		DB::table('groups')->insert([
 	    			'name' => $Groups[$i],
-	    			'season_id' => $season->id
+	    			'stage_id' => $Stage->id
 	    		]);
     		}
-    	}
     	
         
     }
