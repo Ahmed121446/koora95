@@ -199,7 +199,6 @@ class MatchesController extends Controller
         ];
 
         $matchRepo->confirm($season, $match, $match_goals,$match_cards);
-        
     }
 
 }

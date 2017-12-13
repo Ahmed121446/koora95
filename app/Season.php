@@ -32,4 +32,5 @@ class Season extends BaseModel
          return $this->hasMany(Group::class);
    }
 
+
 }
