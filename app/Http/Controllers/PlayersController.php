@@ -7,9 +7,7 @@ use App\player;
 use App\Team;
 use App\Country;
 use App\Http\Requests\CreatePlayerRequest;
-
-
-
+use App\Http\Resources\PlayerResource;
 
 class PlayersController extends Controller
 {
@@ -24,7 +22,7 @@ class PlayersController extends Controller
 
     	return response()->json([
     			'Message' => 'Found Players',
-    			'players data and information' => $players->toArray()
+    			'players data and information' => PlayerResource::collection($players)
     	],404);
     }
     public function Get_Player($id){
@@ -38,7 +36,7 @@ class PlayersController extends Controller
 
     	return response()->json([
     			'Message' => 'Found player',
-    			'player data and information' => $player->toArray()
+    			'player data and information' =>new PlayerResource( $player)
     	],404);
     }
     public function Get_Player_Create_View(){
@@ -48,6 +46,7 @@ class PlayersController extends Controller
     	
     	return view('player.create',compact('Teams','countries'));
     }
+
     public function Get_Player_Update_View($id){
 		$player = player::find($id);
 		if (!$player) {
@@ -80,9 +79,11 @@ class PlayersController extends Controller
 
 		return response()->json([
 			'Message' => 'player is created successfully',
-			'player_Data' => $player->toArray() 
+			'player_Data' =>new PlayerResource( $player) 
 		],200);
 	}
+
+
 	public function Update_Player(Request $request , $id){
 		$player = player::find($id);
 		if (!$player) {
@@ -97,14 +98,15 @@ class PlayersController extends Controller
 		if (!$player->update()) {
 			return response()->json([
 				'Message' => 'This player Can Not be updated',
-				'player_Information' => $player->toArray()
+				'player_Information' =>new PlayerResource( $player)  
 			],409);
 		}
 		return response()->json([
 			'Message' => 'This player updated successfully congrats',
-			'player_Information' => $player->toArray()
+			'player_Information' => new PlayerResource( $player) 
 		],200); 
 	}
+
 	public function destroy($id){
 		$player = player::find($id);
 
@@ -121,7 +123,7 @@ class PlayersController extends Controller
 		}
 
 		return response()->json([
-			'Message' => ' player is deleted successfully '
+			'Message' => $player->name.' player is deleted successfully '
 		],200);
 	}
 

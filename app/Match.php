@@ -18,6 +18,46 @@ class Match extends BaseModel
     }
 
 
+    public function register_team_1()
+    {
+        return $this->belongsTo(RegisteredTeam::class, 'register_team_1_id');
+    }
+    //team1
+    public function getTeam1Attribute()
+    {
+        if(isset($this->register_team_1)){
+            return $this->register_team_1->team;
+        }
+
+        return [];
+    }
+
+    public function register_team_2()
+    {
+         return $this->belongsTo(RegisteredTeam::class,'register_team_2_id');
+    }
+    //team2
+    public function getTeam2Attribute()
+    {
+        if(isset($this->register_team_2)){
+            return $this->register_team_2->team;
+        }
+
+        return [];
+
+    }
+
+      public function register_team_winner()
+    {
+         return $this->belongsTo(RegisteredTeam::class,'winner_id');
+    }
+    //winner
+    public function getWinnerAttribute()
+    {
+        if (isset($this->register_team_winner)) {
+            return $this->register_team_winner->team;
+        }
+    }
 
     //calculate for match controller 
     public function match_winner($team_1_goals ,$team_2_goals, $is_cup){

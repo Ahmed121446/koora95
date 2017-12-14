@@ -11,6 +11,12 @@ class competition extends BaseModel
 		return $this->morphTo();
 	}
 
+    public function competitionType()
+    {
+       return $this->belongsTo(CompetitionType::class,'comp_type_id');
+    }
+
+
 
 	// Competition Has Many Seasons
     public function seasons(){

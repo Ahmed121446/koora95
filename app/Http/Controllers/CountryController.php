@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Country;
 use App\Http\Requests\CreateCountryRequest;
+use App\Http\Resources\CountryResource;
 
 class CountryController extends Controller
 {
@@ -21,7 +22,7 @@ class CountryController extends Controller
     	//also send 200 code status
 		return response()->json([
 			'Message' => 'All countries found',
-			'Countries' => $Countries->toArray()
+			'Countries' => CountryResource::collection($Countries)
 		],200);
 	}
 
@@ -39,7 +40,7 @@ class CountryController extends Controller
     	//and also 200 status code
 		return response()->json([
 			'Message' => 'this Country is found',
-			'Country' => $Country->toArray()
+			'Country' =>new CountryResource( $Country )
 		],200);
 	}
 
@@ -64,7 +65,7 @@ class CountryController extends Controller
 
 		return response()->json([
 			'Message' => 'Country is created successfully',
-			'Country_Data' => $Country->toArray() 
+			'Country_Data' =>new CountryResource($Country) 
 		],200);
 	}
 
@@ -96,12 +97,12 @@ class CountryController extends Controller
 		if (!$Country->update()) {
 			return response()->json([
 				'Message' => 'This country Can Not be updated',
-				'Country_Information' => $Country->toArray()
+				'Country_Information' =>new CountryResource( $Country)
 			],409);
 		}
 		return response()->json([
 			'Message' => 'This country updated successfully congrats',
-			'Country_Information' => $Country->toArray()
+			'Country_Information' =>new CountryResource( $Country) 
 		],200); 
 	}
 	

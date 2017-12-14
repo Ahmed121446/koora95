@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 
 use App\Http\Requests\TeamRequests;
-
+use App\Http\Resources\TeamResource;
 use Illuminate\Http\Request;
 use App\Team;
 
@@ -30,7 +30,7 @@ class TeamsController extends Controller
         return response()->json([
             'Message' => ' Teams Found Congrats .',
             
-            'Teams_data' => $Teams->toArray()
+            'Teams_data' =>TeamResource::collection ($Teams)
         ],200);
     }
 
@@ -44,17 +44,9 @@ class TeamsController extends Controller
         }
         return response()->json([
             'Message' => '  Found this Team Congrats .',
-            'Team_data' => $Team->toArray()
+            'Team_data' =>new TeamResource( $Team)
         ],200);
     }
-
-
-    public function Get_Create_View_Teams(){
-      
-    }
-    public function Get_Update_View_Teams($id){
-    }
-
 
     public function Create_Team(Request $request, TeamRequests $teamRequest){
 
@@ -80,7 +72,7 @@ class TeamsController extends Controller
 
         return response()->json([
             'Message' => 'Team is created successfully',
-            'Team_Data' => $Team->toArray() 
+            'Team_Data' =>new TeamResource($Team)
         ],200);
     }
 
@@ -124,12 +116,12 @@ class TeamsController extends Controller
         if (!$Team->update()) {
             return response()->json([
                 'Message' => 'This Team Can Not be updated',
-                'Team_Information' => $Team->toArray()
+                'Team_Information' =>new TeamResource( $Team)
             ],409);
         }
         return response()->json([
             'Message' => 'This Team updated successfully congrats',
-            'Team_Information' => $Team->toArray()
+            'Team_Information' => new TeamResource( $Team)
         ],200); 
     }
 

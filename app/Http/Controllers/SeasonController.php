@@ -14,7 +14,7 @@ use App\Week;
 use App\Round;
 
 use App\Http\Requests\AddSeasonRequest;
-
+use App\Http\Resources\SeasonResource;
 
 class SeasonController extends Controller
 {
@@ -28,7 +28,7 @@ class SeasonController extends Controller
     	}
 		return response()->json([
     			'Message' => 'found Seasons congrats',
-    			'Seasons_data' => $seasons->toArray()
+    			'Seasons_data' => SeasonResource::collection( $seasons)
     	],200);
     }
 
@@ -42,7 +42,7 @@ class SeasonController extends Controller
     	}
     	return response()->json([
     			'Message' => 'found Season congrats',
-    			'Seasons_data' => $Season
+    			'Seasons_data' =>new SeasonResource( $Season)
     		],200);
     }
 
@@ -91,7 +91,7 @@ class SeasonController extends Controller
 
     	return response()->json([
     			'Message' => 'this season is created successfully',
-    			'Season_Information' => $season->toArray()
+    			'Season_Information' =>new SeasonResource( $season)
     		],401);
     }
 
@@ -131,12 +131,12 @@ class SeasonController extends Controller
 		if (!$Season->update()) {
 			return response()->json([
 				'Message' => 'This Season Can Not be updated',
-				'Season_Information' => $Season->toArray()
+				'Season_Information' =>new SeasonResource( $Season)
 			],409);
 		}
 		return response()->json([
 			'Message' => 'This Season updated successfully congrats',
-			'Season_Information' => $Season->toArray()
+			'Season_Information' =>new SeasonResource( $Season)
 		],200); 
 	}
 
@@ -190,9 +190,6 @@ class SeasonController extends Controller
                 $round->stages()->save($stage);
             }
         }
-          
-           
-
     }
 
 

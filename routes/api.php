@@ -50,7 +50,6 @@ Route::group(['prefix' => 'Seasons'], function() {
 
 		 Route::get('Season/{season}/Stage','SeasonController@Season_Stages');
 
-	
 	//get request to retrive all Seasons
 	Route::get('All-Seasons', 'SeasonController@Get_All_Seasons');
 	//get request to render the create.blade.php   [[  create new Season form   ]]
@@ -67,30 +66,51 @@ Route::group(['prefix' => 'Seasons'], function() {
 	Route::delete('Delete/{id}', 'SeasonController@Destroy_Season');
 
 
+	//handle Registered Teams routes through season rote
+	Route::group(['prefix' => '{season}/RegisteredTeam'], function() {
+		//find all Registered teams
+		Route::get('teams', 'RegisteredTeamsController@findAll');
+		//create new  Registered team
+		Route::post('teams', 'RegisteredTeamsController@create');
+		//find Registered team by  Registered team id
+		Route::get('{team_id}', 'RegisteredTeamsController@findById');
+		//update Registered team by its id
+		Route::put('update-team/{team_id}', 'RegisteredTeamsController@update');
+		//delete Registered team by its id
+		Route::delete('delete-team/{team_id}', 'RegisteredTeamsController@delete');
 
-	// Handling Teams through a Season
-	Route::get('/{season}/teams', 'RegisteredTeamsController@findAll');
-	Route::post('/{season}/teams', 'RegisteredTeamsController@create');
-	Route::get('/{season}/teams/{team_id}', 'RegisteredTeamsController@findById');
-	Route::put('{season}/update-team/{team_id}', 'RegisteredTeamsController@update');
-	Route::delete('/{season}/delete-team/{team_id}', 'RegisteredTeamsController@delete');
-
-
-	Route::group(['prefix' => 'Event'], function() {
-				Route::get('{season}/matches/InProgress', 'MatchesController@Matches_InProgressed_state');
-
-		// Handling Matches through a Season
-		Route::get('/{season}/matches', 'MatchesController@getSeasonMatches');
-		Route::post('/{season}/matches', 'MatchesController@addMatch');
-		//find match by date
-		Route::get('{season}/matches/{date}', 'MatchesController@Find_Date');
-		//find matches for this team 
-		Route::get('{season}/{team}/matches', 'MatchesController@Find_Team_Matches');
-
-		Route::put('{season}/update-match/{match}', 'MatchesController@update');
-		Route::delete('{season}/delete-match/{match}', 'MatchesController@delete');
+		//handle Registered Players routes through Seasons/{season}/RegisteredTeam/{team}/RegisteredPlayer
+		Route::group(['prefix' => '{team}/RegisteredPlayer'], function(){
+			//find all Registered players in Registered team
+			Route::get('players', 'RegisteredPlayersController@findAll');
+			//find Registered player in Registered team
+			Route::get('{player}', 'RegisteredPlayersController@findById');
+			//create new  Registered player
+			Route::post('Create', 'RegisteredPlayersController@Add_Player_In_RegisteredTeam');
+			//update Registered player by its id
+			Route::put('{player}/update', 'RegisteredPlayersController@Update_Player_From_RegisteredTeam');
+			//delete Registered player by its id
+			Route::delete('{player}', 'RegisteredPlayersController@Delete_Player_From_RegisteredTeam');
+		});
 	});
-	
+
+	// Handling Matches through a Season
+	Route::group(['prefix' => '{season}/Event'], function() {
+			Route::get('/matches/InProgress', 'MatchesController@Matches_InProgressed_state');
+			Route::get('/matches', 'MatchesController@getSeasonMatches');
+			Route::post('/matches', 'MatchesController@addMatch');
+			//find match by date
+			Route::get('/matches/{date}', 'MatchesController@Find_Date');
+			//find matches for this team 
+			Route::get('/{team}/matches', 'MatchesController@Find_Team_Matches');
+			//update matche
+			Route::put('/update-match/{match}', 'MatchesController@update');
+			//delete matche
+			Route::delete('/delete-match/{match}', 'MatchesController@delete');
+	});
+
+
+
 
 
 
@@ -101,12 +121,7 @@ Route::group(['prefix' => 'Seasons'], function() {
 
 
 
-	// Handling players through a Season
-	Route::get('{season}/{team}/players', 'RegisteredPlayersController@findAll');
-	Route::get('{season}/{team}/{player}', 'RegisteredPlayersController@findById');
-	Route::post('/{season}/{team}/Create', 'RegisteredPlayersController@Add_Player_In_RegisteredTeam');
-	Route::put('{season}/{team}/{player}/update', 'RegisteredPlayersController@Update_Player_From_RegisteredTeam');
-	Route::delete('/{season}/{team}/{player}', 'RegisteredPlayersController@Delete_Player_From_RegisteredTeam');
+
 
 
 	// Handling groups through a Season
@@ -159,7 +174,6 @@ Route::group(['prefix' => 'Players'], function() {
     //get request to retrive all Players
 	Route::get('All-Players','PlayersController@Get_All_Players');
 	
-	Route::get('{team}/Players','PlayersController@Get_Player_For_Specific_Team');
 	//get request to retrive specific Players
     Route::get('{id}','PlayersController@Get_Player');
     //post request for create new country
