@@ -6,6 +6,7 @@ use App\Http\Requests\CompetitionRequest;
 
 use Illuminate\Http\Request;
 use App\Competition;
+use App\Http\Resources\CompetitionResource;
 
 class CompetitionsController extends Controller
 {
@@ -18,14 +19,18 @@ class CompetitionsController extends Controller
             return response()->json(['message' => 'There is No Competitions' ], 404);
         }
 
-    	return response()->json(['data' => $competitions], 200);
+    	return response()->json([
+            'data' => CompetitionResource::collection( $competitions)
+        ], 200);
     }
 
 
     //Find Competition By its ID
     public function findById(Competition $competition){
 
-    	return response()->json(['data' => $competition], 200);
+    	return response()->json([
+            'data' =>new CompetitionResource( $competition)
+        ], 200);
     
     }
 
@@ -34,7 +39,9 @@ class CompetitionsController extends Controller
     {   
         $competition = $request->store();
 
-    	return response()->json(['data' => $competition], 201);
+    	return response()->json([
+            'data' =>new CompetitionResource( $competition)
+        ], 201);
 
     }
 
@@ -44,7 +51,9 @@ class CompetitionsController extends Controller
     {
     	$competition = $request->update($competition);
 
-    	response()->json(['data' => $competition], 200);
+    	response()->json([
+            'data' =>new CompetitionResource($competition)
+        ], 200);
     }
 
     // Delete a Competition
@@ -54,35 +63,7 @@ class CompetitionsController extends Controller
             return response()->json(['message' => 'an error occured'], 500);
         }
 
-    	response()->json(['data' => null], 204);
+    	response()->json(['data' => "Competition deleted successfully"], 204);
     }
-
-
-    // Find Competitions Teams 
-    // public function findTeams(Competition $competition)
-    // {
-    // 	$teams = $competition->teams;
-
-    //     return response()->json(['data' => $teams], 200);
-    // }
-
-
-    // // Add Team To Competition 
-    // public function addTeam(Competition $competition, Team $team)
-    // {
-    // 	$team = $competition->teams()->attach($team);
-
-    //     return response()->json(['data' => $team], 200);
-    // }
-
-
-    // // Delete Team From Competition
-    // public function deleteTeam(Competition $competition, Team $team)
-    // {
-    // 	$competition->teams()->detach($team);
-
-    //     return response()->json(null, 200);
-    // }
-
 
 }

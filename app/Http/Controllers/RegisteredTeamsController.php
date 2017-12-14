@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisteredTeamRequests;
 use Illuminate\Http\Request;
-
+use App\Http\Resources\RegisterTeamResource;
 use App\Season;
 use App\RegisteredTeam;
 
@@ -16,7 +16,9 @@ class RegisteredTeamsController extends Controller
 	{
 		$teams = $season->registeredTeams;
 
-		return response()->json(['data' => $teams], 200);
+		return response()->json([
+			'data' => RegisterTeamResource::collection($teams)
+		], 200);
 	}
 
 
@@ -25,7 +27,9 @@ class RegisteredTeamsController extends Controller
 	{
 		$team = $season->registeredTeams()->find($team_id);
 
-		return response()->json(['data' => $team], 200);
+		return response()->json([
+			'data' =>new RegisterTeamResource($team)
+		], 200);
 
 	}
 
@@ -35,7 +39,9 @@ class RegisteredTeamsController extends Controller
 	{
 		$team = $teamRequest->store($season);
 
-		return response()->json(['data' => $team], 201);
+		return response()->json([
+			'data' =>new RegisterTeamResource($team)
+		], 201);
 	}
 
 
@@ -49,7 +55,9 @@ class RegisteredTeamsController extends Controller
 		$team = $season->registeredTeams()->find($team_id);
 		$team->update($request->all());
 
-		return response()->json(['data' => $team], 200);
+		return response()->json([
+			'data' =>new RegisterTeamResource($team)
+		], 200);
 	}
 
 	// Delete a Team from The Current Season
@@ -61,7 +69,7 @@ class RegisteredTeamsController extends Controller
 		$team = $season->registeredTeams()->find($team_id);
 		$team->delete();
 
-		return response()->json(['data' => null], 204);
+		return response()->json(['data' => "RegisterTeam deleted successfully"], 204);
 	}
     
 }

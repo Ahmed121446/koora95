@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\continent;
-
+use App\Http\Resources\ContinentResource ;
 class ContinentController extends Controller
 {
     public function Get_All_Continents(){
@@ -20,7 +20,7 @@ class ContinentController extends Controller
     	//also send 200 code status
     	return response()->json([
     			'Message' => 'All Continent found',
-    			'Continent' => $Continents->toArray()
+    			'Continent' => ContinentResource::collection($Continents) 
     	],200);
     }
 
@@ -38,7 +38,7 @@ class ContinentController extends Controller
     	//if found this Continent so return message and the Continent data and also 200 status code
     	return response()->json([
     			'Message' => 'Continent found',
-    			'Continent' => $Continent->toArray()
+    			'Continent' =>new  ContinentResource($Continent)
     	],200);    	
     }
 

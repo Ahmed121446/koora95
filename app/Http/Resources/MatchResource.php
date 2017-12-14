@@ -31,7 +31,9 @@ class MatchResource extends Resource
             'match date' => $this->date,
             'match time' => $this->time,
             'match stadium' =>$this->stadium,
-            'winner of the match ' =>$this->winner_id,
+            'winner of the match ' =>[
+                                       'Winner' =>optional($this->winner)->name
+                                    ],
             'first team number of goals' =>$this->team_1_goals,
             'second team number of goals' =>$this->team_2_goals,
             'number of yellow cards in match' =>$this->yellow_cards,

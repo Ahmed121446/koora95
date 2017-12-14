@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\RegisterPlayerResource;
 use App\Season;
 use App\RegisteredTeam;
 use App\RegisteredPlayer;
@@ -19,14 +20,16 @@ class RegisteredPlayersController extends Controller
         $team       = $season->registeredTeams()->find($team)->first();
         $players    = $team->registeredPlayers;
         return response()->json([
-            'players_data_in_team' => $players
+            'players_data_in_team' => RegisterPlayerResource::collection($players)
         ], 200);
     }
     // Retrieve a Team form Specific Season
     public function findById(Season $season,RegisteredTeam $team ,$player){
         $team       = $season->registeredTeams()->find($team)->first();
         $player     = $team->registeredPlayers()->find($player);
-        return $player ;
+        return response()->json([
+            'player_data' =>new RegisterPlayerResource($player)
+        ], 200);
     }
 
     public function Add_Player_In_RegisteredTeam(AddRegisteredPlayerRequest $request , Season $season,RegisteredTeam $team){
@@ -54,17 +57,14 @@ class RegisteredPlayersController extends Controller
 
         return response()->json([
             'Message' => 'player added successfully',
-            'data' => $player 
+            'data' =>new RegisterPlayerResource( $player )
         ], 201);
     }
 
     public function Update_Player_From_RegisteredTeam(AddRegisteredPlayerRequest $request , Season $season,RegisteredTeam $team,$player){
 
-
-
         $team       = $season->registeredTeams()->find($team)->first();
         $player     = $team->registeredPlayers()->find($player);
-
 
        $player->registered_team_id     = $request->get('registered_team_id');
        $player->player_id              = $request->get('player_id');
@@ -83,11 +83,8 @@ class RegisteredPlayersController extends Controller
 
        return response()->json([
             'Message' => ' update player successfully',
-            'player_new_information' =>$player
+            'player_new_information' =>new RegisterPlayerResource($player)
         ],200); 
-
-        
-       
     }
 
     public function Delete_Player_From_RegisteredTeam( Season $season,RegisteredTeam $team ,$player){

@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class RegisteredTeam extends BaseModel
 {
     protected $fillable = ['team_id'];
+
     public function seasons()
     {
-    	return $this->belongsTo(Season::class);
+    	return $this->belongsTo(Season::class,'season_id');
     }
 
     public function team()
