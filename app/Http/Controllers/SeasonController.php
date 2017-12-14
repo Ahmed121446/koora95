@@ -169,12 +169,12 @@ class SeasonController extends Controller
     {
         $competition = $season->competition;
 
-        if($competition->is_cup()){
+        if(!$competition->is_cup()){
 
             $number_of_teams = count($season->registeredTeams);
-            $number_of_teams *=  2;
+            $weeks_number = ($number_of_teams -1) * 2;
 
-            $weeks = Week::all()->take($number_of_teams);
+            $weeks = Week::all()->take($weeks_number);
             foreach ($weeks as $week) {
                 $stage = new Stage();
                 $stage->season_id = $season->id;

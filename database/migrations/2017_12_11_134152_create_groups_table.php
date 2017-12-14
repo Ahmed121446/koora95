@@ -17,6 +17,8 @@ class CreateGroupsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('stage_id');
+            $table->integer('rounds_number');
+            $table->integer('teams_number');
             $table->unique(['name','stage_id']);
             $table->timestamps();
         });

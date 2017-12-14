@@ -17,6 +17,7 @@ use App\RegisteredTeam;
 
 class MatchesController extends Controller
 {
+    // Return All Season Matches
     public function getSeasonMatches(Season $season)
     {
     	if(!$season->id){
@@ -30,7 +31,7 @@ class MatchesController extends Controller
     }
 
 
-
+    // Add Match to The Season
     public function addMatch(Season $season, MatchRequest $request)
     {
     	if(!$season->active){
@@ -88,6 +89,25 @@ class MatchesController extends Controller
 
 
 
+    public function findInGroupStage(Season $season, $stage_id, $round_number)
+    {
+        $stage = $season->stages()->find($stage_id);
+        $groups = $stage->groups; 
+        
+        if(!$groups->first()){
+            return response()->json(['message' => 'There is no Groups'], 404);
+        }
+        
+        
+        $matches = $round->matches;
+        return response()->json([
+            'data' => MatchResource::collection($matches)
+        ],201);
+    }
+
+
+
+    // Find matches in Specific Date through a season
     public function Find_Date(Season $season,$date)
     {
         $matches = $season->matches;
@@ -104,7 +124,7 @@ class MatchesController extends Controller
     }
 
 
-
+    // Find all Matches of a single team in a specific season
     public function Find_Team_Matches(Season $season,RegisteredTeam $team)
     {
         $team_in_season = $season->registeredTeams()->find($team->id)->first();
@@ -134,6 +154,7 @@ class MatchesController extends Controller
 
 
 
+    // All matches in a given date through all competitions
     public function findAllByDate($date)
     {
     	$matches = Match::where('date',$date)->get();

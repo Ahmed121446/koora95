@@ -18,6 +18,12 @@ class Group extends Model
     }
 
 
+    public function groupRounds()
+    {
+        return $this->hasMany(GroupRound::class);
+    }
+
+    
 
     // public function getRouteKeyName()
     // {
