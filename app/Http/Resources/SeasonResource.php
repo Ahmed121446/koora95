@@ -14,10 +14,15 @@ class SeasonResource extends Resource
      */
     public function toArray($request)
     {
+        //make the shape of the Season data  that will be returned
+        //json shape
         return [
+            //return season name 
             'Season' =>$this->name,
+            //return true or false according to the seasion is active or not  
             'Season is active' => ($this->active) ? 'true' : ' false' ,
             'For Competition'=>[
+                //return Competition name from competiton()->function in Season model
                 'Competition name' =>$this->competiton->name
             ],
         ];

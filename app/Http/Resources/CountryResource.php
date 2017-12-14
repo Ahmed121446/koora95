@@ -15,6 +15,8 @@ class CountryResource extends Resource
     public function toArray($request)
     {
         return [
+            //make the shape of the country data  that will be returned
+            //json shape
             'country name' => $this->name,
             'Continent name' => $this->continent->name
         ];

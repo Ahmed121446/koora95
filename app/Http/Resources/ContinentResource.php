@@ -14,6 +14,8 @@ class ContinentResource extends Resource
      */
     public function toArray($request)
     {
+        //make the shape of the Continent data  that will be returned
+        //json shape
         return [
             'Continent id' => $this->id,
             'Continent Name' => $this->name

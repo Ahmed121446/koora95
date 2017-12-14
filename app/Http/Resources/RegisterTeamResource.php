@@ -14,7 +14,11 @@ class RegisterTeamResource extends Resource
      */
     public function toArray($request)
     {
+        //make the shape of the Register Team data  that will be returned
+        //json shape
         return [
+            //return Register team information
+            //return Season information of this Register team
             'Register Team Information' =>[
                 'Register team id' => $this->id,
                 'team id' => $this->team->id,
