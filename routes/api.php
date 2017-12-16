@@ -23,18 +23,18 @@ Route::group(['prefix' => 'competitions'], function() {
 
 
 Route::group(['prefix' => 'Continent'], function() {
-    Route::get('All-Continent','ContinentController@Get_All_Continents');
+	Route::get('All-Continent','ContinentController@Get_All_Continents');
 	Route::get('{id}','ContinentController@Get_Continent');
 });
 
 
 Route::group(['prefix' => 'Country'], function() {
 	//get request to retrive all countries
-    Route::get('All-countries','CountryController@Get_All_Countries');
+	Route::get('All-countries','CountryController@Get_All_Countries');
     //get request to render the create.blade.php   [[  create new country form   ]]
-    Route::get('Create','CountryController@Get_Country_Create_View');
+	Route::get('Create','CountryController@Get_Country_Create_View');
     //get request to render the update.blade.php   [[  update country form   ]]
-    Route::get('Update/{id}','CountryController@Get_Country_Update_View');
+	Route::get('Update/{id}','CountryController@Get_Country_Update_View');
     //get request to retrive specific country
 	Route::get('{id}','CountryController@Get_Country');
 	//post request for create new country
@@ -48,7 +48,7 @@ Route::group(['prefix' => 'Country'], function() {
 
 Route::group(['prefix' => 'Seasons'], function() {
 
-		 Route::get('Season/{season}/Stage','SeasonController@Season_Stages');
+	Route::get('Season/{season}/Stage','SeasonController@Season_Stages');
 
 	//get request to retrive all Seasons
 	Route::get('All-Seasons', 'SeasonController@Get_All_Seasons');
@@ -96,32 +96,24 @@ Route::group(['prefix' => 'Seasons'], function() {
 
 	// Handling Matches through a Season
 	Route::group(['prefix' => '{season}/Event'], function() {
-			Route::get('/matches/InProgress', 'MatchesController@Matches_InProgressed_state');
-			Route::get('/matches', 'MatchesController@getSeasonMatches');
-			Route::post('/matches', 'MatchesController@addMatch');
-			//find match by date
-			Route::get('/matches/{date}', 'MatchesController@Find_Date');
+		Route::get('/matches/InProgress', 'MatchesController@Matches_InProgressed_state');
+		Route::get('/matches', 'MatchesController@getSeasonMatches');
+		Route::post('/matches', 'MatchesController@addMatch');
+			//find matches by date
+		Route::get('/matches/{date}', 'MatchesController@Find_Date');
+			// find matches by stage
+		Route::get('/matches/stage/{stage_id}', 'MatchesController@findByStage');
 			//find matches for this team 
-			Route::get('/{team}/matches', 'MatchesController@Find_Team_Matches');
-			//update matche
-			Route::put('/update-match/{match}', 'MatchesController@update');
-			//delete matche
-			Route::delete('/delete-match/{match}', 'MatchesController@delete');
+		Route::get('/{team}/matches', 'MatchesController@Find_Team_Matches');
+			//update match
+		Route::put('/update-match/{match}', 'MatchesController@update');
+			//delete match
+		Route::delete('/delete-match/{match}', 'MatchesController@delete');
+			// confirm match result
+		Route::post('/matches/{match}/confirm', 'MatchesController@confirmResult');
 	});
 
-
-
-
-
-
-	Route::get('/{season}/matches/stage/{stage_id}', 'MatchesController@findByStage');
-
-	Route::post('/{season}/matches/{match}/confirm', 'MatchesController@confirmResult');
-
-
-
-
-
+	
 
 
 	// Handling groups through a Season
@@ -136,13 +128,13 @@ Route::group(['prefix' => 'Seasons'], function() {
 	// Group Teams
 	Route::group(['prefix' => 'Groups'], function() {
 		//get all teams in Specific group
-	    Route::get('Season/{season}/group/{group}/teams','GroupTeamsController@get_All_Teams_In_Specific_Group');
+		Route::get('Season/{season}/group/{group}/teams','GroupTeamsController@get_All_Teams_In_Specific_Group');
 	    //get Specific team in Specific group
-	    Route::get('Season/{season}/group/{group}/team/{team}','GroupTeamsController@get_Team_In_Specific_Group');
+		Route::get('Season/{season}/group/{group}/team/{team}','GroupTeamsController@get_Team_In_Specific_Group');
 	    //add new team in Specific group
-	    Route::post('Season/{season}/group/{group}/add-team', 'GroupTeamsController@Add_Team_In_Group');
+		Route::post('Season/{season}/group/{group}/add-team', 'GroupTeamsController@Add_Team_In_Group');
 	    //delete Specific team in Specific group
-	    Route::delete('Season/{season}/group/{group}/delete-team/{team}', 'GroupTeamsController@Delete_Team_From_Group');
+		Route::delete('Season/{season}/group/{group}/delete-team/{team}', 'GroupTeamsController@Delete_Team_From_Group');
 	});
 
 
@@ -168,14 +160,14 @@ Route::group(['prefix' => 'Teams'], function() {
 });
 Route::group(['prefix' => 'Players'], function() {
 	//get request to render the create.blade.php   [[  create new player form   ]]
-    Route::get('Create','PlayersController@Get_Player_Create_View');
+	Route::get('Create','PlayersController@Get_Player_Create_View');
     //get request to render the update.blade.php   [[  update player form   ]]
-    Route::get('Update/{id}','PlayersController@Get_Player_Update_View');
+	Route::get('Update/{id}','PlayersController@Get_Player_Update_View');
     //get request to retrive all Players
 	Route::get('All-Players','PlayersController@Get_All_Players');
 	
 	//get request to retrive specific Players
-    Route::get('{id}','PlayersController@Get_Player');
+	Route::get('{id}','PlayersController@Get_Player');
     //post request for create new country
 	Route::post('Create','PlayersController@Create_Player');
 	//put request for update country and it will take id
@@ -187,5 +179,5 @@ Route::group(['prefix' => 'Players'], function() {
 Route::get('/matches/today', 'MatchesController@todayMatches');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+	return $request->user();
 });

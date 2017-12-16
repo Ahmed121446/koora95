@@ -18,6 +18,7 @@ class CreateMatchesTable extends Migration
             $table->integer('season_id');
             $table->integer('stage_id');
             $table->integer('ground_round_id')->nullable();
+            $table->integer('group_id')->nullable();
             $table->string('status');
             $table->integer('register_team_1_id');
             $table->integer('register_team_2_id');
