@@ -27,7 +27,6 @@ class CompetitionsController extends Controller
 
     //Find Competition By its ID
     public function findById(Competition $competition){
-
     	return response()->json([
             'data' =>new CompetitionResource( $competition)
         ], 200);

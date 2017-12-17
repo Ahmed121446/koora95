@@ -39,7 +39,7 @@ class TeamsController extends Controller
         $Team = Team::find($id);
         if (!$Team) {
             return response()->json([
-                'Message' => 'No Team found , please create one .'
+                'Message' => 'Team not Found'
             ],404);
         }
         return response()->json([
@@ -50,29 +50,11 @@ class TeamsController extends Controller
 
     public function Create_Team(Request $request, TeamRequests $teamRequest){
 
-        $name           =   $request->input('name');
-        $type_id        =   $request->input('type_id');
-        $logo           =   $request->input('logo');
-        $stadium        =   $request->input('stadium');
-        $country_id     =   $request->input('country_id');
-
-
-        $Team = new Team();
-        $Team->name         = $name;
-        $Team->type_id      = $type_id;
-        $Team->logo         = $logo;
-        $Team->stadium      = $stadium;
-        $Team->country_id   = $country_id;
-
-        if (!$Team->save()) {
-            return response()->json([
-                'Message' => 'Team cannot be created'
-            ],400);
-        }
+        $team = $teamRequest->store();
 
         return response()->json([
             'Message' => 'Team is created successfully',
-            'Team_Data' =>new TeamResource($Team)
+            'Team_Data' =>new TeamResource($team)
         ],200);
     }
 

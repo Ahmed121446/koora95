@@ -31,7 +31,13 @@ class GroupController extends Controller
 
     // Retrieve Specific Group
     public function findOne(Stage $stage , Group $group){
-        $Find_Group = $stage->groups()->find($group);
+        $group = $stage->groups()->find($group);
+        
+        if(!$group){
+            return response()->json([
+                'Message' => 'Group Not Found'], 404);
+        }
+
         return response()->json([
             'Message' => 'This Season have this group',
             'Groups information' => $Find_Group
@@ -50,12 +56,9 @@ class GroupController extends Controller
             return response()->json(['Message' => 'Groups Are already created'], 400);
         }
 
-        $groups = $request->create_groups($competition, $stage);
+        $response = $request->create_groups($competition, $stage);
 
-        return response()->json([
-                'Message' => 'Groups are created successfully',
-                'data' => $groups
-        ], 200);
+        return $response
     }
 
 

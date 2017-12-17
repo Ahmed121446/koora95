@@ -26,7 +26,6 @@ class GroupRequest extends FormRequest
      */
     public function rules()
     {
-        dd($this->url());
         return [
             'groups_number' => 'required|numeric',
             'teams_number' => 'required|numeric',
@@ -65,7 +64,10 @@ class GroupRequest extends FormRequest
 
         $stage->addRounds($rounds_number);
        
-        return $stage->groups;
+        return response()->json([
+                'Message' => 'Groups are created successfully',
+                'data' => $stage->groups
+            ], 200);
     }
 
 

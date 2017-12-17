@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Team;
 
 class TeamRequests extends FormRequest
 {
@@ -56,5 +57,24 @@ class TeamRequests extends FormRequest
             }
             default: return [];
         }
+    }
+
+    public function store()
+    {
+        $name           =   $this->get('name');
+        $type_id        =   $this->get('type_id');
+        $logo           =   $this->get('logo');
+        $stadium        =   $this->get('stadium');
+        $country_id     =   $this->get('country_id');
+
+
+        $Team = new Team();
+        $Team->name         = $name;
+        $Team->type_id      = $type_id;
+        $Team->logo         = $logo;
+        $Team->stadium      = $stadium;
+        $Team->country_id   = $country_id;
+
+        $Team->save()
     }      
 }

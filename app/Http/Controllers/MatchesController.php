@@ -54,6 +54,12 @@ class MatchesController extends Controller
 
     	$match = $season->matches()->find($match->id);
 
+        if(!$match){
+            return response()->json([
+                'message' => 'Match not found'
+            ],404);
+        }
+
     	$match->update($request->all());
     	
     	return response()->json([
@@ -81,6 +87,11 @@ class MatchesController extends Controller
     public function findByStage(Season $season, $stage_id)
     {
     	$stage = $season->stages()->find($stage_id);
+        if(!$stage){
+            return response()->json([
+                'message' => 'stage not found'
+            ],404);
+        }
     	$matches = $stage->matches;
     	return response()->json([
             'data' => MatchResource::collection($matches)
@@ -182,7 +193,7 @@ class MatchesController extends Controller
 
         if (!$matches->first()) {
             return response()->json([
-                'Message' => 'there is no matches in this date'
+                'Message' => 'there is no matches Today'
             ],404);
         }
 
