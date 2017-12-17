@@ -31,10 +31,10 @@ class CompetitionRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'name' =>  'required|min:2|max:25',
+                    'name' =>  'required|min:2|max:100',
                     'type' =>  'required|numeric|exists:competition_types,id',
-                    'country' => 'required_without:continent|numeric|exists:countries,id',
-                    'continent' => 'required_without:country|numeric|exists:continents,id'
+                    'country_id' => 'required_without:continent_id|numeric|exists:countries,id',
+                    'continent_id' => 'required_without:country_id|numeric|exists:continents,id'
                 ];
             }
             default: return [];
@@ -44,12 +44,11 @@ class CompetitionRequest extends FormRequest
     // create New Competition
     public function store()
     {
-        if($this->get('country')) {
-            $country_id = $this->get('country');
-            $location = Country::find($country_id);
-            
+        if($this->get('country_id')) {
+            $country_id = $this->get('country_id');
+            $location = Country::find($country_id);            
         }else{
-            $continent_id = $this->get('continent');
+            $continent_id = $this->get('continent_id');
             $location = continent::find($continent_id);
         }
         $competition =  new Competition([
@@ -83,14 +82,20 @@ class CompetitionRequest extends FormRequest
                     break;
 
                 case 'type' : {
-                        $type = CompetitionType::where('name', $value)->first();
+                        $type = CompetitionType::find($value);
                         $requested_data['comp_type_id'] = $type->id;
                     }
                     break;
                     
-                case 'country' : {
-                        $country = CompetitionType::where('name', $value)->first();
+                case 'country_id' : {
+                        $country = Country::find($value);
                         $requested_data['country_id'] = $country->id;
+                    }
+                    break;
+
+                case 'continent_id' : {
+                        $continent = continent::find($value);
+                        $requested_data['continent_id'] = $continent->id;
                     }
                     break;
             

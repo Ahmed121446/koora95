@@ -19,6 +19,23 @@ use App\Http\Resources\SeasonResource;
 class SeasonController extends Controller
 {
     // Get Competition Seasons 
+    /**
+     * @SWG\Get(
+     *     path="/api/Seasons/All-Seasons",
+     *     description = "get all Seasons",
+     *     produces={"application/json"},
+     *     operationId="AllCompetitions",
+     *     tags={"Season"},
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function Get_All_Seasons(){
     	$seasons = Season::all();
     	if (!$seasons->first()) {
@@ -33,6 +50,31 @@ class SeasonController extends Controller
     }
 
     // Get Specific Season
+
+    /**
+     * @SWG\Get(
+     *     path="/api/Seasons/{id}",
+     *     description = "get Season by id",
+     *     produces={"application/json"},
+     *     operationId="findById",
+     *     tags={"Season"},
+     *     @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Season ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function Get_Season($Season){
     	$Season = Season::find($Season);
     	if (!$Season) {
@@ -60,6 +102,33 @@ class SeasonController extends Controller
     }
 
     // Create New Season
+
+
+    /**
+     *   @SWG\Post(
+     *     path="/api/Seasons/Create",
+     *     description = "Create new Season",
+     *     produces={"application/json"},
+     *     operationId="createSeason",
+     *     tags={"Season"},
+     *
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          required=true,
+     *          schema={"$ref":"#/definitions/season"},
+     *      ),
+     *      @SWG\Response(
+     *         response = 201,
+     *         description = "SUCCESSFULLY CREATED"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
     public function Add_Season(AddSeasonRequest $request){
     	$competition_id = $request->input('competition_id');
     	$competition = competition::find($competition_id);
@@ -92,11 +161,42 @@ class SeasonController extends Controller
     	return response()->json([
     			'Message' => 'this season is created successfully',
     			'Season_Information' =>new SeasonResource( $season)
-    		],401);
+    		],201);
     }
 
 
     // Update Season
+    /**
+     *   @SWG\Put(
+     *     path="/api/Seasons/Update/{id}",
+     *     description = "update Season",
+     *     produces={"application/json"},
+     *     operationId="updateSeason",
+     *     tags={"Season"},
+     *     @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          required=true,
+     *          schema={"$ref":"#/definitions/season"},
+     *      ),
+     *      @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY updated"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
     public function Update_Season(Request $request , $id){
 		$Season = Season::find($id);
 		if (!$Season) {
@@ -116,12 +216,12 @@ class SeasonController extends Controller
                 })->ignore($Season->id)
             ],
             'competition_id' => 'required|numeric',
-    		'active_value'		=>	'required|boolean'
+    		'is_active_season'		=>	'required|boolean'
     	]);
 
 		$name 				= $request->get('name');
     	$competition_id 	= $request->get('competition_id');
-    	$active_value 		= $request->get('active_value');
+    	$active_value 		= $request->get('is_active_season');
 
 
     	$Season->name 		= $name;
@@ -142,6 +242,30 @@ class SeasonController extends Controller
 
 
     // Delete Season
+    /**
+     * @SWG\Delete(
+     *     path="/api/Seasons/Delete/{id}",
+     *     description = "Delete Season",
+     *     produces={"application/json"},
+     *     operationId="delete",
+     *     tags={"Season"},
+     *     @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Season ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 204,
+     *         description = "SUCCESSFULLY Deleted"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function Destroy_Season($id){
     	$Season = Season::find($id);
 

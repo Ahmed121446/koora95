@@ -16,6 +16,37 @@ use App\Http\Requests\AddRegisteredPlayerRequest;
 class RegisteredPlayersController extends Controller
 {
     // Find All registeredplayers of a specific registeredteam
+    /**
+     * @SWG\Get(
+     *     path="/api/Seasons/{season_id}/RegisteredTeam/{team_id}/RegisteredPlayer/players",
+     *     description = "get all registered Players in a team",
+     *     produces={"application/json"},
+     *     operationId="AllPlayers",
+     *     tags={"Registered Players"},
+     *     @SWG\Parameter(
+     *          name="season_id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="team_id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Team ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function findAll(Season $season , RegisteredTeam $team){
         $team       = $season->registeredTeams()->find($team)->first();
         $players    = $team->registeredPlayers;
@@ -23,7 +54,47 @@ class RegisteredPlayersController extends Controller
             'players_data_in_team' => RegisterPlayerResource::collection($players)
         ], 200);
     }
+
+
     // Retrieve a Team form Specific Season
+    /**
+     * @SWG\Get(
+     *     path="/api/Seasons/{season_id}/RegisteredTeam/{team_id}/RegisteredPlayer/{id}",
+     *     description = "get singe team player",
+     *     produces={"application/json"},
+     *     operationId="findPlayer",
+     *     tags={"Registered Players"},
+     *     @SWG\Parameter(
+     *          name="season_id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="team_id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Team ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="player ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function findById(Season $season,RegisteredTeam $team ,$player){
         $team       = $season->registeredTeams()->find($team)->first();
         $player     = $team->registeredPlayers()->find($player);
@@ -32,50 +103,116 @@ class RegisteredPlayersController extends Controller
         ], 200);
     }
 
-    public function Add_Player_In_RegisteredTeam(AddRegisteredPlayerRequest $request , Season $season,RegisteredTeam $team){
 
-        $registered_team_id     = $request->get('registered_team_id');
-        $player_id              = $request->get('player_id');
-        $played                 =0;
-        $goals                  =0;
-        $assists                =0;
-        $red_cards              =0;
-        $yellow_cards           =0;
-
-        $registered_player = new RegisteredPlayer();
-        $registered_player->registered_team_id  = $registered_team_id;
-        $registered_player->player_id           = $player_id;
-        $registered_player->played              = $played;
-        $registered_player->goals               = $goals;
-        $registered_player->assists             = $assists;
-        $registered_player->red_cards           = $red_cards;
-        $registered_player->yellow_cards        = $yellow_cards;
-
-
-        $team       = $season->registeredTeams()->find($team)->first();
-        $player     = $team->registeredPlayers()->save($registered_player);
+    /**
+     *   @SWG\Post(
+     *     path="/api/Seasons/{season_id}/RegisteredTeam/{team_id}/RegisteredPlayer/Create",
+     *     description = "add Player to team",
+     *     produces={"application/json"},
+     *     operationId="addPlayer",
+     *     tags={"Registered Players"},
+     *     @SWG\Parameter(
+     *          name="season_id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="team_id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Team ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          required=true,
+     *          schema={"$ref":"#/definitions/registeredPlayer"},
+     *      ),
+     *      @SWG\Response(
+     *         response = 201,
+     *         description = "SUCCESSFULLY CREATED"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
+    public function Add_Player_In_RegisteredTeam(AddRegisteredPlayerRequest $request , Season $season,RegisteredTeam $team)
+    {    
+        
+        $player = $request->addPlayer($season, $team);
 
         return response()->json([
             'Message' => 'player added successfully',
             'data' =>new RegisterPlayerResource( $player )
         ], 201);
+    
     }
 
-    public function Update_Player_From_RegisteredTeam(AddRegisteredPlayerRequest $request , Season $season,RegisteredTeam $team,$player){
+    
 
-        $team       = $season->registeredTeams()->find($team)->first();
-        $player     = $team->registeredPlayers()->find($player);
+    /**
+     *   @SWG\Put(
+     *     path="/api/Seasons/{season_id}/RegisteredTeam/{team_id}/RegisteredPlayer/{id}/update",
+     *     description = "update player",
+     *     produces={"application/json"},
+     *     operationId="updatePlayer",
+     *     tags={"Registered Players"},
+     *     @SWG\Parameter(
+     *          name="season_id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="team_id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Team ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="player ID",
+     *      ), 
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          required=true,
+     *          @SWG\Property(
+     *              property="goals",
+     *              type="integer",
+     *              description="scored Goals",
+     *              example="1"
+     *          ),
+     *      ),
+     *      @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY UPDATED"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
+    public function Update_Player_From_RegisteredTeam(Season $season, RegisteredTeam $team, $player, Request $request)
+    {
 
-       $player->registered_team_id     = $request->get('registered_team_id');
-       $player->player_id              = $request->get('player_id');
-       $player->played                 = $request->get('played');
-       $player->goals                  = $request->get('goals');
-       $player->assists                = $request->get('assists');
-       $player->red_cards              = $request->get('red_cards');
-       $player->yellow_cards           = $request->get('yellow_cards');
-
+        $team = $season->registeredTeams()->find($team->id);
+        $player = $team->registeredPlayers()->find($player);
         
-       if (!$player->update()) {
+       if (!$player->update($request->all())) {
            return response()->json([
             'Message' => 'can not update player'
             ],400);
@@ -87,9 +224,50 @@ class RegisteredPlayersController extends Controller
         ],200); 
     }
 
+
+
+    /**
+     *   @SWG\Delete(
+     *     path="/api/Seasons/{season_id}/RegisteredTeam/{team_id}/RegisteredPlayer/{id}",
+     *     description = "Delete player",
+     *     produces={"application/json"},
+     *     operationId="deletePlayer",
+     *     tags={"Registered Players"},
+     *     @SWG\Parameter(
+     *          name="season_id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="team_id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Team ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="player ID",
+     *      ), 
+     *      @SWG\Response(
+     *         response = 204,
+     *         description = "SUCCESSFULLY Deleted"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
     public function Delete_Player_From_RegisteredTeam( Season $season,RegisteredTeam $team ,$player){
-        $team       = $season->registeredTeams()->find($team)->first();
-        $player     = $team->registeredPlayers()->find($player);
+        $team = $season->registeredTeams()->find($team)->first();
+        $player = $team->registeredPlayers()->find($player);
 
         if (!$player->delete()) {
             return response()->json([
@@ -98,7 +276,7 @@ class RegisteredPlayersController extends Controller
         }
         return response()->json([
             'Message' => ' player is deleted successfully '
-        ],200);
+        ],204);
     }
 
 }

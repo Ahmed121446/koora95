@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8dd01daced99e1c9dda500dbd6398475",
+    "content-hash": "d7a5e77a0354019d5917bbc07a8f5f79",
     "packages": [
         {
             "name": "darkaonline/l5-swagger",

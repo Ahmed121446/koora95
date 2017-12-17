@@ -59,7 +59,7 @@ Route::group(['prefix' => 'Seasons'], function() {
 	//get request to retrive specific Seasons
 	Route::get('{id}', 'SeasonController@Get_Season');
 	//post request for create new Season
-	Route::post('Create', 'SeasonController@Create_Season');
+	Route::post('Create', 'SeasonController@Add_Season');
 	//put request for update Season and it will take id
 	Route::put('Update/{id}', 'SeasonController@Update_Season');
 	// delete request for deleting Season it will take id

@@ -13,6 +13,149 @@
         "http"
     ],
     "paths": {
+        "/api/competitions": {
+            "get": {
+                "tags": [
+                    "Competition"
+                ],
+                "description": "get all competitions",
+                "operationId": "AllCompetitions",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Competition"
+                ],
+                "description": "Create new Competition",
+                "operationId": "createCompetition",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/competition"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "SUCCESSFULLY CREATED"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/competitions/{id}": {
+            "get": {
+                "tags": [
+                    "Competition"
+                ],
+                "description": "get competition by id",
+                "operationId": "findById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Competition ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/competitions/update/{id}": {
+            "put": {
+                "tags": [
+                    "Competition"
+                ],
+                "description": "update Competition",
+                "operationId": "updateCompetition",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Competition ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/competition"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY updated"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/competitions/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Competition"
+                ],
+                "description": "Delete competition",
+                "operationId": "delete",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Competition ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "SUCCESSFULLY Deleted"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
         "/api/Continent/All-Continent": {
             "get": {
                 "tags": [
@@ -201,6 +344,369 @@
                     }
                 }
             }
+        },
+        "/api/Seasons/{season_id}/RegisteredTeam/{team_id}/RegisteredPlayer/players": {
+            "get": {
+                "tags": [
+                    "Registered Players"
+                ],
+                "description": "get all registered Players in a team",
+                "operationId": "AllPlayers",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season_id",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "team_id",
+                        "in": "path",
+                        "description": "Team ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season_id}/RegisteredTeam/{team_id}/RegisteredPlayer/{id}": {
+            "get": {
+                "tags": [
+                    "Registered Players"
+                ],
+                "description": "get singe team player",
+                "operationId": "findPlayer",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season_id",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "team_id",
+                        "in": "path",
+                        "description": "Team ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "player ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Registered Players"
+                ],
+                "description": "Delete player",
+                "operationId": "deletePlayer",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season_id",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "team_id",
+                        "in": "path",
+                        "description": "Team ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "player ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "SUCCESSFULLY Deleted"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season_id}/RegisteredTeam/{team_id}/RegisteredPlayer/Create": {
+            "post": {
+                "tags": [
+                    "Registered Players"
+                ],
+                "description": "add Player to team",
+                "operationId": "addPlayer",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season_id",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "team_id",
+                        "in": "path",
+                        "description": "Team ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/registeredPlayer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "SUCCESSFULLY CREATED"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season_id}/RegisteredTeam/{team_id}/RegisteredPlayer/{id}/update": {
+            "put": {
+                "tags": [
+                    "Registered Players"
+                ],
+                "description": "update player",
+                "operationId": "updatePlayer",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season_id",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "team_id",
+                        "in": "path",
+                        "description": "Team ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "player ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "property": "goals",
+                            "description": "scored Goals",
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY UPDATED"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/All-Seasons": {
+            "get": {
+                "tags": [
+                    "Season"
+                ],
+                "description": "get all Seasons",
+                "operationId": "AllCompetitions",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{id}": {
+            "get": {
+                "tags": [
+                    "Season"
+                ],
+                "description": "get Season by id",
+                "operationId": "findById",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/Create": {
+            "post": {
+                "tags": [
+                    "Season"
+                ],
+                "description": "Create new Season",
+                "operationId": "createSeason",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/season"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "SUCCESSFULLY CREATED"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/Update/{id}": {
+            "put": {
+                "tags": [
+                    "Season"
+                ],
+                "description": "update Season",
+                "operationId": "updateSeason",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/season"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY updated"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/Delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Season"
+                ],
+                "description": "Delete Season",
+                "operationId": "delete",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "SUCCESSFULLY Deleted"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -221,6 +727,30 @@
                 }
             }
         },
+        "competition": {
+            "properties": {
+                "name": {
+                    "description": "competition name",
+                    "type": "string",
+                    "example": "Egyptian league"
+                },
+                "type": {
+                    "description": "competition type id",
+                    "type": "integer",
+                    "example": "1 for league & 2 for cup"
+                },
+                "country_id": {
+                    "description": "competition country id",
+                    "type": "integer",
+                    "example": "(if the competition is local)"
+                },
+                "continent_id": {
+                    "description": "competition continent id",
+                    "type": "integer",
+                    "example": "(if the competition is continental)"
+                }
+            }
+        },
         "country_creation": {
             "properties": {
                 "name": {
@@ -230,6 +760,34 @@
                 "Continent_id": {
                     "type": "integer",
                     "example": "1"
+                }
+            }
+        },
+        "registeredPlayer": {
+            "properties": {
+                "player_id": {
+                    "description": "player id",
+                    "type": "integer",
+                    "example": "1"
+                }
+            }
+        },
+        "season": {
+            "properties": {
+                "name": {
+                    "description": "season name",
+                    "type": "string",
+                    "example": "2017"
+                },
+                "competition_id": {
+                    "description": "competition id",
+                    "type": "integer",
+                    "example": "1"
+                },
+                "is_active_season": {
+                    "description": "competition id",
+                    "type": "integer",
+                    "example": "1 or 0"
                 }
             }
         }

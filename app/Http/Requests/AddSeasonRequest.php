@@ -24,8 +24,13 @@ class AddSeasonRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:2|max:25',
-            'competition_id' => 'required|numeric|unique:seasons,name|unique:seasons,comp_id',
+            'name' => [
+                'required',
+                'min:2',
+                'max:25',
+                'unique:seasons,name,NULL,NULL,comp_id,'. $this->get('competition_id')
+            ],
+            'competition_id' => 'required|numeric',
             'is_active_season' => 'required|boolean'
         ];
     }

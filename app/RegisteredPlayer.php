@@ -4,6 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+	/** @SWG\Definition(
+    *          definition = "registeredPlayer",
+    *          @SWG\Property(
+    *              property="player_id",
+    *              type="integer",
+    *              description="player id",
+    *              example="1"
+    *          ),
+    *  )
+	*/
+
 class RegisteredPlayer extends Model
 {
     public function registeredTeam(){
