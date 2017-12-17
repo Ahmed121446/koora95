@@ -3,12 +3,38 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+//for player properties
+/**
+ * @SWG\Definition(
+ *      definition = "player_creation",
+ *      @SWG\Property(
+ *          property="name",
+ *          type="string",
+ *          example="Mohamed Salah"
+ *      ),
+ *      @SWG\Property(
+ *          property="player_position",
+ *          type="string",
+ *          example="GK"
+ *      ),
+ *     @SWG\Property(
+ *          property="team_id",
+ *          type="integer",
+ *          example="5"
+ *      ) ,
+ *      @SWG\Property(
+ *          property="country_id",
+ *          type="integer",
+ *          example="2"
+ *      )
+ * )
 
+ */
 class player extends Model
 {
     //relationship between team and player
     // M player  --> 1 team    ===>  M to 1
-    public function Team(){
+    public function team(){
     	return $this->belongsTo(Team::class,'team_id');
     } 
     public function country()
