@@ -38,7 +38,7 @@ class Groups
             return response()->json(['message' => 'An Error Occured'], 500);
         }
 
-        return $response()->json(['data' => $team], 201);
+        return response()->json(['data' => $team], 201);
     }
 
 }

@@ -4,6 +4,58 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @SWG\Definition(
+ *      definition = "match",
+ *      @SWG\Property(
+ *          property="name",
+ *          type="string",
+ *          example="Egypt"
+ *      ),
+ *     @SWG\Property(
+ *          property="date",
+ *          type="date",
+ *          example="13-12-2017"
+ *      ), 
+ *     @SWG\Property(
+ *          property="time",
+ *          type="time",
+ *          example="16:30:00"
+ *      ), 
+ *     @SWG\Property(
+ *          property="stage_id",
+ *          type="integer",
+ *          example="1"
+ *      ), 
+ *     @SWG\Property(
+ *          property="group_round_id",
+ *          type="integer",
+ *          example="1 (required only in group stage)"
+ *      ),
+ *     @SWG\Property(
+ *          property="group_id",
+ *          type="integer",
+ *          example="1 (required only in group stage)"
+ *      ),
+ *     @SWG\Property(
+ *          property="register_team_1_id",
+ *          type="integer",
+ *          example="1"
+ *      ),
+ *     @SWG\Property(
+ *          property="register_team_2_id",
+ *          type="integer",
+ *          example="1"
+ *      ),
+ *     @SWG\Property(
+ *          property="stadium",
+ *          type="string",
+ *          example="Cairo stadium"
+ *      ),
+ *
+ * )
+
+ */
 class Match extends BaseModel
 {
     public function stage()

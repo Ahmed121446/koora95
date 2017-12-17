@@ -97,7 +97,9 @@ Route::group(['prefix' => 'Seasons'], function() {
 	// Handling Matches through a Season
 	Route::group(['prefix' => '{season}/Event'], function() {
 		Route::get('/matches/InProgress', 'MatchesController@Matches_InProgressed_state');
+		
 		Route::get('/matches', 'MatchesController@getSeasonMatches');
+		
 		Route::post('/matches', 'MatchesController@addMatch');
 			//find matches by date
 		Route::get('/matches/{date}', 'MatchesController@Find_Date');
@@ -117,24 +119,24 @@ Route::group(['prefix' => 'Seasons'], function() {
 
 
 	// Handling groups through a Season
-	Route::get('/{season}/groups', 'GroupController@findAllGroups');
-	Route::get('/{season}/{group}', 'GroupController@findOne');
-	Route::get('/{season}/Group/{group}/Delete', 'GroupController@delete');
+	Route::group(['prefix' => '/{season}/stages/{stage}/groups'], function(){
+		Route::get('/', 'GroupController@findAllGroups');
+		Route::get('/{group}', 'GroupController@findOne');
+		Route::post('/', 'GroupController@createGroups');
+		Route::delete('/{group}/delete', 'GroupController@delete');
+		Route::post('/{group}/teams', 'GroupController@addTeams');
+	});	
 	
-	// Route::get('/{season}/stage/{stage}/groups', 'GroupController@createGroups');
-	Route::post('/{season}/stage/{stage}/groups', 'GroupController@createGroups');
-	Route::post('/{season}/stages/groups/{group}/teams', 'GroupController@addTeams');
-
 	// Group Teams
-	Route::group(['prefix' => 'Groups'], function() {
+	Route::group(['prefix' => '{season}/groups'], function() {
 		//get all teams in Specific group
-		Route::get('Season/{season}/group/{group}/teams','GroupTeamsController@get_All_Teams_In_Specific_Group');
+		Route::get('/{group}/teams','GroupTeamsController@get_All_Teams_In_Specific_Group');
 	    //get Specific team in Specific group
-		Route::get('Season/{season}/group/{group}/team/{team}','GroupTeamsController@get_Team_In_Specific_Group');
+		Route::get('/{group}/team/{team}','GroupTeamsController@get_Team_In_Specific_Group');
 	    //add new team in Specific group
-		Route::post('Season/{season}/group/{group}/add-team', 'GroupTeamsController@Add_Team_In_Group');
+		Route::post('/{group}/add-team', 'GroupTeamsController@Add_Team_In_Group');
 	    //delete Specific team in Specific group
-		Route::delete('Season/{season}/group/{group}/delete-team/{team}', 'GroupTeamsController@Delete_Team_From_Group');
+		Route::delete('/group/{group}/delete-team/{team}', 'GroupTeamsController@Delete_Team_From_Group');
 	});
 
 

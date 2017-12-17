@@ -345,6 +345,285 @@
                 }
             }
         },
+        "/api/Seasons/{season}/stages/{stage}/groups": {
+            "get": {
+                "tags": [
+                    "groups"
+                ],
+                "description": "get all groups",
+                "operationId": "AllGroups",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stage",
+                        "in": "path",
+                        "description": "stage ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "groups"
+                ],
+                "description": "create groups",
+                "operationId": "addGroup",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stage",
+                        "in": "path",
+                        "description": "stage ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/group"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "SUCCESSFULLY CREATED"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/stages/{stage}/groups/{group}": {
+            "get": {
+                "tags": [
+                    "groups"
+                ],
+                "description": "get single group",
+                "operationId": "findGroup",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stage",
+                        "in": "path",
+                        "description": "stage ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "group",
+                        "in": "path",
+                        "description": "group ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/stages/{stage}/groups/{group}/teams": {
+            "post": {
+                "tags": [
+                    "groups"
+                ],
+                "description": "Add Teams to a group",
+                "operationId": "addGroupTeams",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stage",
+                        "in": "path",
+                        "description": "stage ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "group",
+                        "in": "path",
+                        "description": "group ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/groupTeam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "SUCCESSFULLY CREATED"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/stages/{stage}/groups/{group}/delete": {
+            "delete": {
+                "tags": [
+                    "groups"
+                ],
+                "description": "Delete group",
+                "operationId": "deleteGroups",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stage",
+                        "in": "path",
+                        "description": "stage ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "group",
+                        "in": "path",
+                        "description": "group ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "SUCCESSFULLY Deleted"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/matches": {
+            "get": {
+                "tags": [
+                    "matches"
+                ],
+                "description": "get all matches is season",
+                "operationId": "AllSeasonMatches",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "matches"
+                ],
+                "description": "Add Match in season",
+                "operationId": "AddSeasonMatches",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/match"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "SUCCESSFULLY Created"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
         "/api/Players/All-Players": {
             "get": {
                 "tags": [
@@ -1219,6 +1498,70 @@
                 "Continent_id": {
                     "type": "integer",
                     "example": "1"
+                }
+            }
+        },
+        "group": {
+            "properties": {
+                "groups_number": {
+                    "type": "string",
+                    "example": 2
+                },
+                "teams_number": {
+                    "type": "string",
+                    "example": 4
+                },
+                "home_away": {
+                    "type": "boolean",
+                    "example": "true/false"
+                }
+            }
+        },
+        "groupTeam": {
+            "properties": {
+                "team_id": {
+                    "type": "string",
+                    "example": 1
+                }
+            }
+        },
+        "match": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "Egypt"
+                },
+                "date": {
+                    "type": "date",
+                    "example": "13-12-2017"
+                },
+                "time": {
+                    "type": "time",
+                    "example": "16:30:00"
+                },
+                "stage_id": {
+                    "type": "integer",
+                    "example": "1"
+                },
+                "group_round_id": {
+                    "type": "integer",
+                    "example": "1 (required only in group stage)"
+                },
+                "group_id": {
+                    "type": "integer",
+                    "example": "1 (required only in group stage)"
+                },
+                "register_team_1_id": {
+                    "type": "integer",
+                    "example": "1"
+                },
+                "register_team_2_id": {
+                    "type": "integer",
+                    "example": "1"
+                },
+                "stadium": {
+                    "type": "string",
+                    "example": "Cairo stadium"
                 }
             }
         },

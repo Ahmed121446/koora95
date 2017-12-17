@@ -15,7 +15,39 @@ class GroupController extends Controller
 {
 
     // Get All Groups
-    public function findAllGroups(Stage $stage){
+    /**
+     * @SWG\Get(
+     *     path="/api/Seasons/{season}/stages/{stage}/groups",
+     *     description = "get all groups",
+     *     produces={"application/json"},
+     *     operationId="AllGroups",
+     *     tags={"groups"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Season ID",
+     *      ),
+     *      @SWG\Parameter(
+     *          name="stage",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="stage ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
+    public function findAllGroups(Season $season, Stage $stage){
+        $stage = $season->stages()->find($stage->id);
         $groups = $stage->groups;
         if (!$groups->first()) {
             return response()->json([
@@ -30,8 +62,48 @@ class GroupController extends Controller
 
 
     // Retrieve Specific Group
-    public function findOne(Stage $stage , Group $group){
-        $group = $stage->groups()->find($group);
+
+    /**
+     * @SWG\Get(
+     *     path="/api/Seasons/{season}/stages/{stage}/groups/{group}",
+     *     description = "get single group",
+     *     produces={"application/json"},
+     *     operationId="findGroup",
+     *     tags={"groups"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Season ID",
+     *      ),
+     *      @SWG\Parameter(
+     *          name="stage",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="stage ID",
+     *      ),
+     *      @SWG\Parameter(
+     *          name="group",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="group ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
+    public function findOne(Season $season, Stage $stage , Group $group){
+        $stage = $season->stages()->find($stage->id);
+        $group = $stage->groups()->find($group->id);
         
         if(!$group){
             return response()->json([
@@ -40,16 +112,53 @@ class GroupController extends Controller
 
         return response()->json([
             'Message' => 'This Season have this group',
-            'Groups information' => $Find_Group
+            'Groups information' => $group
         ],200);
     }
 
 
     // Create Stage Groups 
+     /**  @SWG\Post(
+     *     path="/api/Seasons/{season}/stages/{stage}/groups",
+     *     description = "create groups",
+     *     produces={"application/json"},
+     *     operationId="addGroup",
+     *     tags={"groups"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="stage",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="stage ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          required=true,
+     *          schema={"$ref":"#/definitions/group"},
+     *      ),
+     *      @SWG\Response(
+     *         response = 201,
+     *         description = "SUCCESSFULLY CREATED"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
     public function createGroups(Season $season, Stage $stage, GroupRequest $request)
     {
-        $competition = $season->competition;
-
+        $competition = \App\Competition::find($season->comp_id);
+        
         $stage = $season->stages()->find($stage->id);
 
         if(Group::where('stage_id', $stage->id)->first()){
@@ -58,12 +167,58 @@ class GroupController extends Controller
 
         $response = $request->create_groups($competition, $stage);
 
-        return $response
+        return $response;
     }
 
 
+
+
     // Add Teams To a Group
-    public function AddTeams(Season $season, Group $group, GroupRepositorty $groupRepo)
+     /**  @SWG\Post(
+     *     path="/api/Seasons/{season}/stages/{stage}/groups/{group}/teams",
+     *     description = "Add Teams to a group",
+     *     produces={"application/json"},
+     *     operationId="addGroupTeams",
+     *     tags={"groups"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="stage",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="stage ID",
+     *      ),
+     *      @SWG\Parameter(
+     *          name="group",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="group ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          required=true,
+     *          schema={"$ref":"#/definitions/groupTeam"},
+     *      ),
+     *      @SWG\Response(
+     *         response = 201,
+     *         description = "SUCCESSFULLY CREATED"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
+    public function AddTeams(Season $season, Stage $stage, Group $group, GroupRepositorty $groupRepo)
     {
         $this->validate(request(), [
             'team_id' => [
@@ -75,7 +230,6 @@ class GroupController extends Controller
        
         $response = $groupRepo->addGroupTeams($group, Request('team_id'));
 
-
         return $response;
 
     }
@@ -83,14 +237,54 @@ class GroupController extends Controller
 
 
     //Delete Group
-    public function delete(Season $season, $group){
-        $group_in_season = $season->groups()->where('name',$group)->first();
-        if (!$group_in_season) {
+
+     /**  @SWG\Delete(
+     *     path="/api/Seasons/{season}/stages/{stage}/groups/{group}/delete",
+     *     description = "Delete group",
+     *     produces={"application/json"},
+     *     operationId="deleteGroups",
+     *     tags={"groups"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="stage",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="stage ID",
+     *      ),
+     *      @SWG\Parameter(
+     *          name="group",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="group ID",
+     *      ),
+     *      @SWG\Response(
+     *         response = 204,
+     *         description = "SUCCESSFULLY Deleted"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
+    public function delete(Season $season, Stage $stage, Group $group){
+        $stage = $season->stages()->find($stage->id);
+        $group = $stage->groups()->find($group->id);
+        if (!$group) {
             return response()->json([
                 'Message' => 'this group is not exist'
             ], 404);
         }
-        if (!$group_in_season->delete()) {
+        if (!$group->delete()) {
             return response()->json([
                 'Message' => 'this group can not be deleted X-X'
             ], 402);

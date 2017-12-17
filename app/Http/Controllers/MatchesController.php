@@ -18,6 +18,29 @@ use App\RegisteredTeam;
 class MatchesController extends Controller
 {
     // Return All Season Matches
+     /**   @SWG\Get(
+     *     path="/api/Seasons/{season}/Event/matches",
+     *     description = "get all matches is season",
+     *     produces={"application/json"},
+     *     operationId="AllSeasonMatches",
+     *     tags={"matches"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Season ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function getSeasonMatches(Season $season)
     {
     	if(!$season->id){
@@ -32,6 +55,35 @@ class MatchesController extends Controller
 
 
     // Add Match to The Season
+    /**   @SWG\Post(
+     *     path="/api/Seasons/{season}/Event/matches",
+     *     description = "Add Match in season",
+     *     produces={"application/json"},
+     *     operationId="AddSeasonMatches",
+     *     tags={"matches"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="integer",
+     *          description="Season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          required=true,
+     *          schema={"$ref":"#/definitions/match"},
+     *      ),
+     *     @SWG\Response(
+     *         response = 201,
+     *         description = "SUCCESSFULLY Created"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function addMatch(Season $season, MatchRequest $request)
     {
     	if(!$season->active){
@@ -201,6 +253,7 @@ class MatchesController extends Controller
                 'data' => MatchResource::collection($matches)
             ],200);
     }
+
 
     public function Matches_InProgressed_state(Season $season)
     {

@@ -4,6 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @SWG\Definition(
+ *      definition = "groupTeam",
+ *      @SWG\Property(
+ *          property="team_id",
+ *          type="string",
+ *          example=1
+ *      ),
+ * )
+ */
 class GroupTeams extends BaseModel
 {
     public function group()
