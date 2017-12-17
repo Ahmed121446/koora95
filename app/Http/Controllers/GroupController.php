@@ -40,10 +40,17 @@ class GroupController extends Controller
 
 
     // Create Stage Groups 
-    public function createGroups(Season $season, Stage $stage, GroupRequest $request){
+    public function createGroups(Season $season, Stage $stage, GroupRequest $request)
+    {
+        $competition = $season->competition;
+
         $stage = $season->stages()->find($stage->id);
 
-        $groups = $request->create_groups($stage);
+        if(Group::where('stage_id', $stage->id)->first()){
+            return response()->json(['Message' => 'Groups Are already created'], 400);
+        }
+
+        $groups = $request->create_groups($competition, $stage);
 
         return response()->json([
                 'Message' => 'Groups are created successfully',
@@ -56,7 +63,7 @@ class GroupController extends Controller
     public function AddTeams(Season $season, Group $group, GroupRepositorty $groupRepo)
     {
         $this->validate(request(), [
-            'team_id' => 'required|exists:registered_teams,NULL,season_id,' . $season->id
+            'team_id' => 'required|exists:registered_teams,NULL,season_id,'. $season->id
         ]);
 
         $team = $groupRepo->addGroupTeams($group, Request('team_id'));
@@ -64,6 +71,7 @@ class GroupController extends Controller
         return response()->json(['data' => $team], 201);
 
     }
+
 
 
     //Delete Group
@@ -83,5 +91,6 @@ class GroupController extends Controller
             'Message' => 'group deleted successfully'
         ], 204);
     }
+
 
 }

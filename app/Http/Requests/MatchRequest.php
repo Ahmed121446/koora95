@@ -6,6 +6,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Season;
 use App\Match;
+use App\Stage;
 
 class MatchRequest extends FormRequest
 {
@@ -49,14 +50,24 @@ class MatchRequest extends FormRequest
 
     public function add(Season $season)
     {
+        $group_round = NULL;
+
+        $stage = Stage::find($this->get('stage_id'));
+
+        if($this->get('group_round_id') && $stage->has_groups()){ 
+            $group_round = $this->get('group_round_id');
+            $group_id = $this->get('group_id');
+        }
+        
         $match =  new Match([
             'date'  => $this->get('date'),
             'time' => $this->get('time'),
             'stage_id' => $this->get('stage_id'),
+            'group_round_id' => $group_round,
             'register_team_1_id' => $this->get('team_1_id'),
             'register_team_2_id' => $this->get('team_2_id'),
             'stadium' => $this->get('stadium'),
-            'status' => "Not Player Yet",
+            'status' => "Not Played Yet",
             'team_1_goals' => 0,
             'team_2_goals' => 0,
             'winner_id' => 0,

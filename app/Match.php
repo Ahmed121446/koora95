@@ -6,15 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Match extends BaseModel
 {
-    // public function stage()
-    // {
-    // 	return $this->morphTo();
-    // }
-
     public function stage()
     {
     	return $this->belongsTo(Stage::class);
     }
+
 
     public function season()
     {
@@ -38,8 +34,9 @@ class Match extends BaseModel
 
     public function register_team_2()
     {
-         return $this->belongsTo(RegisteredTeam::class,'register_team_2_id');
+        return $this->belongsTo(RegisteredTeam::class,'register_team_2_id');
     }
+    
     //team2
     public function getTeam2Attribute()
     {
@@ -51,9 +48,9 @@ class Match extends BaseModel
 
     }
 
-      public function register_team_winner()
+    public function register_team_winner()
     {
-         return $this->belongsTo(RegisteredTeam::class,'winner_id');
+        return $this->belongsTo(RegisteredTeam::class,'winner_id');
     }
     //winner
     public function getWinnerAttribute()
@@ -64,28 +61,29 @@ class Match extends BaseModel
     }
 
     //calculate for match controller 
-    public function match_winner($team_1_goals ,$team_2_goals, $is_cup){
-        $first_team  = RegisteredTeam::find($this->register_team_1_id);
-        $second_team = RegisteredTeam::find($this->register_team_2_id);
-
+    public function match_winner($team_1_goals ,$team_2_goals, $is_cup)
+    {
+        
         if ($team_1_goals > $team_2_goals) {
-           $this->set_winner($first_team, $second_team, $is_cup);
+
+            $this->winner_id = $this->register_team_1_id;
         }
         else if($team_1_goals < $team_2_goals){        
-            $this->set_winner($second_team, $first_team, $is_cup);
-        }else if(!$is_cup){
-            $this->set_draw($first_team, $second_team);
+            $this->winner_id = $this->register_team_2_id;
+        }else if(!$is_cup || $this->group_round_id){
+            $this->winner_id = 0;
         }
 
-        $first_team->save();
-        $second_team->save();
     }
 
 
     public function set_winner($winner, $loser, $is_cup)
     {
-        $this->winner_id = $winner->id;
-        if(!$is_cup){
+        $winner->played += 1;
+        $loser->played += 1;
+        
+        // calculate Points
+        if(!$is_cup || $this->group_round_id){
             $winner->points += 3;
         }
         $winner->wins += 1;
@@ -95,15 +93,14 @@ class Match extends BaseModel
 
     public function set_draw($first_team, $second_team)
     {
-        $first_team->draws += 1;
-        $second_team->draws += 1;
-    }
-
-
-    public function match_played($first_team,$second_team){
-        $this->is_played = true;
         $first_team->played += 1;
         $second_team->played += 1;
+
+        $first_team->draws += 1;
+        $second_team->draws += 1;
+    
+        $first_team->points += 1;
+        $second_team->points += 1;
     }
 
 
