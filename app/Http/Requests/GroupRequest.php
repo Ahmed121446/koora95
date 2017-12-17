@@ -26,6 +26,7 @@ class GroupRequest extends FormRequest
      */
     public function rules()
     {
+        dd($this->url());
         return [
             'groups_number' => 'required|numeric',
             'teams_number' => 'required|numeric',

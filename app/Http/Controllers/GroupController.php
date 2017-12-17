@@ -63,12 +63,17 @@ class GroupController extends Controller
     public function AddTeams(Season $season, Group $group, GroupRepositorty $groupRepo)
     {
         $this->validate(request(), [
-            'team_id' => 'required|exists:registered_teams,NULL,season_id,'. $season->id
+            'team_id' => [
+                'required',
+                'exists:registered_teams,id,season_id,'. $season->id,
+                'unique:group_teams,register_team_id,NULL,NULL,group_id,'. $group->id
+            ]
         ]);
+       
+        $response = $groupRepo->addGroupTeams($group, Request('team_id'));
 
-        $team = $groupRepo->addGroupTeams($group, Request('team_id'));
 
-        return response()->json(['data' => $team], 201);
+        return $response;
 
     }
 

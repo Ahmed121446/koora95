@@ -42,7 +42,16 @@ class MatchRequest extends FormRequest
                     'different:team_1_id',
                     'exists:registered_teams,id,season_id,'. $this->season->id
                 ],
-                'stadium' => 'required|min:2|max:25',        
+                'stadium' => 'required|min:2|max:25',
+                'group_round_id' => [
+                    'required_with:group_id',
+                    'exists:group_rounds,id,stage_id,'. $this->get('stage_id')
+                ],
+                'group_id' => [
+                    'required_with:group_round_id',
+                    'exists:groups,id,stage_id,'. $this->get('stage_id')
+                ],
+
         ];
         
     }
