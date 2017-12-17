@@ -6,7 +6,25 @@ use Illuminate\Http\Request;
 use App\continent;
 use App\Http\Resources\ContinentResource ;
 class ContinentController extends Controller
-{
+{   
+    //Get All continents swagger
+    /**
+     * @SWG\Get(
+     *     path="/api/Continent/All-Continent",
+     *     description = "get all Continents",
+     *     produces={"application/json"},
+     *     operationId="GET_ALL_Continents",
+     *     tags={"Continent"},
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function Get_All_Continents(){
     	//get all continent form the DB and featch them all
     	$Continents = continent::all();
@@ -24,7 +42,31 @@ class ContinentController extends Controller
     	],200);
     }
 
-
+    //Get All continents swagger
+    /**
+     * @SWG\Get(
+     *     path="/api/Continent/{id}",
+     *     description = "get Continent with it's id",
+     *     produces={"application/json"},
+     *     operationId="GET_Continent",
+     *     tags={"Continent"},
+     *     @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="Continent ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function Get_Continent($id){
     	//featch Continent by its id 
     	//which is taken from the url Continent/{id}

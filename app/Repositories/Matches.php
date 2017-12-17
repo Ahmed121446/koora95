@@ -23,7 +23,9 @@ class Matches
 
                 // set the Winner 
                 $first_team_goals = Request('first_team_goals');
+
                 $second_team_goals = Request('second_team_goals');
+
                 $match->match_winner($first_team_goals, $second_team_goals, $is_cup);
 
                 // store Match Goals And cards
@@ -99,11 +101,13 @@ class Matches
 
                          case $first_team->id : {
                                 $winner = $second_team;
+
                                 $loser = $first_team;
                         }
                                 break;
                         
                          case 0 : {
+
                                 $match->set_draw($first_team, $second_team);
                         }
                                 break;

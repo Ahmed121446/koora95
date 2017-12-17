@@ -9,6 +9,25 @@ use App\Http\Resources\CountryResource;
 
 class CountryController extends Controller
 {
+
+	//Get All Countries swagger
+    /**
+     * @SWG\Get(
+     *     path="/api/Country/All-countries",
+     *     description = "get all Countries",
+     *     produces={"application/json"},
+     *     operationId="GET_ALL_Countries",
+     *     tags={"Country"},
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
 	public function Get_All_Countries(){
 		//get all Countries form the DB and featch them all
 		$Countries = Country::all();
@@ -26,6 +45,33 @@ class CountryController extends Controller
 		],200);
 	}
 
+
+
+	//Get Country swagger
+    /**
+     * @SWG\Get(
+     *     path="/api/Country/{id}",
+     *     description = "get Country with it's id",
+     *     produces={"application/json"},
+     *     operationId="GET_Country",
+     *     tags={"Country"},
+     *     @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="Country ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
 	public function Get_Country($id){
 		//featch Country by its id 
     	//which is taken from the url Country/{id}
@@ -44,11 +90,39 @@ class CountryController extends Controller
 		],200);
 	}
 
+
+
 	public function Get_Country_Create_View(){
 		//get create view
 		return view('country.create');
 	}
 
+	//create Country
+	/**
+     *   @SWG\Post(
+     *     path="/api/Country/Create",
+     *     description = "post Create Country form ",
+     *     produces={"application/json"},
+     *     operationId="POST_Create_Country",
+     *     tags={"Country"},
+     *
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          schema={"$ref": "#/definitions/country_creation"},
+     *          required=true
+     *      ),
+     *      @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
 	public function Create_Country(CreateCountryRequest $request){
 		$name = $request->input('name');
 		$Continent_id = $request->input('Continent_id');
@@ -82,7 +156,39 @@ class CountryController extends Controller
 		return view('country.update',compact('Country_data'));
 	}
 	
-	
+	// put update Country  swagger
+    /**
+     *   @SWG\Put(
+     *     path="/api/Country/Update/{id}",
+     *     description = "put request for update country name",
+     *     produces={"application/json"},
+     *     operationId="PUT_UPDATE_Country_name",
+     *     tags={"Country"},
+     *
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="UUID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          schema={"$ref": "#/definitions/country_creation"},
+     *          required=true
+     *      ),
+     *      @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
 	public function Update_Country(CreateCountryRequest $request , $id){
 		$Country = Country::find($id);
 		if (!$Country) {
@@ -106,7 +212,32 @@ class CountryController extends Controller
 		],200); 
 	}
 	
-
+	//delete country swagger
+	/**
+     *  @SWG\Delete(
+     *      path="/api/Country/{id}",
+     *      tags={"Country"},
+     *      operationId="deleteCountry",
+     *      summary="Remove Country from database",
+     *      
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="Item ID",
+     *      ),    
+     *      @SWG\Response(
+     *          response = 200,
+     *          description="success",
+     *      ),
+     *      @SWG\Response(
+     *          response = 401,
+     *          description="error",
+     *      )
+     *  )
+     *
+     */
 	public function destroy($id){
 		$Country = Country::find($id);
 

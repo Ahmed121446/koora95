@@ -65,6 +65,7 @@ class Match extends BaseModel
     {
         
         if ($team_1_goals > $team_2_goals) {
+
             $this->winner_id = $this->register_team_1_id;
         }
         else if($team_1_goals < $team_2_goals){        
