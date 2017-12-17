@@ -23,10 +23,10 @@ class PlayerResource extends Resource
             'Player position' =>$this->position,
             'player team' =>[
                 //return player team name from Team()->function in player model
-                'team name' => $this->Team->name,
+                'team name' =>optional($this->team)->name,
                 //return player team country name from Team()->function in player model
                 //and from country()->function in team model
-                'team country' => $this->Team->country->name
+                'team country' =>optional($this->team)->country->name
             ],
             'player country' =>[
                 //return player country name from country()->function in player model

@@ -11,6 +11,24 @@ use App\Http\Resources\PlayerResource;
 
 class PlayersController extends Controller
 {
+	//get all players
+    /**
+     * @SWG\Get(
+     *     path="/api/Players/All-Players",
+     *     description = "get all Players",
+     *     produces={"application/json"},
+     *     operationId="GET_ALL_Teams",
+     *     tags={"Player"},
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function Get_All_Players(){
     	$players = player::all();
 
@@ -23,8 +41,34 @@ class PlayersController extends Controller
     	return response()->json([
     			'Message' => 'Found Players',
     			'players data and information' => PlayerResource::collection($players)
-    	],404);
+    	],200);
     }
+
+    //Get player swagger
+    /**
+     * @SWG\Get(
+     *     path="/api/Players/{id}",
+     *     description = "get Players with it's id",
+     *     produces={"application/json"},
+     *     operationId="GET_Player",
+     *     tags={"Player"},
+     *     @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="Player ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function Get_Player($id){
     	$player = player::find($id);
 
@@ -37,7 +81,7 @@ class PlayersController extends Controller
     	return response()->json([
     			'Message' => 'Found player',
     			'player data and information' =>new PlayerResource( $player)
-    	],404);
+    	],200);
     }
     public function Get_Player_Create_View(){
     	//get player create.blade.php
@@ -56,6 +100,34 @@ class PlayersController extends Controller
 		} 
 		return view('player.update',compact('player'));
 	}
+
+
+    //create player
+    /**
+     *   @SWG\Post(
+     *     path="/api/Players/Create",
+     *     description = "post Create Player form ",
+     *     produces={"application/json"},
+     *     operationId="POST_Create_Player",
+     *     tags={"Player"},
+     *
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          schema={"$ref": "#/definitions/player_creation"},
+     *          required=true
+     *      ),
+     *      @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
 	public function Create_Player(CreatePlayerRequest $request){
 
 		$name = $request->input('name');
@@ -83,7 +155,39 @@ class PlayersController extends Controller
 		],200);
 	}
 
-
+    // put update player  swagger
+    /**
+     *   @SWG\Put(
+     *     path="/api/Players/Update/{id}",
+     *     description = "put request for update Player name",
+     *     produces={"application/json"},
+     *     operationId="PUT_UPDATE_Player_name",
+     *     tags={"Player"},
+     *
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="UUID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          schema={"$ref": "#/definitions/player_creation"},
+     *          required=true
+     *      ),
+     *      @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
 	public function Update_Player(Request $request , $id){
 		$player = player::find($id);
 		if (!$player) {
@@ -107,6 +211,33 @@ class PlayersController extends Controller
 		],200); 
 	}
 
+
+    //delete player swagger
+    /**
+     *  @SWG\Delete(
+     *      path="/api/Players/{id}",
+     *      tags={"Player"},
+     *      operationId="deleteplayer",
+     *      summary="Remove player from database",
+     *      
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="player ID",
+     *      ),    
+     *      @SWG\Response(
+     *          response = 200,
+     *          description="success",
+     *      ),
+     *      @SWG\Response(
+     *          response = 401,
+     *          description="error",
+     *      )
+     *  )
+     *
+     */
 	public function destroy($id){
 		$player = player::find($id);
 

@@ -75,6 +75,7 @@ class TeamRequests extends FormRequest
         $Team->stadium      = $stadium;
         $Team->country_id   = $country_id;
 
-        $Team->save()
+        $Team->save();
+        return $Team;
     }      
 }
