@@ -54,8 +54,8 @@ class MatchRequest extends FormRequest
 
         $stage = Stage::find($this->get('stage_id'));
 
-        if($this->get('ground_round_id') && $stage->has_groups()){ 
-            $group_round = $this->get('ground_round_id');
+        if($this->get('group_round_id') && $stage->has_groups()){ 
+            $group_round = $this->get('group_round_id');
         }
         
         $match =  new Match([

@@ -17,7 +17,9 @@ class MatchResource extends Resource
         //make the shape of the match data  that will be returned
         //json shape
         return [
+            'Match id' => $this->id,
             //return season name from season()->function in match model
+
             'season' => $this->season->name,
             'stage' => [
                             //return stage id  from stage()->function in match model
@@ -43,6 +45,8 @@ class MatchResource extends Resource
             'match date' => $this->date,
             //return match time  
             'match time' => $this->time,
+
+            'status' => $this->status,
             //return match stadium 
             'match stadium' =>$this->stadium,
             'winner of the match ' =>[
@@ -57,6 +61,7 @@ class MatchResource extends Resource
             'number of yellow cards in match' =>$this->yellow_cards,
             //return match red cards  
             'number of red cards in match' =>$this->red_cards,
+
         ];
     }
 }

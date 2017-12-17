@@ -65,10 +65,10 @@ class Match extends BaseModel
     {
         
         if ($team_1_goals > $team_2_goals) {
-            $this->winner_id = $first_team
+            $this->winner_id = $this->register_team_1_id;
         }
         else if($team_1_goals < $team_2_goals){        
-            $this->winner_id = $second_team
+            $this->winner_id = $this->register_team_2_id;
         }else if(!$is_cup || $this->group_round_id){
             $this->winner_id = 0;
         }

@@ -63,7 +63,7 @@ class GroupController extends Controller
     public function AddTeams(Season $season, Group $group, GroupRepositorty $groupRepo)
     {
         $this->validate(request(), [
-            'team_id' => 'required|exists:registered_teams,NULL,season_id,' . $season->id
+            'team_id' => 'required|exists:registered_teams,NULL,season_id,'. $season->id
         ]);
 
         $team = $groupRepo->addGroupTeams($group, Request('team_id'));
@@ -71,6 +71,7 @@ class GroupController extends Controller
         return response()->json(['data' => $team], 201);
 
     }
+
 
 
     //Delete Group
