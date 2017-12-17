@@ -4,6 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use App\Season;
+use App\RegisteredTeam;
+use App\RegisteredPlayer;
+
 class AddRegisteredPlayerRequest extends FormRequest
 {
     /**
@@ -30,8 +34,11 @@ class AddRegisteredPlayerRequest extends FormRequest
             case 'POST':
             {
                 return [
-                   'registered_team_id' => 'required|numeric',
-                    'player_id' => 'required|numeric'
+                    'player_id' => [
+                        'required',
+                        'numeric',
+                        'unique:registered_players,player_id,NULL,NULL,registered_team_id,' . $this->team->id
+                    ]
                 ];
             }
             case 'PUT':
@@ -49,6 +56,27 @@ class AddRegisteredPlayerRequest extends FormRequest
             }
             default: return [];
         }
-    }      
+    }     
+
+
+
+    public function addPlayer(Season $season, RegisteredTeam $team)
+     {
+
+        $player_id = $this->get('player_id');
+
+        $registered_player = new RegisteredPlayer();
+        $registered_player->player_id = $player_id;
+        $registered_player->played = 0;
+        $registered_player->goals = 0;
+        $registered_player->assists = 0;
+        $registered_player->red_cards = 0;
+        $registered_player->yellow_cards = 0;
+
+        $team = $season->registeredTeams()->find($team)->first();
+        $player = $team->registeredPlayers()->save($registered_player);
+
+        return $player;
+     } 
     
 }
