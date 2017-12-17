@@ -4,6 +4,24 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+//for country properties
+/**
+ * @SWG\Definition(
+ *      definition = "country_creation",
+ *      @SWG\Property(
+ *          property="name",
+ *          type="string",
+ *          example="Egypt"
+ *      ),
+ *     @SWG\Property(
+ *          property="Continent_id",
+ *          type="integer",
+ *          example="1"
+ *      ) 
+ * )
+
+ */
+
 class Country extends BaseModel
 {
 	public function continent()

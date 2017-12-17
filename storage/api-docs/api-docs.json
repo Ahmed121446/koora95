@@ -1,0 +1,237 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "koora API",
+        "contact": {
+            "name": "Ahmed Magdy and abouzaid",
+            "url": "https://www.google.com"
+        },
+        "version": "1.0"
+    },
+    "basePath": "",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/api/Continent/All-Continent": {
+            "get": {
+                "tags": [
+                    "Continent"
+                ],
+                "description": "get all Continents",
+                "operationId": "GET_ALL_Continents",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Continent/{id}": {
+            "get": {
+                "tags": [
+                    "Continent"
+                ],
+                "description": "get Continent with it's id",
+                "operationId": "GET_Continent",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Continent ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Country/All-countries": {
+            "get": {
+                "tags": [
+                    "Country"
+                ],
+                "description": "get all Countries",
+                "operationId": "GET_ALL_Countries",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Country/{id}": {
+            "get": {
+                "tags": [
+                    "Country"
+                ],
+                "description": "get Country with it's id",
+                "operationId": "GET_Country",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Country ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Country"
+                ],
+                "summary": "Remove Country from database",
+                "operationId": "deleteCountry",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Item ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "401": {
+                        "description": "error"
+                    }
+                }
+            }
+        },
+        "/api/Country/Create": {
+            "post": {
+                "tags": [
+                    "Country"
+                ],
+                "description": "post Create Country form ",
+                "operationId": "POST_Create_Country",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/country_creation"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Country/Update/{id}": {
+            "put": {
+                "tags": [
+                    "Country"
+                ],
+                "description": "put request for update country name",
+                "operationId": "PUT_UPDATE_Country_name",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "UUID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/country_creation"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Error": {
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "code": {
+                    "description": "Class Controller",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "description": "Class Controller",
+                    "type": "string"
+                }
+            }
+        },
+        "country_creation": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "Egypt"
+                },
+                "Continent_id": {
+                    "type": "integer",
+                    "example": "1"
+                }
+            }
+        }
+    }
+}
