@@ -352,6 +352,7 @@
                 ],
                 "description": "get all groups",
                 "operationId": "AllGroups",
+
                 "produces": [
                     "application/json"
                 ],
@@ -369,6 +370,7 @@
                         "description": "stage ID",
                         "required": true,
                         "type": "integer"
+
                     }
                 ],
                 "responses": {
@@ -410,6 +412,7 @@
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/group"
+
                         }
                     }
                 ],
@@ -577,6 +580,7 @@
                         "description": "Season ID",
                         "required": true,
                         "type": "integer"
+
                     }
                 ],
                 "responses": {
@@ -594,6 +598,7 @@
                 ],
                 "description": "Add Match in season",
                 "operationId": "AddSeasonMatches",
+
                 "produces": [
                     "application/json"
                 ],
