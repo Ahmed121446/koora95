@@ -17,7 +17,33 @@ use App\RegisteredTeam;
 
 class MatchesController extends Controller
 {
-    // Return All Season Matches
+
+    //get all matches in specific season swagger
+    /**
+     * @SWG\Get(
+     *     path="/api/Seasons/{season}/Event/matches",
+     *     description = "get all matches in specific season",
+     *     produces={"application/json"},
+     *     operationId="GET_ALL_matches",
+     *     tags={"Match"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="season ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
+    
     public function getSeasonMatches(Season $season)
     {
     	if(!$season->id){
@@ -30,8 +56,38 @@ class MatchesController extends Controller
         ], 200);
     }
 
-
-    // Add Match to The Season
+    //create new match
+    /**
+     *   @SWG\Post(
+     *     path="/api/Seasons/{season}/Event/matches",
+     *     description = "post Create matche form ",
+     *     produces={"application/json"},
+     *     operationId="POST_Create_matches",
+     *     tags={"Match"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          schema={"$ref": "#/definitions/match_creation"},
+     *          required=true
+     *      ),
+     *      @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
     public function addMatch(Season $season, MatchRequest $request)
     {
     	if(!$season->active){
@@ -44,7 +100,45 @@ class MatchesController extends Controller
     }
 
 
-
+    //update match
+    /**
+     *   @SWG\Put(
+     *     path="/api/Seasons/{season}/Event/update-match/{match}",
+     *     description = "put update matche ",
+     *     produces={"application/json"},
+     *     operationId="Put_Update_matche",
+     *     tags={"Match"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="match",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="match ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          schema={"$ref": "#/definitions/match_update"},
+     *          required=true
+     *      ),
+     *      @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
     public function update(Request $request, Season $season, Match $match)
     {
         
@@ -68,7 +162,39 @@ class MatchesController extends Controller
     }
 
 
-
+    //delete match  swagger
+    /**
+     *  @SWG\Delete(
+     *      path="/api/Seasons/{season}/Event/delete-match/{match}",
+     *      tags={"Match"},
+     *      operationId="deleteMatch",
+     *      summary="Remove Match from database",
+     *      
+     *      @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="season ID",
+     *      ),   
+     *      @SWG\Parameter(
+     *          name="match",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="match ID",
+     *      ),   
+     *      @SWG\Response(
+     *          response = 200,
+     *          description="success",
+     *      ),
+     *      @SWG\Response(
+     *          response = 401,
+     *          description="error",
+     *      )
+     *  )
+     *
+     */
     public function delete(Season $season,Match $match)
     {
     	$match = $season->matches()->find($match->id);
@@ -79,11 +205,42 @@ class MatchesController extends Controller
     	}
     	return response()->json([
     			'Message'=>'match deleted successfully '
-    	],204);
+    	],200);
     }
 
 
-
+    //get all matches in specific season swagger
+    /**
+     * @SWG\Get(
+     *     path="/api/Seasons/{season}/Event/matches/stage/{stage_id}",
+     *     description = "get all matches in specific season in specific stage",
+     *     produces={"application/json"},
+     *     operationId="GET_ALL_matches_stage",
+     *     tags={"Match"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="stage_id",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="stage ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function findByStage(Season $season, $stage_id)
     {
     	$stage = $season->stages()->find($stage_id);
@@ -95,29 +252,95 @@ class MatchesController extends Controller
     	$matches = $stage->matches;
     	return response()->json([
             'data' => MatchResource::collection($matches)
-        ],201);
+        ],200);
     }
 
 
-
-    public function findInGroupStage(Season $season, $stage_id, $round_number)
+    /**
+     * @SWG\Get(
+     *     path="/api/Seasons/{season}/Event/matches/stage/{stage_id}/round/{group_round_id}",
+     *     description = "get all matches in group stage with a given round",
+     *     produces={"application/json"},
+     *     operationId="GET_Group_matches_stage",
+     *     tags={"Match"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="stage_id",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="stage ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="group_round_id",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="round ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
+    public function findInGroupStage(Season $season, $stage_id, $group_round_id)
     {
         $stage = $season->stages()->find($stage_id);
-        $groups = $stage->groups; 
-        
-        if(!$groups->first()){
-            return response()->json(['message' => 'There is no Groups'], 404);
+        if(!$stage){
+            return response()->json([
+                'message' => 'stage not found'
+            ],404);
         }
-        
-        
-        $matches = $round->matches;
+        $matches = $stage->matches()->where('group_round_id', $group_round_id)->get();
         return response()->json([
             'data' => MatchResource::collection($matches)
-        ],201);
+        ],200);
     }
 
 
-
+    //get all matches in specific season in specific date swagger
+    /**
+     * @SWG\Get(
+     *     path="/api/Seasons/{season}/Event/matches/{date}",
+     *     description = "get all matches in specific season in specific date",
+     *     produces={"application/json"},
+     *     operationId="GET_ALL_matches_by_date",
+     *     tags={"Match"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="date",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="date",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     // Find matches in Specific Date through a season
     public function Find_Date(Season $season,$date)
     {
@@ -134,7 +357,38 @@ class MatchesController extends Controller
             ],200); 
     }
 
-
+    //get all matches of specific team  swagger
+    /**
+     * @SWG\Get(
+     *     path="/api/Seasons/{season}/Event/{team}/matches",
+     *     description = "get all matches for specific team in specific season",
+     *     produces={"application/json"},
+     *     operationId="GET_ALL_matches_for_team",
+     *     tags={"Match"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="team",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="RegisteredTeam id",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     // Find all Matches of a single team in a specific season
     public function Find_Team_Matches(Season $season,RegisteredTeam $team)
     {
@@ -166,6 +420,30 @@ class MatchesController extends Controller
 
 
     // All matches in a given date through all competitions
+    /**
+     * @SWG\Get(
+     *     path="/api/matches/{date}",
+     *     description = "get all matches in specific date",
+     *     produces={"application/json"},
+     *     operationId="GET_ALL_matches_by_date",
+     *     tags={"Match"},
+     *     @SWG\Parameter(
+     *          name="date",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="date",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function findAllByDate($date)
     {
     	$matches = Match::where('date',$date)->get();
@@ -182,7 +460,24 @@ class MatchesController extends Controller
     }
 
 
-
+    //get all matches today swagger
+    /**
+     * @SWG\Get(
+     *     path="/api/matches/today",
+     *     description = "get all todays matches ",
+     *     produces={"application/json"},
+     *     operationId="GET_ALL_matches_today",
+     *     tags={"Match"},
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function todayMatches()
     {
     	$today = Carbon::now();
@@ -202,6 +497,32 @@ class MatchesController extends Controller
             ],200);
     }
 
+
+    //get all matches inProgressed swagger
+    /**
+     * @SWG\Get(
+     *     path="/api/Seasons/{season}/Event/matches/InProgress",
+     *     description = "get all matches inProgressed for specific season",
+     *     produces={"application/json"},
+     *     operationId="GET_ALL_matches_inProgressed",
+     *     tags={"Match"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="season ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function Matches_InProgressed_state(Season $season)
     {
         if (!$season->active) {
@@ -222,6 +543,49 @@ class MatchesController extends Controller
 
 
 
+
+
+
+
+    //confirm match Result
+    /**
+     *   @SWG\Post(
+     *     path="/api/Seasons/{season}/Event/matches/{match}/confirm",
+     *     description = "post confirm matche Result ",
+     *     produces={"application/json"},
+     *     operationId="POST_confirm_matche",
+     *     tags={"Match"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="match",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="match ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          schema={"$ref": "#/definitions/match_confirm"},
+     *          required=true
+     *      ),
+     *      @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
     public function confirmResult(Season $season, Match $match, MatchesRepo $matchRepo)
     {
 

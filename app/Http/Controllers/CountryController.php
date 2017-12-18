@@ -74,7 +74,7 @@ class CountryController extends Controller
      */
 	public function Get_Country($id){
 		//featch Country by its id 
-    	//which is taken from the url Country/{id}
+    	     //which is taken from the url Country/{id}
 		$Country = Country::find($id);
 		//if this Country is not exist return message and status code 404
 		if (!$Country) {
@@ -82,8 +82,8 @@ class CountryController extends Controller
 				'Message' => ' Country not found'
 			],404);
 		}
-    	//if found this Country so return message and the Continent data 
-    	//and also 200 status code
+         	//if found this Country so return message and the Continent data 
+         	//and also 200 status code
 		return response()->json([
 			'Message' => 'this Country is found',
 			'Country' =>new CountryResource( $Country )

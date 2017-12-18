@@ -345,6 +345,775 @@
                 }
             }
         },
+        "/api/Seasons/{season}/stages/{stage}/groups": {
+            "get": {
+                "tags": [
+                    "groups"
+                ],
+                "description": "get all groups",
+                "operationId": "AllGroups",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stage",
+                        "in": "path",
+                        "description": "stage ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "groups"
+                ],
+                "description": "create groups",
+                "operationId": "addGroup",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stage",
+                        "in": "path",
+                        "description": "stage ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/group"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "SUCCESSFULLY CREATED"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/stages/{stage}/groups/{group}": {
+            "get": {
+                "tags": [
+                    "groups"
+                ],
+                "description": "get single group",
+                "operationId": "findGroup",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stage",
+                        "in": "path",
+                        "description": "stage ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "group",
+                        "in": "path",
+                        "description": "group ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/stages/{stage}/groups/{group}/teams": {
+            "post": {
+                "tags": [
+                    "groups"
+                ],
+                "description": "Add Teams to a group",
+                "operationId": "addGroupTeams",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stage",
+                        "in": "path",
+                        "description": "stage ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "group",
+                        "in": "path",
+                        "description": "group ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/groupTeam"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "SUCCESSFULLY CREATED"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/stages/{stage}/groups/{group}/delete": {
+            "delete": {
+                "tags": [
+                    "groups"
+                ],
+                "description": "Delete group",
+                "operationId": "deleteGroups",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "Season ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "stage",
+                        "in": "path",
+                        "description": "stage ID",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "group",
+                        "in": "path",
+                        "description": "group ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "SUCCESSFULLY Deleted"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/matches": {
+            "get": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "get all matches in specific season",
+                "operationId": "GET_ALL_matches",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "post Create matche form ",
+                "operationId": "POST_Create_matches",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/match_creation"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/update-match/{match}": {
+            "put": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "put update matche ",
+                "operationId": "Put_Update_matche",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "match",
+                        "in": "path",
+                        "description": "match ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/match_update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/delete-match/{match}": {
+            "delete": {
+                "tags": [
+                    "Match"
+                ],
+                "summary": "Remove Match from database",
+                "operationId": "deleteMatch",
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "match",
+                        "in": "path",
+                        "description": "match ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "401": {
+                        "description": "error"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/matches/stage/{stage_id}": {
+            "get": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "get all matches in specific season in specific stage",
+                "operationId": "GET_ALL_matches_stage",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "stage_id",
+                        "in": "path",
+                        "description": "stage ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/matches/stage/{stage_id}/round/{group_round_id}": {
+            "get": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "get all matches in group stage with a given round",
+                "operationId": "GET_Group_matches_stage",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "stage_id",
+                        "in": "path",
+                        "description": "stage ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "group_round_id",
+                        "in": "path",
+                        "description": "round ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/matches/{date}": {
+            "get": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "get all matches in specific season in specific date",
+                "operationId": "GET_ALL_matches_by_date",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "date",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/{team}/matches": {
+            "get": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "get all matches for specific team in specific season",
+                "operationId": "GET_ALL_matches_for_team",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "team",
+                        "in": "path",
+                        "description": "RegisteredTeam id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/matches/{date}": {
+            "get": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "get all matches in specific date",
+                "operationId": "GET_ALL_matches_by_date",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "date",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/matches/today": {
+            "get": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "get all todays matches ",
+                "operationId": "GET_ALL_matches_today",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/matches/InProgress": {
+            "get": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "get all matches inProgressed for specific season",
+                "operationId": "GET_ALL_matches_inProgressed",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/matches/{match}/confirm": {
+            "post": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "post confirm matche Result ",
+                "operationId": "POST_confirm_matche",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "match",
+                        "in": "path",
+                        "description": "match ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/match_confirm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Players/All-Players": {
+            "get": {
+                "tags": [
+                    "Player"
+                ],
+                "description": "get all Players",
+                "operationId": "GET_ALL_Teams",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Players/{id}": {
+            "get": {
+                "tags": [
+                    "Player"
+                ],
+                "description": "get Players with it's id",
+                "operationId": "GET_Player",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Player ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Player"
+                ],
+                "summary": "Remove player from database",
+                "operationId": "deleteplayer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "player ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "401": {
+                        "description": "error"
+                    }
+                }
+            }
+        },
+        "/api/Players/Create": {
+            "post": {
+                "tags": [
+                    "Player"
+                ],
+                "description": "post Create Player form ",
+                "operationId": "POST_Create_Player",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/player_creation"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Players/Update/{id}": {
+            "put": {
+                "tags": [
+                    "Player"
+                ],
+                "description": "put request for update Player name",
+                "operationId": "PUT_UPDATE_Player_name",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "UUID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/player_creation"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
         "/api/Seasons/{season_id}/RegisteredTeam/{team_id}/RegisteredPlayer/players": {
             "get": {
                 "tags": [
@@ -563,6 +1332,183 @@
                 }
             }
         },
+        "/api/Seasons/{season}/RegisteredTeam/teams": {
+            "get": {
+                "tags": [
+                    "RegisteredTeam"
+                ],
+                "description": "get all Registered Teams in specific season",
+                "operationId": "GET_ALL_RegisteredTeams",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "RegisteredTeam"
+                ],
+                "description": "post Create RegisteredTeam form ",
+                "operationId": "POST_Create_RegisteredTeam",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/RegisteredTeam_creation"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/RegisteredTeam/{team_id}": {
+            "get": {
+                "tags": [
+                    "RegisteredTeam"
+                ],
+                "description": "get Registered Team in specific season with it's id and season id",
+                "operationId": "GET_RegisteredTeam",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "team_id",
+                        "in": "path",
+                        "description": "team ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/RegisteredTeam/update-team/{team_id}": {
+            "put": {
+                "tags": [
+                    "RegisteredTeam"
+                ],
+                "description": "put request for update RegisteredTeam",
+                "operationId": "PUT_UPDATE_RegisteredTeam",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "team_id",
+                        "in": "path",
+                        "description": "Registered Team id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/RegisteredTeam_update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/RegisteredTeam/delete-team/{team_id}": {
+            "delete": {
+                "tags": [
+                    "RegisteredTeam"
+                ],
+                "summary": "Remove RegisteredTeam from database",
+                "operationId": "deleteRegisterTeam",
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "team_id",
+                        "in": "path",
+                        "description": "Registered Team ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "401": {
+                        "description": "error"
+                    }
+                }
+            }
+        },
         "/api/Seasons/All-Seasons": {
             "get": {
                 "tags": [
@@ -707,6 +1653,148 @@
                     }
                 }
             }
+        },
+        "/api/Teams/All-Teams": {
+            "get": {
+                "tags": [
+                    "Team"
+                ],
+                "description": "get all Teams",
+                "operationId": "GET_ALL_Teams",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Teams/{id}": {
+            "get": {
+                "tags": [
+                    "Team"
+                ],
+                "description": "get Team with it's id",
+                "operationId": "GET_Team",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Team ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Teams/Create": {
+            "post": {
+                "tags": [
+                    "Team"
+                ],
+                "description": "post Create Team form ",
+                "operationId": "POST_Create_Team",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Team_creation"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Teams/Update/{id}": {
+            "put": {
+                "tags": [
+                    "Team"
+                ],
+                "description": "post Create Team form ",
+                "operationId": "POST_Create_Team",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "team id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Team_creation"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Teams/Delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Team"
+                ],
+                "summary": "Remove Team from database",
+                "operationId": "deleteTeam",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Team ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "401": {
+                        "description": "error"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -763,12 +1851,200 @@
                 }
             }
         },
+        "group": {
+            "properties": {
+                "groups_number": {
+                    "type": "string",
+                    "example": 2
+                },
+                "teams_number": {
+                    "type": "string",
+                    "example": 4
+                },
+                "home_away": {
+                    "type": "boolean",
+                    "example": "true/false"
+                }
+            }
+        },
+        "groupTeam": {
+            "properties": {
+                "team_id": {
+                    "type": "string",
+                    "example": 1
+                }
+            }
+        },
+        "match_creation": {
+            "properties": {
+                "date": {
+                    "type": "string",
+                    "example": "2017-12-17"
+                },
+                "time": {
+                    "type": "string",
+                    "example": "01:00:00"
+                },
+                "stage_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "team_1_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "team_2_id": {
+                    "type": "integer",
+                    "example": 2
+                },
+                "stadium": {
+                    "type": "string",
+                    "example": "Ahly stadium"
+                }
+            }
+        },
+        "match_update": {
+            "properties": {
+                "stage_id": {
+                    "type": "integer",
+                    "example": 4
+                },
+                "group_round_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "group_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "status": {
+                    "type": "string",
+                    "example": "played"
+                },
+                "register_team_1_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "register_team_2_id": {
+                    "type": "integer",
+                    "example": 2
+                },
+                "date": {
+                    "type": "string",
+                    "example": "2017-12-17"
+                },
+                "time": {
+                    "type": "string",
+                    "example": "01:00:00"
+                },
+                "stadium": {
+                    "type": "string",
+                    "example": "Ahly stadium"
+                },
+                "team_1_goals": {
+                    "type": "integer",
+                    "example": 5
+                },
+                "team_2_goals": {
+                    "type": "integer",
+                    "example": 4
+                },
+                "winner_id": {
+                    "type": "integer",
+                    "example": 2
+                },
+                "red_cards": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "yellow_cards": {
+                    "type": "integer",
+                    "example": 5
+                }
+            }
+        },
+        "match_confirm": {
+            "properties": {
+                "first_team_goals": {
+                    "type": "integer",
+                    "example": 3
+                },
+                "second_team_goals": {
+                    "type": "integer",
+                    "example": 2
+                },
+                "first_team_red_cards": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "first_team_yellow_cards": {
+                    "type": "integer",
+                    "example": 4
+                },
+                "second_team_yellow_cards": {
+                    "type": "integer",
+                    "example": 3
+                },
+                "second_team_red_cards": {
+                    "type": "integer",
+                    "example": 0
+                }
+            }
+        },
         "registeredPlayer": {
             "properties": {
                 "player_id": {
                     "description": "player id",
                     "type": "integer",
                     "example": "1"
+                }
+            }
+        },
+        "RegisteredTeam_creation": {
+            "properties": {
+                "team_id": {
+                    "type": "integer",
+                    "example": 4
+                }
+            }
+        },
+        "RegisteredTeam_update": {
+            "properties": {
+                "played": {
+                    "type": "integer",
+                    "example": 10
+                },
+                "wins": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "losses": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "draws": {
+                    "type": "integer",
+                    "example": 8
+                },
+                "goals_for": {
+                    "type": "integer",
+                    "example": 10
+                },
+                "goals_against": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "points": {
+                    "type": "integer",
+                    "example": 11
+                },
+                "red_cards": {
+                    "type": "integer",
+                    "example": 6
+                },
+                "yellow_cards": {
+                    "type": "integer",
+                    "example": 19
                 }
             }
         },
@@ -788,6 +2064,50 @@
                     "description": "competition id",
                     "type": "integer",
                     "example": "1 or 0"
+                }
+            }
+        },
+        "Team_creation": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "banha"
+                },
+                "type_id": {
+                    "type": "integer",
+                    "example": "1"
+                },
+                "logo": {
+                    "type": "string",
+                    "example": "logo.png"
+                },
+                "stadium": {
+                    "type": "string",
+                    "example": "Banha stadium"
+                },
+                "country_id": {
+                    "type": "integer",
+                    "example": "2"
+                }
+            }
+        },
+        "player_creation": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "Mohamed Salah"
+                },
+                "player_position": {
+                    "type": "string",
+                    "example": "GK"
+                },
+                "team_id": {
+                    "type": "integer",
+                    "example": "5"
+                },
+                "country_id": {
+                    "type": "integer",
+                    "example": "2"
                 }
             }
         }

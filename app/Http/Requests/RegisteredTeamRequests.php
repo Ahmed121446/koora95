@@ -48,20 +48,17 @@ class RegisteredTeamRequests extends FormRequest
         if(!$season->active){  
             return response()->json(["message" => "Season is Ended"]); 
         }
-        $team = new RegisteredTeam([
-            'team_id' => $this->get('team_id'), 
-            'played' => 0, 
-            'wins'=> 0, 
-            'losses' => 0, 
-            'draws' => 0, 
-            'goals_for' => 0, 
-            'goals_against' => 0,
-            'points' => 0,
-            'red_cards' => 0,
-            'yellow_cards' => 0
-
-        ]);
-
+        $team = new RegisteredTeam();
+        $team->team_id = $this->get('team_id'); 
+        $team->played = 0; 
+        $team->wins= 0; 
+        $team->losses = 0; 
+        $team->draws = 0; 
+        $team->goals_for = 0; 
+        $team->goals_against = 0;
+        $team->points = 0;
+        $team->red_cards = 0;
+        $team->yellow_cards = 0;
         $team = $season->registeredTeams()->save($team);
 
         if(!$team){

@@ -12,14 +12,25 @@ use App\Team;
 
 class TeamsController extends Controller
 {
-
-    public function __construct()
-    {
-
-    }
-
     
-
+    //get all Teams
+    /**
+     * @SWG\Get(
+     *     path="/api/Teams/All-Teams",
+     *     description = "get all Teams",
+     *     produces={"application/json"},
+     *     operationId="GET_ALL_Teams",
+     *     tags={"Team"},
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function Get_All_Teams(){
         $Teams = Team::all();
         if (!$Teams->first()) {
@@ -34,7 +45,31 @@ class TeamsController extends Controller
         ],200);
     }
 
-
+    //Get team swagger
+    /**
+     * @SWG\Get(
+     *     path="/api/Teams/{id}",
+     *     description = "get Team with it's id",
+     *     produces={"application/json"},
+     *     operationId="GET_Team",
+     *     tags={"Team"},
+     *     @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="Team ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function Get_Team($id){
         $Team = Team::find($id);
         if (!$Team) {
@@ -48,18 +83,77 @@ class TeamsController extends Controller
         ],200);
     }
 
+
+    //create Teams
+    /**
+     *   @SWG\Post(
+     *     path="/api/Teams/Create",
+     *     description = "post Create Team form ",
+     *     produces={"application/json"},
+     *     operationId="POST_Create_Team",
+     *     tags={"Team"},
+     *
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          schema={"$ref": "#/definitions/Team_creation"},
+     *          required=true
+     *      ),
+     *      @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
     public function Create_Team(Request $request, TeamRequests $teamRequest){
 
         $team = $teamRequest->store();
 
         return response()->json([
             'Message' => 'Team is created successfully',
-            'Team_Data' =>new TeamResource($team)
+            'Team_Data' => new TeamResource($team)
         ],200);
     }
 
 
-
+    //update Teams
+    /**
+     *   @SWG\Put(
+     *     path="/api/Teams/Update/{id}",
+     *     description = "post Create Team form ",
+     *     produces={"application/json"},
+     *     operationId="POST_Create_Team",
+     *     tags={"Team"},
+     *     
+     *     @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="team id",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          schema={"$ref": "#/definitions/Team_creation"},
+     *          required=true
+     *      ),
+     *      @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
     public function Update_Team(Request $request ,$id){
         $Team = Team::find($id);
 
@@ -108,7 +202,32 @@ class TeamsController extends Controller
     }
 
 
-
+    //delete team swagger
+    /**
+     *  @SWG\Delete(
+     *      path="/api/Teams/Delete/{id}",
+     *      tags={"Team"},
+     *      operationId="deleteTeam",
+     *      summary="Remove Team from database",
+     *      
+     *      @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="Team ID",
+     *      ),    
+     *      @SWG\Response(
+     *          response = 200,
+     *          description="success",
+     *      ),
+     *      @SWG\Response(
+     *          response = 401,
+     *          description="error",
+     *      )
+     *  )
+     *
+     */
     public function Destroy_Team($id){
         $Team = Team::find($id);
         if (!$Team) {

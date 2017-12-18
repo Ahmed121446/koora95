@@ -39,7 +39,7 @@ class GroupRequest extends FormRequest
         $groups_number = $this->get('groups_number');
         $teams_number = $this->get('teams_number');
 
-        if($this->get('home_away') || $competition->is_cup()){
+        if($this->get('home_away') || $competition->is_league()){
             $rounds_number = ($teams_number - 1) * 2;
         }else{
             $rounds_number = $teams_number - 1;
