@@ -105,6 +105,8 @@ Route::group(['prefix' => 'Seasons'], function() {
 		Route::get('/matches/{date}', 'MatchesController@Find_Date');
 			// find matches by stage
 		Route::get('/matches/stage/{stage_id}', 'MatchesController@findByStage');
+
+		Route::get('/matches/stage/{stage_id}/round/{group_round_id}', 'MatchesController@findInGroupStage');
 			//find matches for this team 
 		Route::get('/{team}/matches', 'MatchesController@Find_Team_Matches');
 			//update match
@@ -179,6 +181,7 @@ Route::group(['prefix' => 'Players'], function() {
 });
 
 Route::get('/matches/today', 'MatchesController@todayMatches');
+Route::get('/matches/{date}', 'MatchesController@findAllByDate');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
 	return $request->user();

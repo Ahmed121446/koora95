@@ -252,25 +252,60 @@ class MatchesController extends Controller
     	$matches = $stage->matches;
     	return response()->json([
             'data' => MatchResource::collection($matches)
-        ],201);
+        ],200);
     }
 
 
-
-    public function findInGroupStage(Season $season, $stage_id, $round_number)
+    /**
+     * @SWG\Get(
+     *     path="/api/Seasons/{season}/Event/matches/stage/{stage_id}/round/{group_round_id}",
+     *     description = "get all matches in group stage with a given round",
+     *     produces={"application/json"},
+     *     operationId="GET_Group_matches_stage",
+     *     tags={"Match"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="stage_id",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="stage ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="group_round_id",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="round ID",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
+    public function findInGroupStage(Season $season, $stage_id, $group_round_id)
     {
         $stage = $season->stages()->find($stage_id);
-        $groups = $stage->groups; 
-        
-        if(!$groups->first()){
-            return response()->json(['message' => 'There is no Groups'], 404);
+        if(!$stage){
+            return response()->json([
+                'message' => 'stage not found'
+            ],404);
         }
-        
-        
-        $matches = $round->matches;
+        $matches = $stage->matches()->where('group_round_id', $group_round_id)->get();
         return response()->json([
             'data' => MatchResource::collection($matches)
-        ],201);
+        ],200);
     }
 
 
@@ -385,6 +420,30 @@ class MatchesController extends Controller
 
 
     // All matches in a given date through all competitions
+    /**
+     * @SWG\Get(
+     *     path="/api/matches/{date}",
+     *     description = "get all matches in specific date",
+     *     produces={"application/json"},
+     *     operationId="GET_ALL_matches_by_date",
+     *     tags={"Match"},
+     *     @SWG\Parameter(
+     *          name="date",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="date",
+     *      ),
+     *     @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     * )
+     */
     public function findAllByDate($date)
     {
     	$matches = Match::where('date',$date)->get();

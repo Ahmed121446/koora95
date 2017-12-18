@@ -352,7 +352,6 @@
                 ],
                 "description": "get all groups",
                 "operationId": "AllGroups",
-
                 "produces": [
                     "application/json"
                 ],
@@ -370,7 +369,6 @@
                         "description": "stage ID",
                         "required": true,
                         "type": "integer"
-
                     }
                 ],
                 "responses": {
@@ -412,7 +410,6 @@
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/group"
-
                         }
                     }
                 ],
@@ -566,10 +563,10 @@
         "/api/Seasons/{season}/Event/matches": {
             "get": {
                 "tags": [
-                    "matches"
+                    "Match"
                 ],
-                "description": "get all matches is season",
-                "operationId": "AllSeasonMatches",
+                "description": "get all matches in specific season",
+                "operationId": "GET_ALL_matches",
                 "produces": [
                     "application/json"
                 ],
@@ -577,10 +574,9 @@
                     {
                         "name": "season",
                         "in": "path",
-                        "description": "Season ID",
+                        "description": "season ID",
                         "required": true,
-                        "type": "integer"
-
+                        "type": "string"
                     }
                 ],
                 "responses": {
@@ -594,11 +590,10 @@
             },
             "post": {
                 "tags": [
-                    "matches"
+                    "Match"
                 ],
-                "description": "Add Match in season",
-                "operationId": "AddSeasonMatches",
-
+                "description": "post Create matche form ",
+                "operationId": "POST_Create_matches",
                 "produces": [
                     "application/json"
                 ],
@@ -606,22 +601,328 @@
                     {
                         "name": "season",
                         "in": "path",
-                        "description": "Season ID",
+                        "description": "season ID",
                         "required": true,
-                        "type": "integer"
+                        "type": "string"
                     },
                     {
                         "name": "body",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/match"
+                            "$ref": "#/definitions/match_creation"
                         }
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "SUCCESSFULLY Created"
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/update-match/{match}": {
+            "put": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "put update matche ",
+                "operationId": "Put_Update_matche",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "match",
+                        "in": "path",
+                        "description": "match ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/match_update"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/delete-match/{match}": {
+            "delete": {
+                "tags": [
+                    "Match"
+                ],
+                "summary": "Remove Match from database",
+                "operationId": "deleteMatch",
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "match",
+                        "in": "path",
+                        "description": "match ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "401": {
+                        "description": "error"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/matches/stage/{stage_id}": {
+            "get": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "get all matches in specific season in specific stage",
+                "operationId": "GET_ALL_matches_stage",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "stage_id",
+                        "in": "path",
+                        "description": "stage ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/matches/stage/{stage_id}/round/{group_round_id}": {
+            "get": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "get all matches in group stage with a given round",
+                "operationId": "GET_Group_matches_stage",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "stage_id",
+                        "in": "path",
+                        "description": "stage ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "group_round_id",
+                        "in": "path",
+                        "description": "round ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/matches/{date}": {
+            "get": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "get all matches in specific season in specific date",
+                "operationId": "GET_ALL_matches_by_date",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "date",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/{team}/matches": {
+            "get": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "get all matches for specific team in specific season",
+                "operationId": "GET_ALL_matches_for_team",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "team",
+                        "in": "path",
+                        "description": "RegisteredTeam id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/matches/{date}": {
+            "get": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "get all matches in specific date",
+                "operationId": "GET_ALL_matches_by_date",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "date",
+                        "in": "path",
+                        "description": "date",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/matches/today": {
+            "get": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "get all todays matches ",
+                "operationId": "GET_ALL_matches_today",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/api/Seasons/{season}/Event/matches/InProgress": {
+            "get": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "get all matches inProgressed for specific season",
+                "operationId": "GET_ALL_matches_inProgressed",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
                     },
                     "401": {
                         "description": "Bad request"
@@ -1530,43 +1831,91 @@
                 }
             }
         },
-        "match": {
+        "match_creation": {
             "properties": {
-                "name": {
-                    "type": "string",
-                    "example": "Egypt"
-                },
                 "date": {
-                    "type": "date",
-                    "example": "13-12-2017"
+                    "type": "string",
+                    "example": "2017-12-17"
                 },
                 "time": {
-                    "type": "time",
-                    "example": "16:30:00"
+                    "type": "string",
+                    "example": "01:00:00"
                 },
                 "stage_id": {
                     "type": "integer",
-                    "example": "1"
+                    "example": 1
                 },
-                "group_round_id": {
+                "team_1_id": {
                     "type": "integer",
-                    "example": "1 (required only in group stage)"
+                    "example": 1
                 },
-                "group_id": {
+                "team_2_id": {
                     "type": "integer",
-                    "example": "1 (required only in group stage)"
-                },
-                "register_team_1_id": {
-                    "type": "integer",
-                    "example": "1"
-                },
-                "register_team_2_id": {
-                    "type": "integer",
-                    "example": "1"
+                    "example": 2
                 },
                 "stadium": {
                     "type": "string",
-                    "example": "Cairo stadium"
+                    "example": "Ahly stadium"
+                }
+            }
+        },
+        "match_update": {
+            "properties": {
+                "stage_id": {
+                    "type": "integer",
+                    "example": 4
+                },
+                "group_round_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "group_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "status": {
+                    "type": "string",
+                    "example": "played"
+                },
+                "register_team_1_id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "register_team_2_id": {
+                    "type": "integer",
+                    "example": 2
+                },
+                "date": {
+                    "type": "string",
+                    "example": "2017-12-17"
+                },
+                "time": {
+                    "type": "string",
+                    "example": "01:00:00"
+                },
+                "stadium": {
+                    "type": "string",
+                    "example": "Ahly stadium"
+                },
+                "team_1_goals": {
+                    "type": "integer",
+                    "example": 5
+                },
+                "team_2_goals": {
+                    "type": "integer",
+                    "example": 4
+                },
+                "winner_id": {
+                    "type": "integer",
+                    "example": 2
+                },
+                "red_cards": {
+                    "type": "integer",
+                    "example": 0
+                },
+                "yellow_cards": {
+                    "type": "integer",
+                    "example": 5
                 }
             }
         },
