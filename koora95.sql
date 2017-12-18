@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 17, 2017 at 11:51 AM
+-- Generation Time: Dec 18, 2017 at 11:17 AM
 -- Server version: 5.5.57-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.22
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `competitions` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `competitions_name_unique` (`name`),
   KEY `competitions_location_id_location_type_index` (`location_id`,`location_type`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Truncate table before insert `competitions`
@@ -57,7 +57,8 @@ INSERT INTO `competitions` (`id`, `name`, `comp_type_id`, `location_id`, `locati
 (3, 'Premiere League', 1, 7, 'App\\Country', NULL, NULL),
 (4, 'La Liga', 1, 6, 'App\\Country', NULL, NULL),
 (5, 'Bundesliga', 1, 8, 'App\\Country', NULL, NULL),
-(6, 'SeriaA', 1, 2, 'App\\Country', NULL, NULL);
+(6, 'SeriaA', 1, 2, 'App\\Country', NULL, NULL),
+(7, 'American league', 1, 1, 'App\\Country', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -203,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `groups_name_stage_id_unique` (`name`,`stage_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Truncate table before insert `groups`
@@ -222,7 +223,8 @@ INSERT INTO `groups` (`id`, `name`, `stage_id`, `rounds_number`, `teams_number`,
 (5, 'A', 4, 3, 4, '2017-12-14 11:54:16', '2017-12-14 11:54:16'),
 (6, 'B', 4, 3, 4, '2017-12-14 11:54:16', '2017-12-14 11:54:16'),
 (7, 'A', 5, 6, 4, '2017-12-14 11:54:35', '2017-12-14 11:54:35'),
-(8, 'B', 5, 6, 4, '2017-12-14 11:54:36', '2017-12-14 11:54:36');
+(8, 'B', 5, 6, 4, '2017-12-14 11:54:36', '2017-12-14 11:54:36'),
+(10, 'B', 10, 6, 4, '2017-12-17 20:46:29', '2017-12-17 20:46:29');
 
 -- --------------------------------------------------------
 
@@ -238,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `group_rounds` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=25 ;
 
 --
 -- Truncate table before insert `group_rounds`
@@ -267,7 +269,13 @@ INSERT INTO `group_rounds` (`id`, `stage_id`, `round_number`, `created_at`, `upd
 (15, 5, 3, NULL, NULL),
 (16, 5, 4, NULL, NULL),
 (17, 5, 5, NULL, NULL),
-(18, 5, 6, NULL, NULL);
+(18, 5, 6, NULL, NULL),
+(19, 10, 1, NULL, NULL),
+(20, 10, 2, NULL, NULL),
+(21, 10, 3, NULL, NULL),
+(22, 10, 4, NULL, NULL),
+(23, 10, 5, NULL, NULL),
+(24, 10, 6, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -293,7 +301,7 @@ CREATE TABLE IF NOT EXISTS `group_teams` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `group_teams_group_id_register_team_id_unique` (`group_id`,`register_team_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Truncate table before insert `group_teams`
@@ -306,7 +314,11 @@ TRUNCATE TABLE `group_teams`;
 
 INSERT INTO `group_teams` (`id`, `group_id`, `register_team_id`, `played`, `wins`, `losses`, `draws`, `goals_for`, `goals_against`, `points`, `red_cards`, `yellow_cards`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 1, 1, 0, 0, 2, 1, 3, 0, 1, NULL, NULL),
-(2, 1, 2, 1, 0, 1, 0, 1, 2, 0, 1, 2, NULL, NULL);
+(2, 1, 2, 1, 0, 1, 0, 1, 2, 0, 1, 2, NULL, NULL),
+(4, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL),
+(5, 1, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL),
+(6, 9, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL),
+(7, 9, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -353,7 +365,7 @@ INSERT INTO `matches` (`id`, `season_id`, `stage_id`, `group_round_id`, `group_i
 (4, 9, 6, NULL, NULL, 'Not Played Yet', 1, 2, '2017-12-20', '16:30:00', 'Cairo', 0, 0, 0, 0, 0, NULL, NULL),
 (5, 9, 6, NULL, NULL, 'Not Played Yet', 1, 2, '2017-12-20', '16:30:00', 'Cairo', 0, 0, 0, 0, 0, NULL, NULL),
 (6, 9, 2, NULL, NULL, 'Not Played Yet', 1, 2, '2017-12-20', '16:30:00', 'Cairo', 0, 0, 0, 0, 0, NULL, NULL),
-(7, 9, 2, NULL, NULL, 'Not Played Yet', 1, 2, '2017-12-20', '16:30:00', 'Cairo', 0, 0, 0, 0, 0, NULL, NULL),
+(7, 9, 2, NULL, NULL, 'Not Played Yet', 1, 2, '2017-12-18', '16:30:00', 'Cairo', 0, 0, 0, 0, 0, NULL, NULL),
 (8, 9, 2, 1, 1, 'played', 1, 2, '2017-12-20', '16:30:00', 'Cairo', 2, 1, 1, 1, 3, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -969,7 +981,7 @@ CREATE TABLE IF NOT EXISTS `registered_players` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `registered_players_registered_team_id_player_id_unique` (`registered_team_id`,`player_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=111 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=112 ;
 
 --
 -- Truncate table before insert `registered_players`
@@ -981,7 +993,6 @@ TRUNCATE TABLE `registered_players`;
 --
 
 INSERT INTO `registered_players` (`id`, `registered_team_id`, `player_id`, `played`, `goals`, `assists`, `red_cards`, `yellow_cards`, `created_at`, `updated_at`) VALUES
-(1, 383, 186, 0, 0, 0, 0, 0, NULL, NULL),
 (2, 75, 259, 0, 0, 0, 0, 0, NULL, NULL),
 (3, 63, 39, 0, 0, 0, 0, 0, NULL, NULL),
 (4, 420, 10, 0, 0, 0, 0, 0, NULL, NULL),
@@ -1090,7 +1101,8 @@ INSERT INTO `registered_players` (`id`, `registered_team_id`, `player_id`, `play
 (107, 159, 208, 0, 0, 0, 0, 0, NULL, NULL),
 (108, 146, 23, 0, 0, 0, 0, 0, NULL, NULL),
 (109, 251, 71, 0, 0, 0, 0, 0, NULL, NULL),
-(110, 64, 71, 0, 0, 0, 0, 0, NULL, NULL);
+(110, 64, 71, 0, 0, 0, 0, 0, NULL, NULL),
+(111, 1, 1, 0, 0, 0, 0, 0, '2017-12-17 18:39:03', '2017-12-17 18:39:03');
 
 -- --------------------------------------------------------
 
@@ -1206,7 +1218,7 @@ CREATE TABLE IF NOT EXISTS `seasons` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `seasons_name_comp_id_unique` (`name`,`comp_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=11 ;
 
 --
 -- Truncate table before insert `seasons`
@@ -1226,7 +1238,8 @@ INSERT INTO `seasons` (`id`, `name`, `comp_id`, `active`, `created_at`, `updated
 (6, '2014', 1, 0, '2017-12-14 11:38:10', '2017-12-14 11:38:10'),
 (7, '2015', 1, 0, '2017-12-14 11:38:10', '2017-12-14 11:38:10'),
 (8, '2016', 1, 0, '2017-12-14 11:38:10', '2017-12-14 11:38:10'),
-(9, '2017', 1, 1, '2017-12-14 11:38:10', '2017-12-14 11:38:10');
+(9, '2017', 1, 1, '2017-12-14 11:38:10', '2017-12-14 11:38:10'),
+(10, '2017', 2, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1846,13 +1859,21 @@ CREATE TABLE IF NOT EXISTS `team_types` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Truncate table before insert `team_types`
 --
 
 TRUNCATE TABLE `team_types`;
+--
+-- Dumping data for table `team_types`
+--
+
+INSERT INTO `team_types` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'team', NULL, NULL),
+(2, 'nation', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
