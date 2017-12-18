@@ -3,6 +3,119 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+//for RegisteredTeam properties
+/**
+ * @SWG\Definition(
+ *      definition = "match_creation",
+ *      @SWG\Property(
+ *          property="date",
+ *          type="string",
+ *          example="2017-12-17"
+ *      ),
+ *      @SWG\Property(
+ *          property="time",
+ *          type="string",
+ *          example="01:00:00"
+ *      ),
+ *      @SWG\Property(
+ *          property="stage_id",
+ *          type="integer",
+ *          example=1
+ *      ),
+ *      @SWG\Property(
+ *          property="team_1_id",
+ *          type="integer",
+ *          example=1
+ *      ),
+ *      @SWG\Property(
+ *          property="team_2_id",
+ *          type="integer",
+ *          example=2
+ *      ),
+ *      @SWG\Property(
+ *          property="stadium",
+ *          type="string",
+ *          example="Ahly stadium"
+ *      )
+ * )
+ */
+
+/**
+ * @SWG\Definition(
+ *      definition = "match_update",
+ *      @SWG\Property(
+ *          property="stage_id",
+ *          type="integer",
+ *          example=4
+ *      ),
+ *      @SWG\Property(
+ *          property="group_round_id",
+ *          type="integer",
+ *          example=1
+ *      ),
+ *      @SWG\Property(
+ *          property="group_id",
+ *          type="integer",
+ *          example=1
+ *      ),
+ *
+ *      @SWG\Property(
+ *          property="status",
+ *          type="string",
+ *          example="played"
+ *      ),
+ *      @SWG\Property(
+ *          property="register_team_1_id",
+ *          type="integer",
+ *          example=1
+ *      ),
+ *      @SWG\Property(
+ *          property="register_team_2_id",
+ *          type="integer",
+ *          example=2
+ *      ),
+ *      @SWG\Property(
+ *          property="date",
+ *          type="string",
+ *          example="2017-12-17"
+ *      ),
+ *      @SWG\Property(
+ *          property="time",
+ *          type="string",
+ *          example="01:00:00"
+ *      ),
+ *      @SWG\Property(
+ *          property="stadium",
+ *          type="string",
+ *          example="Ahly stadium"
+ *      ),
+ *      @SWG\Property(
+ *          property="team_1_goals",
+ *          type="integer",
+ *          example=5
+ *      ),
+ *      @SWG\Property(
+ *          property="team_2_goals",
+ *          type="integer",
+ *          example=4
+ *      ),
+ *      @SWG\Property(
+ *          property="winner_id",
+ *          type="integer",
+ *          example=2
+ *      ),
+ *      @SWG\Property(
+ *          property="red_cards",
+ *          type="integer",
+ *          example=0
+ *      ),
+ *      @SWG\Property(
+ *          property="yellow_cards",
+ *          type="integer",
+ *          example=5
+ *      )
+ * )
+ */
 
 class Match extends BaseModel
 {
