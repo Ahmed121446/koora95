@@ -116,6 +116,43 @@ use Illuminate\Database\Eloquent\Model;
  *      )
  * )
  */
+
+
+/**
+ * @SWG\Definition(
+ *      definition = "match_confirm",
+ *      @SWG\Property(
+ *          property="first_team_goals",
+ *          type="integer",
+ *          example=3
+ *      ),
+ *      @SWG\Property(
+ *          property="second_team_goals",
+ *          type="integer",
+ *          example=2
+ *      ),
+ *      @SWG\Property(
+ *          property="first_team_red_cards",
+ *          type="integer",
+ *          example=1
+ *      ),
+ *      @SWG\Property(
+ *          property="first_team_yellow_cards",
+ *          type="integer",
+ *          example=4
+ *      ),
+ *      @SWG\Property(
+ *          property="second_team_yellow_cards",
+ *          type="integer",
+ *          example=3
+ *      ),
+ *      @SWG\Property(
+ *          property="second_team_red_cards",
+ *          type="integer",
+ *          example=0
+ *      )
+ * )
+ */
 class Match extends BaseModel
 {
     public function stage()

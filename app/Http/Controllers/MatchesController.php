@@ -543,6 +543,49 @@ class MatchesController extends Controller
 
 
 
+
+
+
+
+    //confirm match Result
+    /**
+     *   @SWG\Post(
+     *     path="/api/Seasons/{season}/Event/matches/{match}/confirm",
+     *     description = "post confirm matche Result ",
+     *     produces={"application/json"},
+     *     operationId="POST_confirm_matche",
+     *     tags={"Match"},
+     *     @SWG\Parameter(
+     *          name="season",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="season ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="match",
+     *          in="path",
+     *          required=true,
+     *          type="string",
+     *          description="match ID",
+     *      ),
+     *     @SWG\Parameter(
+     *          name="body",
+     *          in="body",
+     *          schema={"$ref": "#/definitions/match_confirm"},
+     *          required=true
+     *      ),
+     *      @SWG\Response(
+     *         response = 200,
+     *         description = "SUCCESSFULLY DONE"
+     *     ),
+     *     @SWG\Response(
+     *         response=401, 
+     *         description="Bad request"
+     *      )
+     *     
+     * )
+     */
     public function confirmResult(Season $season, Match $match, MatchesRepo $matchRepo)
     {
 
