@@ -20,4 +20,7 @@ Route::group(['prefix' => 'Competitions'], function() {
 	Route::get('All-Competitions','CompetitionsController@All_Competitions_View');
 	Route::get('{Competition}','CompetitionsController@Specific_Competition_View');
 
+	Route::group(['prefix' => '{Competition}/Season'], function() {
+		 Route::get('{season}','SeasonController@Specific_Season_View');
+	});
 });

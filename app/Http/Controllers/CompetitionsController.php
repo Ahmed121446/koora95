@@ -26,7 +26,6 @@ class CompetitionsController extends Controller
     }
     public function Specific_Competition_View(Competition $Competition)
     {
-       
         $Seasons_Competition = $Competition->seasons()->get();
         return view('Competition.specific_Competition',compact('Competition','Seasons_Competition'));
     }
