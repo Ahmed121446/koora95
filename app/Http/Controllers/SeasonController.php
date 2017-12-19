@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 use App\Season;
 use App\competition;
 use App\Stage;
+use App\Team;
 use App\RegisteredTeam;
 use App\Week;
 use App\Round;
-
+use App\Country;
+use App\continent;
 use App\Http\Requests\AddSeasonRequest;
 use App\Http\Resources\SeasonResource;
 
@@ -41,6 +43,27 @@ class SeasonController extends Controller
                 'Season_Information' =>new SeasonResource( $season)
             ],201);
     }
+
+    public function Specific_Season_View(competition $Competition,Season $season)
+    {
+        $RTeams = $season->registeredTeams;  
+        $location = $Competition->location;
+        $Teams = [];
+        if (!$location instanceof Country) {
+            $countries = Country::where('continent_id',$location->id)->get();
+            foreach ($countries as $country) {
+                $teams = Team::where('country_id',$country->id)->get();
+                foreach ($teams as $team ) {
+                      array_push($Teams,$team);
+                }
+            } 
+        }else{
+             $Teams = Team::where('country_id',$location->id)->get();
+        }
+        return view('season.specific_Season',compact('season','Teams','RTeams'));
+    }
+
+
 
 
     // Get Competition Seasons 

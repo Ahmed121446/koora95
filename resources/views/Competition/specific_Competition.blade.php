@@ -37,7 +37,7 @@ specific Competitions
 @else
 	<h1 > Seasons</h1>
 	@foreach ($Seasons_Competition as $season)
-	<a href="">
+	<a href="/Season/{{$season->id}}">
 		<div class="alert alert-info" role="alert"> 
 			<strong>Season Name : </strong> {{$season->name}}
 		</div>
