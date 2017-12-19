@@ -8,7 +8,7 @@
 
 <h1>Create New Season</h1>
 
-<form action="/api/Season/Create" method="post">
+<form action="/season/create" method="post">
   @if ($competitions_list != null)
       {{csrf_field()}}
     <div class="form-group">

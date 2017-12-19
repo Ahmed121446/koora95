@@ -19,6 +19,28 @@ class CompetitionsController extends Controller
        $all_continents = continent::all();
 
        return view('Competition.create',compact(['all_countries','all_continents']));
+
+    }
+
+    public function createCompetition(CompetitionRequest $request)
+    {   
+        $competition = $request->store();
+
+        return redirect('/competitions/All-Competitions');
+
+    }
+
+    public function All_Competitions_View()
+    {
+        $Competitions = Competition::all();
+        return view('Competition.all_Competitions',compact('Competitions'));
+    }
+    
+    public function Specific_Competition_View(Competition $Competition)
+    {
+       
+        $Seasons_Competition = $Competition->seasons()->get();
+        return view('Competition.specific_Competition',compact('Competition','Seasons_Competition'));
     }
 
 

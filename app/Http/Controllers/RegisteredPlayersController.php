@@ -7,6 +7,7 @@ use App\Http\Resources\RegisterPlayerResource;
 use App\Season;
 use App\RegisteredTeam;
 use App\RegisteredPlayer;
+use App\player;
 
 use App\Http\Requests\AddRegisteredPlayerRequest;
 
@@ -15,6 +16,26 @@ use App\Http\Requests\AddRegisteredPlayerRequest;
 
 class RegisteredPlayersController extends Controller
 {
+
+    public function addView(Season $season, RegisteredTeam $team)
+    {
+
+        $players = player::all();
+
+        return view('registered_players.add', compact(['team','players']));
+    }
+
+    public function add(AddRegisteredPlayerRequest $request , Season $season, RegisteredTeam $team)
+    {
+
+        $player = $request->addPlayer($season, $team);
+
+        return response()->json([
+            'Message' => 'player added successfully',
+            'data' =>new RegisterPlayerResource( $player )
+        ], 201); 
+    }
+
     // Find All registeredplayers of a specific registeredteam
     /**
      * @SWG\Get(

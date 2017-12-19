@@ -30,8 +30,7 @@ class AddSeasonRequest extends FormRequest
                 'max:25',
                 'unique:seasons,name,NULL,NULL,comp_id,'. $this->get('competition_id')
             ],
-            'competition_id' => 'required|numeric',
-            'is_active_season' => 'required|boolean'
+            'is_active' => 'boolean'
         ];
     }
 }
