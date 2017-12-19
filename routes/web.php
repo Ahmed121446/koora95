@@ -32,7 +32,6 @@ Route::group(['prefix' => 'competitions'], function() {
 
 });
 
-
 Route::group(['prefix' => 'seasons/{season}/teams/{team}/players'], function() {
 	Route::get('create','RegisteredPlayersController@addView');
 	Route::post('create','RegisteredPlayersController@add');
@@ -41,6 +40,8 @@ Route::group(['prefix' => 'seasons/{season}/teams/{team}/players'], function() {
 });
 
 
-
+Route::group(['prefix' => 'players'], function() {
+	Route::get('/create','PlayersController@createView');
+});
 
 
