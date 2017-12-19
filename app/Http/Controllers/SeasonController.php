@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 use App\Season;
-use App\competition;
+use App\Competition;
 use App\Stage;
 use App\Team;
 use App\RegisteredTeam;
@@ -44,10 +44,10 @@ class SeasonController extends Controller
             ],201);
     }
 
-    public function Specific_Season_View(competition $Competition,Season $season)
+    public function Specific_Season_View(Competition $competition, Season $season)
     {
-        $RTeams = $season->registeredTeams;  
-        $location = $Competition->location;
+        $RTeams = $season->registeredTeams;
+        $location = $competition->location;
         $Teams = [];
         if (!$location instanceof Country) {
             $countries = Country::where('continent_id',$location->id)->get();

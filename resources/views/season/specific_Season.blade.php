@@ -12,7 +12,7 @@ All Competitions
 <div class="jumbotron">
   <h2>Add Teams In Season</h2>
   <p>
-	  <form action="#" method="post">
+	  <form action="#" method="GET">
 		  	<div class="form-group col-md-12">
 		  			@foreach ($Teams as $Team)
 		  				<div class="form-check form-check-inline col-md-4">

@@ -6,10 +6,18 @@ use App\Http\Requests\RegisteredTeamRequests;
 use Illuminate\Http\Request;
 use App\Http\Resources\RegisterTeamResource;
 use App\Season;
+use App\Competition;
 use App\RegisteredTeam;
 
 class RegisteredTeamsController extends Controller
 {
+
+     public function Specific_RegisteredTeam_View(Competition $Competition,Season $season ,RegisteredTeam $RegisteredTeam)
+    {
+        $Seasons_Competition = $Competition->seasons()->find($season)->first();
+        $teams = $Seasons_Competition->registeredTeams()->find($RegisteredTeam)->first();
+        return view('registeredTeam.specific_RegisteredTeam',compact('teams'));
+    }
 	//get all Registered Teams swagger
 	/**
      * @SWG\Get(
