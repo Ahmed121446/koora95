@@ -16,6 +16,8 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'Competitions'], function() {
-
 	Route::get('Create','CompetitionsController@Create_View');
+	Route::get('All-Competitions','CompetitionsController@All_Competitions_View');
+	Route::get('{Competition}','CompetitionsController@Specific_Competition_View');
+
 });
