@@ -15,10 +15,10 @@ class CompetitionsController extends Controller
     //create view for competition
     public function Create_View()
     {
-       $all_countries = Country::all()->pluck('name');
-       $all_continentes = continent::all()->pluck('name');
+       $all_countries = Country::all();
+       $all_continents = continent::all();
 
-       return view('Competition.create',compact(['all_countries','all_continentes']));
+       return view('Competition.create',compact(['all_countries','all_continents']));
     }
 
 

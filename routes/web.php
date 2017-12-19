@@ -15,7 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'Competitions'], function() {
+Route::group(['prefix' => 'competitions'], function() {
 
-	Route::get('Create','CompetitionsController@Create_View');
+	Route::get('create','CompetitionsController@Create_View');
+	Route::post('create','CompetitionsController@create');
 });
