@@ -930,6 +930,50 @@
                 }
             }
         },
+        "/api/Seasons/{season}/Event/matches/{match}/confirm": {
+            "post": {
+                "tags": [
+                    "Match"
+                ],
+                "description": "post confirm matche Result ",
+                "operationId": "POST_confirm_matche",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "season",
+                        "in": "path",
+                        "description": "season ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "match",
+                        "in": "path",
+                        "description": "match ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/match_confirm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SUCCESSFULLY DONE"
+                    },
+                    "401": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
         "/api/Players/All-Players": {
             "get": {
                 "tags": [
@@ -1916,6 +1960,34 @@
                 "yellow_cards": {
                     "type": "integer",
                     "example": 5
+                }
+            }
+        },
+        "match_confirm": {
+            "properties": {
+                "first_team_goals": {
+                    "type": "integer",
+                    "example": 3
+                },
+                "second_team_goals": {
+                    "type": "integer",
+                    "example": 2
+                },
+                "first_team_red_cards": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "first_team_yellow_cards": {
+                    "type": "integer",
+                    "example": 4
+                },
+                "second_team_yellow_cards": {
+                    "type": "integer",
+                    "example": 3
+                },
+                "second_team_red_cards": {
+                    "type": "integer",
+                    "example": 0
                 }
             }
         },

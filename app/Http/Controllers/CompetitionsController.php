@@ -6,10 +6,26 @@ use App\Http\Requests\CompetitionRequest;
 
 use Illuminate\Http\Request;
 use App\Competition;
+use App\continent;
+use App\Country;
 use App\Http\Resources\CompetitionResource;
 
 class CompetitionsController extends Controller
 {
+    //create view for competition
+    public function Create_View()
+    {
+       $all_countries = Country::all()->pluck('name');
+       $all_continentes = continent::all()->pluck('name');
+
+       return view('Competition.create',compact(['all_countries','all_continentes']));
+    }
+
+
+
+
+
+
     //Get All competitions swagger
     /**
      * @SWG\Get(
