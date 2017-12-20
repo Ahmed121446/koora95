@@ -11,10 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
 
+
+Route::get('/', 'MatchesController@Get_Today_Matches_View' )->name('home');
 
 Route::group(['prefix' => 'admin'], function() {
 	Route::get('Login','AuthController@Login_View');

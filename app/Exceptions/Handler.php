@@ -58,6 +58,6 @@ class Handler extends ExceptionHandler
             return response()->json(['message' => 'Resource Not Found'], 404);
         }
 
-         return redirect()->route('home');
+         return parent::render($request, $exception);
     }
 }

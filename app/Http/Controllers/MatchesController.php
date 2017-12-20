@@ -17,9 +17,19 @@ use App\RegisteredTeam;
 
 class MatchesController extends Controller
 {
+    public function Get_Today_Matches_View(){
+       $today = Carbon::now();
+        $today = $today->toDateString();
+        $matches = Match::all();
+        $competitions = $matches->groupBy(function ($item, $key) {
+            return $item->season->competiton->name;
+        });
+        //dd($competitions);
+        return view('welcome',compact('competitions'));
+    }
+    /**
 
     //get all matches in specific season swagger
-    /**
      * @SWG\Get(
      *     path="/api/Seasons/{season}/Event/matches",
      *     description = "get all matches in specific season",

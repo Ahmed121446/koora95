@@ -19,7 +19,7 @@
 
            <li><a href="/"> today matches</a></li>
            @if (Auth::user())
-           <li><a href="/Competitions/Create"> Create New Competition</a></li>
+           <li><a href="/competitions/create"> Create New Competition</a></li>
            <li><a href="/teams/create"> Create New Team</a></li>
            <li><a href="/players/create"> Create New Player</a></li>
            <li class="dropdown">
