@@ -1,0 +1,9 @@
+h2 a{
+	text-decoration: none !important;
+	text-transform: uppercase;
+	transition: .2s color;
+}
+h2 a:hover{
+	color: #184063;
+	transition: .2s color;
+}

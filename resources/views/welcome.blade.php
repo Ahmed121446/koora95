@@ -6,17 +6,7 @@ welcome page
 @section('content')
 
 <div class="jumbotron">
-	<h1>egyptian cup</h1>
-	<p>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">continent : Africa</h3>
-			</div>
-			<div class="panel-body">
-				Country : Egypt
-			</div>
-		</div>
-	</p>
+	<h2><a href="">egyptian cup</a></h2>
 	<p>
 		<div class="row">
 			@for ($i = 0; $i < 7; $i++)
@@ -40,21 +30,10 @@ welcome page
 
 		</div>
 	</p>
-	<p><a class="btn btn-primary btn-lg" href="#" role="button">View Schedule</a></p>
 </div>
 
 <div class="jumbotron">
-	<h1>egyptian cup</h1>
-	<p>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">continent : Africa</h3>
-			</div>
-			<div class="panel-body">
-				Country : Egypt
-			</div>
-		</div>
-	</p>
+	<h2><a href="">Africa cup</a></h2>
 	<p>
 		<div class="row">
 			@for ($i = 0; $i < 7; $i++)
@@ -78,7 +57,6 @@ welcome page
 
 		</div>
 	</p>
-	<p><a class="btn btn-primary btn-lg" href="#" role="button">View Schedule</a></p>
 </div>
 
 @endsection
