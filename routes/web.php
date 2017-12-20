@@ -13,7 +13,18 @@
 
 Route::get('/', function () {
     return view('welcome');
+})->name('home');
+
+
+Route::group(['prefix' => 'admin'], function() {
+	Route::get('Login','AuthController@Login_View');
+	Route::get('Register','AuthController@Register_View');
+
+	Route::post('Login','AuthController@Login');
+	Route::post('Register','AuthController@Register');
+	Route::get('Logout','AuthController@Logout');
 });
+
 Route::group(['prefix' => 'country'], function() {	
 });
 Route::group(['prefix' => 'Competitions'], function() {
@@ -30,10 +41,10 @@ Route::group(['prefix' => 'Competitions'], function() {
 	});
 });
 
-Route::group(['prefix' => 'team'], function() {	
+Route::group(['prefix' => 'teams'], function() {	
 	Route::get('create','TeamsController@Create_View');
 });
 
-Route::group(['prefix' => 'player'], function() {	
+Route::group(['prefix' => 'players'], function() {	
 	Route::get('create','PlayersController@Create_View');
 });
