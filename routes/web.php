@@ -14,7 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::group(['prefix' => 'country'], function() {	
+});
 Route::group(['prefix' => 'Competitions'], function() {
 	Route::get('Create','CompetitionsController@Create_View');
 	Route::get('All-Competitions','CompetitionsController@All_Competitions_View');
@@ -29,4 +30,12 @@ Route::group(['prefix' => 'Competitions'], function() {
 
 	});
 	
+});
+
+Route::group(['prefix' => 'team'], function() {	
+	Route::get('create','TeamsController@Create_View');
+});
+
+Route::group(['prefix' => 'player'], function() {	
+	Route::get('create','PlayersController@Create_View');
 });

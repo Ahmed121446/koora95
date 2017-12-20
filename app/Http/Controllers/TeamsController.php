@@ -8,11 +8,16 @@ use App\Http\Requests\TeamRequests;
 use App\Http\Resources\TeamResource;
 use Illuminate\Http\Request;
 use App\Team;
+use App\Country;
 
 
 class TeamsController extends Controller
 {
-    
+    public function Create_View()
+    {
+        $all_Countries = Country::all();
+        return view('team.create',compact('all_Countries'));
+    }
     //get all Teams
     /**
      * @SWG\Get(

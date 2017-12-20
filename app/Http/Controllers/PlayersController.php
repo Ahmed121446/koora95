@@ -11,6 +11,23 @@ use App\Http\Resources\PlayerResource;
 
 class PlayersController extends Controller
 {
+
+    public function Create_View(){
+        //get player create.blade.php
+        $Teams = Team::all();   
+        $countries = Country::all(); 
+        return view('player.create',compact('Teams','countries'));
+    }
+
+    public function Update_View($id){
+        $player = player::find($id);
+        if (!$player) {
+            return response()->json([
+                'Message' => 'no player found by this id.'
+            ],404);
+        } 
+        return view('player.update',compact('player'));
+    }
 	//get all players
     /**
      * @SWG\Get(
@@ -83,23 +100,7 @@ class PlayersController extends Controller
     			'player data and information' =>new PlayerResource( $player)
     	],200);
     }
-    public function Get_Player_Create_View(){
-    	//get player create.blade.php
-    	$Teams = Team::all();   
-    	$countries = Country::all(); 
-    	
-    	return view('player.create',compact('Teams','countries'));
-    }
 
-    public function Get_Player_Update_View($id){
-		$player = player::find($id);
-		if (!$player) {
-			return response()->json([
-				'Message' => 'no player found by this id.'
-			],404);
-		} 
-		return view('player.update',compact('player'));
-	}
 
 
     //create player
