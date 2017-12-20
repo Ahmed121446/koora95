@@ -16,10 +16,9 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'competitions'], function() {
-
+	Route::get('/','CompetitionsController@All_Competitions_View');
 	Route::get('create','CompetitionsController@Create_View');
 	Route::post('create','CompetitionsController@createCompetition');
-	Route::get('All-Competitions','CompetitionsController@All_Competitions_View');
 	Route::get('{Competition}','CompetitionsController@Specific_Competition_View');
 
 	Route::group(['prefix' => '{competition}/seasons'], function() {
@@ -43,8 +42,11 @@ Route::group(['prefix' => 'competitions'], function() {
 
 Route::group(['prefix' => 'teams'], function() {	
 	Route::get('create','TeamsController@Create_View');
+	Route::post('create','TeamsController@create');
 });
 
 Route::group(['prefix' => 'players'], function() {	
 	Route::get('create','PlayersController@Create_View');
+	Route::post('create','PlayersController@create');
+	Route::get('/search','PlayersController@autocomplete');
 });

@@ -16,18 +16,38 @@ specific Add Player
 	<form action="seasons/{season}/teams/{team->id}/players/create" method="post">
 	  	{{csrf_field()}}
 	  	
-	  	@foreach($players as $player)
-		   	<div class="form-check">
-			    <label class="form-check-label">
-			      	<input type="checkbox" name="players[]" class="form-check-input" id="inlineCheckbox1" value="{{$player->id}}">
-			      	{{$player->name}}
-			    </label>
-			</div>
-		@endforeach
-
+	  	
+	    	<label for="name">player Name : </label>
+	    	<input type="text" name="name" id="name" placeholder="Mohamed Salah" autocomplete="off">
+	  	
 	  	<button type="submit" class="btn btn-primary">Add Season</button>
 	</form>
   </p>
 </div>
+
+@endsection
+
+
+
+@section('script')
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function()
+	
+	{
+	
+		$( "#name" ).autocomplete({
+		 	source: "/players/search",
+			minLength: 1,
+			autoFocus:true,
+			select: function(event, ui) {
+		  		$('#name').val(ui.item.value);
+			}
+		});
+	
+	});
+</script>
 
 @endsection

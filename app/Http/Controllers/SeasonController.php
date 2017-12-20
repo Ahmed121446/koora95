@@ -55,7 +55,9 @@ class SeasonController extends Controller
             foreach ($countries as $country) {
                 $teams = Team::where('country_id',$country->id)->get();
                 foreach ($teams as $team ) {
-                      array_push($Teams,$team);
+                    if(!$RTeams->find($team->id)){
+                        array_push($Teams,$team);
+                    }
                 }
             } 
         }else{

@@ -19,6 +19,15 @@ class PlayersController extends Controller
         return view('player.create',compact('Teams','countries'));
     }
 
+    public function create(CreatePlayerRequest $request){
+
+        $request->store();
+
+        return redirect('/');
+    }
+
+
+
     public function Update_View($id){
         $player = player::find($id);
         if (!$player) {
@@ -27,6 +36,27 @@ class PlayersController extends Controller
             ],404);
         } 
         return view('player.update',compact('player'));
+    }
+
+
+    public function autocomplete(Request $request)
+    {
+
+        $term = $request->term;
+    
+        $results = array();
+    
+        $players = \DB::table('players')
+                   ->where('name', 'LIKE', '%'.$term.'%')
+                   ->get();
+    
+        foreach ($players as $player) 
+        {
+            $results[] = [ 'id' => $player->id, 'value' => $player->name ];
+        }
+        
+        return \Response::json($results);
+
     }
 
 

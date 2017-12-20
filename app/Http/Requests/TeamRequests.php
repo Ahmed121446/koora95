@@ -31,11 +31,16 @@ class TeamRequests extends FormRequest
             case 'POST':
             {
                 return [
-                    'name'          =>  'required|min:2|max:25',
-                    'type_id'       =>  'required|numeric',
-                    'logo'          =>  'required',
+                    'name'          =>  [
+                        'required',
+                        'min:2',
+                        'max:25',
+                        'unique:teams,name,null,null,country_id,' . $this->country_id
+                    ],              
+                    // 'type_id'       =>  'required|numeric',
+                    // 'logo'          =>  'required',
                     'stadium'       =>  'required|min:2|max:25',
-                    'country_id'    =>  'required|numeric|unique:teams,name|unique:teams,country_id'
+                    'country_id'    =>  'required|numeric'
                 ];
             }
             case 'PUT':

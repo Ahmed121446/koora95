@@ -18,6 +18,20 @@ class TeamsController extends Controller
         $all_Countries = Country::all();
         return view('team.create',compact('all_Countries'));
     }
+
+    public function create(TeamRequests $request){
+
+        Team::create([
+            'name' => $request->get('name'),
+            'type_id' => 1,
+            'stadium' => $request->get('stadium'),
+            'country_id' => $request->get('country_id')
+        ]);
+
+        return redirect('/');
+    }
+
+
     //get all Teams
     /**
      * @SWG\Get(
