@@ -27,9 +27,7 @@ Route::group(['prefix' => 'Competitions'], function() {
 		 Route::group(['prefix' => '{season}/RegisteredTeam'], function() {
 		 	Route::get('{RegisteredTeam}','RegisteredTeamsController@Specific_RegisteredTeam_View');
 		 });
-
 	});
-	
 });
 
 Route::group(['prefix' => 'team'], function() {	
