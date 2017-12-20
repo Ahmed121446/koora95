@@ -11,7 +11,7 @@ All Competitions
 	<div class="row">
 		@foreach ($Competitions as $Competition)
 			<div class="col-md-10 col-md-offset-1">
-				<a href="/Competitions/{{$Competition->id}}">
+				<a href="/competitions/{{$Competition->id}}">
 					<div class="alert alert-success" role="alert">{{$Competition->name}}</div>
 				</a>
 			</div>

@@ -8,16 +8,30 @@ use App\Http\Resources\RegisterTeamResource;
 use App\Season;
 use App\Competition;
 use App\RegisteredTeam;
+use App\player;
 
 class RegisteredTeamsController extends Controller
 {
 
-     public function Specific_RegisteredTeam_View(Competition $Competition,Season $season ,RegisteredTeam $RegisteredTeam)
+     public function show(Competition $Competition,Season $season ,RegisteredTeam $team)
     {
-        $Seasons_Competition = $Competition->seasons()->find($season)->first();
-        $teams = $Seasons_Competition->registeredTeams()->find($RegisteredTeam)->first();
-        return view('registeredTeam.specific_RegisteredTeam',compact('teams'));
+       
+        $players = player::all();
+
+        return view('registeredTeam.show', compact(['team','players']));
+        // return view('registeredTeam.specific_RegisteredTeam',compact('teams'));
     }
+
+    public function addTeams(Competition $competition, Season $season, Request $request, RegisteredTeamRequests $teamRequest)
+     {
+          $teamRequest->store($season);
+
+          return redirect()->back();
+
+     }
+
+
+
 	//get all Registered Teams swagger
 	/**
      * @SWG\Get(

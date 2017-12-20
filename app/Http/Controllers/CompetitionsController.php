@@ -15,15 +15,27 @@ class CompetitionsController extends Controller
     //create view for competition
     public function Create_View()
     {
-       $all_countries = Country::all()->pluck('name');
-       $all_continentes = continent::all()->pluck('name');
-       return view('Competition.create',compact(['all_countries','all_continentes']));
+       $all_countries = Country::all();
+       $all_continents = continent::all();
+
+       return view('Competition.create',compact(['all_countries','all_continents']));
+
     }
+
+    public function createCompetition(CompetitionRequest $request)
+    {   
+        $competition = $request->store();
+
+        return redirect('/competitions/All-Competitions');
+
+    }
+
     public function All_Competitions_View()
     {
         $Competitions = Competition::all();
         return view('Competition.all_Competitions',compact('Competitions'));
     }
+    
     public function Specific_Competition_View(Competition $Competition)
     {
         $Seasons_Competition = $Competition->seasons()->get();

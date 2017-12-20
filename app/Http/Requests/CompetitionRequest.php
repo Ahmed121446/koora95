@@ -31,7 +31,7 @@ class CompetitionRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'name' =>  'required|min:2|max:100',
+                    'name' =>  'required|min:2|max:100|unique:competitions,name',
                     'type' =>  'required|numeric|exists:competition_types,id',
                     'country_id' => 'required_without:continent_id|numeric|exists:countries,id',
                     'continent_id' => 'required_without:country_id|numeric|exists:continents,id'
@@ -44,7 +44,7 @@ class CompetitionRequest extends FormRequest
     // create New Competition
     public function store()
     {
-        if($this->get('country_id')) {
+        if($this->get('country')) {
             $country_id = $this->get('country_id');
             $location = Country::find($country_id);            
         }else{

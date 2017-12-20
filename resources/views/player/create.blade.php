@@ -8,15 +8,15 @@
 
 <h1>Create New player</h1>
 
-<form action="#" method="post">
+<form action="/players/create" method="post">
 	{{csrf_field()}}
 	<div class="form-group">
 		<label for="name">player Name : </label>
 		<input type="text" name="name" class="form-control" id="name">
 	</div>
 	<div class="form-group">
-          <label for="player_name">player Position : </label>
-          <select name='player_position' class='form-control' id="player_name">
+          <label for="player_position">player Position : </label>
+          <select name='player_position' class='form-control' id="player_position">
             <option value='WF'>WF</option>
             <option value='CF'>CF</option>
             <option value='SS'>SS</option>

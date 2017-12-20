@@ -25,26 +25,37 @@ Route::group(['prefix' => 'admin'], function() {
 	Route::get('Logout','AuthController@Logout');
 });
 
-Route::group(['prefix' => 'country'], function() {	
-});
-Route::group(['prefix' => 'Competitions'], function() {
-	Route::get('Create','CompetitionsController@Create_View');
-	Route::get('All-Competitions','CompetitionsController@All_Competitions_View');
-	Route::get('{Competition}','CompetitionsController@Specific_Competition_View');
+Route::group(['prefix' => 'competitions'], function() {
+	Route::get('/','CompetitionsController@All_Competitions_View');
+	Route::get('create','CompetitionsController@Create_View');
+	Route::post('create','CompetitionsController@createCompetition');
+	Route::get('{competition}','CompetitionsController@Specific_Competition_View');
 
-	Route::group(['prefix' => '{Competition}/Season'], function() {
-		 Route::get('{season}','SeasonController@Specific_Season_View');
+	Route::group(['prefix' => '{competition}/seasons'], function() {
+		Route::get('/','SeasonController@All_Seasons_View');
+		Route::post('create','SeasonController@create');
+		Route::get('{season}','SeasonController@Specific_Season_View');
 
-		 Route::group(['prefix' => '{season}/RegisteredTeam'], function() {
-		 	Route::get('{RegisteredTeam}','RegisteredTeamsController@Specific_RegisteredTeam_View');
+		Route::group(['prefix' => '{season}/teams'], function() {
+		 	Route::get('{team}','RegisteredTeamsController@show');
+		 	Route::post('create', 'RegisteredTeamsController@addTeams');
+
+		 	Route::group(['prefix' => '/{team}/players'], function() {
+		 		Route::get('/','RegisteredPlayersController@add_player');
+				Route::post('create','RegisteredPlayersController@add');
+			});
 		 });
 	});
+
 });
 
 Route::group(['prefix' => 'teams'], function() {	
 	Route::get('create','TeamsController@Create_View');
+	Route::post('create','TeamsController@create');
 });
 
 Route::group(['prefix' => 'players'], function() {	
 	Route::get('create','PlayersController@Create_View');
+	Route::post('create','PlayersController@create');
+	Route::get('/search','PlayersController@autocomplete');
 });

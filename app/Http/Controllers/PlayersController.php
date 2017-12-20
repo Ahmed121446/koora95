@@ -11,13 +11,22 @@ use App\Http\Resources\PlayerResource;
 
 class PlayersController extends Controller
 {
-
+    
     public function Create_View(){
         //get player create.blade.php
         $Teams = Team::all();   
         $countries = Country::all(); 
         return view('player.create',compact('Teams','countries'));
     }
+
+    public function create(CreatePlayerRequest $request){
+
+        $request->store();
+
+        return redirect('/');
+    }
+
+
 
     public function Update_View($id){
         $player = player::find($id);
@@ -28,6 +37,29 @@ class PlayersController extends Controller
         } 
         return view('player.update',compact('player'));
     }
+
+
+    public function autocomplete(Request $request)
+    {
+
+        $term = $request->term;
+    
+        $results = array();
+    
+        $players = \DB::table('players')
+                   ->where('name', 'LIKE', '%'.$term.'%')
+                   ->get();
+    
+        foreach ($players as $player) 
+        {
+            $results[] = [ 'id' => $player->id, 'value' => $player->name ];
+        }
+        
+        return \Response::json($results);
+
+    }
+
+
 	//get all players
     /**
      * @SWG\Get(
@@ -100,6 +132,7 @@ class PlayersController extends Controller
     			'player data and information' =>new PlayerResource( $player)
     	],200);
     }
+
 
 
 

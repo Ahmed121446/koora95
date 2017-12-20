@@ -50,9 +50,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if($exception instanceof ValidationException){
-            //return response()->json(['message' => 'Missing/Invalid Data!'], 400);
-        }else if($exception instanceof ModelNotFoundException){
+        // if($exception instanceof ValidationException){
+        //     return response()->json(['message' => 'Missing/Invalid Data!'], 400);
+        // }
+        if($exception instanceof ModelNotFoundException){
+
             return response()->json(['message' => 'Resource Not Found'], 404);
         }
 
