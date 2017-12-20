@@ -48,8 +48,9 @@ class SeasonController extends Controller
     {
         $RTeams = $season->registeredTeams;
         $location = $competition->location;
-        $Teams = [];
+
         if (!$location instanceof Country) {
+            $Teams = [];
             $countries = Country::where('continent_id',$location->id)->get();
             foreach ($countries as $country) {
                 $teams = Team::where('country_id',$country->id)->get();
@@ -58,8 +59,9 @@ class SeasonController extends Controller
                 }
             } 
         }else{
-             $Teams = Team::where('country_id',$location->id)->get();
+            $Teams = Team::where('country_id',$location->id)->get();
         }
+
         return view('season.specific_Season',compact('season','Teams','RTeams'));
     }
 

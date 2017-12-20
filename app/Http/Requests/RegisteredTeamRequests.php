@@ -31,11 +31,7 @@ class RegisteredTeamRequests extends FormRequest
             case 'POST':
             {
                 return [
-                    'team_id' => [
-                        'required',
-                        'numeric',
-                        'unique:registered_teams,team_id,NULL,NULL,season_id,' . $season_id
-                    ]
+                    'team_name' => 'required'
                 ];
             }
             default: return [];
@@ -48,23 +44,23 @@ class RegisteredTeamRequests extends FormRequest
         if(!$season->active){  
             return response()->json(["message" => "Season is Ended"]); 
         }
-        $team = new RegisteredTeam();
-        $team->team_id = $this->get('team_id'); 
-        $team->played = 0; 
-        $team->wins= 0; 
-        $team->losses = 0; 
-        $team->draws = 0; 
-        $team->goals_for = 0; 
-        $team->goals_against = 0;
-        $team->points = 0;
-        $team->red_cards = 0;
-        $team->yellow_cards = 0;
-        $team = $season->registeredTeams()->save($team);
 
-        if(!$team){
-            return response()->json(['message' => 'An Error Occured'], 500);
+        $teams = $this->get('team_name');
+
+        foreach ($teams as $team_id) {
+            $team = new RegisteredTeam();
+            $team->team_id = (int)$team_id; 
+            $team->played = 0; 
+            $team->wins= 0; 
+            $team->losses = 0; 
+            $team->draws = 0; 
+            $team->goals_for = 0; 
+            $team->goals_against = 0;
+            $team->points = 0;
+            $team->red_cards = 0;
+            $team->yellow_cards = 0;
+            $team = $season->registeredTeams()->save($team);
         }
 
-        return $team;
     }
 }

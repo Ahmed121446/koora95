@@ -22,17 +22,18 @@ class RegisteredPlayersController extends Controller
 
         $players = player::all();
 
-        return view('registered_players.add', compact(['team','players']));
+        return view('registeredTeam.show', compact(['team','players']));
     }
 
-    public function add(AddRegisteredPlayerRequest $request , Season $season, RegisteredTeam $team)
-    {
 
+
+    public function add(Competition $competition, Season $season, RegisteredTeam $team, AddRegisteredPlayerRequest $request)
+    {
         $player = $request->addPlayer($season, $team);
 
         return response()->json([
             'Message' => 'player added successfully',
-            'data' =>new RegisterPlayerResource( $player )
+            'data' =>new RegisterPlayerResource($player)
         ], 201); 
     }
 
