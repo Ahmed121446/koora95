@@ -13,13 +13,23 @@
 
 Route::get('/', function () {
     return view('welcome');
+})->name('home');
+
+
+Route::group(['prefix' => 'admin'], function() {
+	Route::get('Login','AuthController@Login_View');
+	Route::get('Register','AuthController@Register_View');
+
+	Route::post('Login','AuthController@Login');
+	Route::post('Register','AuthController@Register');
+	Route::get('Logout','AuthController@Logout');
 });
 
 Route::group(['prefix' => 'competitions'], function() {
 	Route::get('/','CompetitionsController@All_Competitions_View');
 	Route::get('create','CompetitionsController@Create_View');
 	Route::post('create','CompetitionsController@createCompetition');
-	Route::get('{Competition}','CompetitionsController@Specific_Competition_View');
+	Route::get('{competition}','CompetitionsController@Specific_Competition_View');
 
 	Route::group(['prefix' => '{competition}/seasons'], function() {
 		Route::get('/','SeasonController@All_Seasons_View');
@@ -38,7 +48,6 @@ Route::group(['prefix' => 'competitions'], function() {
 	});
 
 });
-
 
 Route::group(['prefix' => 'teams'], function() {	
 	Route::get('create','TeamsController@Create_View');

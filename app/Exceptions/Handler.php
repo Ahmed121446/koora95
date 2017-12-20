@@ -54,9 +54,10 @@ class Handler extends ExceptionHandler
         //     return response()->json(['message' => 'Missing/Invalid Data!'], 400);
         // }
         if($exception instanceof ModelNotFoundException){
+
             return response()->json(['message' => 'Resource Not Found'], 404);
         }
 
-        return parent::render($request, $exception);
+         return redirect()->route('home');
     }
 }
