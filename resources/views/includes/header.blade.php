@@ -16,8 +16,10 @@
      
       
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"> today matches</a></li>
-        <li><a href="/Competitions/Create"> Create New Competition</a></li>
+        <li><a href="/"> today matches</a></li>
+        <li><a href="/competitions/create"> Create New Competition</a></li>
+        <li><a href="/teams/create"> Create New Team</a></li>
+        <li><a href="/players/create"> Create New Player</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage <span class="caret"></span></a>
           <ul class="dropdown-menu">

@@ -1,7 +1,7 @@
 @extends('../layout/master')
 
 @section('title')
-   Profile
+   country
 @endsection
 
 @section('content')

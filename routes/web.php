@@ -36,16 +36,15 @@ Route::group(['prefix' => 'competitions'], function() {
 				Route::post('create','RegisteredPlayersController@add');
 			});
 		 });
-
 	});
 
-
 });
 
 
-
-Route::group(['prefix' => 'players'], function() {
-	Route::get('/create','PlayersController@createView');
+Route::group(['prefix' => 'teams'], function() {	
+	Route::get('create','TeamsController@Create_View');
 });
 
-
+Route::group(['prefix' => 'players'], function() {	
+	Route::get('create','PlayersController@Create_View');
+});

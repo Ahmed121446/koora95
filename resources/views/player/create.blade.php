@@ -8,14 +8,14 @@
 
 <h1>Create New player</h1>
 
-<form action="/api/player/Create" method="put">
+<form action="#" method="post">
 	{{csrf_field()}}
 	<div class="form-group">
 		<label for="name">player Name : </label>
 		<input type="text" name="name" class="form-control" id="name">
 	</div>
 	<div class="form-group">
-          <label for="player_name">player Name : </label>
+          <label for="player_name">player Position : </label>
           <select name='player_position' class='form-control' id="player_name">
             <option value='WF'>WF</option>
             <option value='CF'>CF</option>
@@ -34,7 +34,7 @@
           </select>
 	</div>
 
-    <div class="form-group">
+  <div class="form-group">
           <label for="team_name">Team Name : </label>
           <select name='team_id' class='form-control' id="team_name">
             @foreach ($Teams as $team)
