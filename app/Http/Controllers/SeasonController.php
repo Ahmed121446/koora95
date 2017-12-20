@@ -7,17 +7,69 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 use App\Season;
-use App\competition;
+use App\Competition;
 use App\Stage;
+use App\Team;
 use App\RegisteredTeam;
 use App\Week;
 use App\Round;
-
+use App\Country;
+use App\continent;
 use App\Http\Requests\AddSeasonRequest;
 use App\Http\Resources\SeasonResource;
 
 class SeasonController extends Controller
 {
+
+    public function create(Competition $competition, Request $request)
+    {
+        $name = $request->get('name');
+
+        $is_active = 0;
+
+        if($request->get('is_active')){
+            $is_active = $request->get('is_active');
+        }
+
+
+        $season = new Season();
+        $season->name = $name;
+        $season->active = $is_active;
+
+        $season = $competition->seasons()->save($season);
+
+        return response()->json([
+                'Message' => 'this season is created successfully',
+                'Season_Information' =>new SeasonResource( $season)
+            ],201);
+    }
+
+    public function Specific_Season_View(Competition $competition, Season $season)
+    {
+        $RTeams = $season->registeredTeams;
+        $location = $competition->location;
+
+        if (!$location instanceof Country) {
+            $Teams = [];
+            $countries = Country::where('continent_id',$location->id)->get();
+            foreach ($countries as $country) {
+                $teams = Team::where('country_id',$country->id)->get();
+                foreach ($teams as $team ) {
+                    if(!$RTeams->find($team->id)){
+                        array_push($Teams,$team);
+                    }
+                }
+            } 
+        }else{
+            $Teams = Team::where('country_id',$location->id)->get();
+        }
+
+        return view('season.specific_Season',compact('season','Teams','RTeams'));
+    }
+
+
+
+
     // Get Competition Seasons 
     /**
      * @SWG\Get(

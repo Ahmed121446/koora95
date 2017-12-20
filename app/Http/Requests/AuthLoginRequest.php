@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddSeasonRequest extends FormRequest
+class AuthLoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,8 @@ class AddSeasonRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
-                'required',
-                'min:2',
-                'max:25',
-                'unique:seasons,name,NULL,NULL,comp_id,'. $this->get('competition_id')
-            ],
-            'is_active' => 'boolean'
+            'email' =>'required',
+            'password' =>'required'
         ];
     }
 }
