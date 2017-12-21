@@ -30,8 +30,12 @@ class MatchesController extends Controller
         return $Rteams_names;
 
     }
-    public function ALL_matches_View(){
-        $all_matches = Match::all();
+    public function ALL_matches_View(Request $request){
+        if ($request->has('status')) {
+            $all_matches = Match::where('status',$request->get('status'))->paginate(5)->appends('status',$request->get('status'));
+        }else{
+            $all_matches = Match::paginate(5);
+        }
         return view('match.all_Matches',compact('all_matches'));
     }
     public function Create(Request $request){

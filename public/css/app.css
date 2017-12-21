@@ -7,6 +7,11 @@ h2 a:hover{
 	color: #184063;
 	transition: .2s color;
 }
+button a{
+    color: white !important;
+    text-decoration: none !important;
+
+}
 .caption{
 	height: 30vh !important;
 }

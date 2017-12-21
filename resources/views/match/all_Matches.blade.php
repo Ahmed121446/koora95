@@ -4,11 +4,25 @@ All Matches
 @endsection
 
 @section('content')
+
+	<div class="row">
+
+		<div class="col-md-6">
+			<h4>Filter by</h4>
+			<button class="btn btn-success"><a href="/matches/?status=played">Played</a></button> 
+
+		  	<button class="btn btn-primary"><a href="/matches/?status=Not Played Yet">notPlayed</a></button> 
+		  	<button class="btn btn-danger"><a href="/matches/?status=InProgressed">InProgressed</a></button>
+		  	<button class="btn btn-info"><a href="/matches">Clear Filter</a></button> 
+		 	 
+		  	
+		</div>
+	</div>
+	<hr/>
 	<div class="panel panel-default ">
 	  <!-- Default panel contents -->
-	  <div class="panel-heading">All Matches</div>
-
-	  <!-- Table -->
+	  <div class="panel-heading">All Matches</div>	  	
+	  
 	  <table class="table">
 	  	<thead>
 	      <tr>
@@ -46,5 +60,7 @@ All Matches
 	    
 
 	  </table>
+
 	</div>
+	{{$all_matches->links()}}
 @endsection
