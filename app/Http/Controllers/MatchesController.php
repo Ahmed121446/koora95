@@ -23,6 +23,7 @@ class MatchesController extends Controller
         $matches = Match::all();
         $competitions = $matches->groupBy(function ($item, $key) {
             return $item->season->competiton->name;
+            
         });
         //dd($competitions);
         return view('welcome',compact('competitions'));
