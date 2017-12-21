@@ -23,23 +23,27 @@ class MatchResource extends Resource
             'season' => $this->season->name,
             'stage' => [
                             //return stage id  from stage()->function in match model
-                            'Stage Type id' =>$this->stage->stage_id,
+                            'id' =>$this->stage->stage_id,
                             //return stage type  from stage()->function in match model
-                            'Stage Type' =>$this->stage->stage_type
+                            'Type' =>$this->stage->stage_type
                         ],
             'team 1' => [
                             //return first team name from team1()->function in match model
                             'name'=> $this->team1->name,
                             //return country name from team1()->function in match model
                             //and from country() ->function in Team model
-                            'country name'=> $this->team1->country->name
+                            'country'=>[
+                                'name' => $this->team1->country->name
+                            ] 
                         ],
             'team 2' => [
                             //return second team name from team2()->function in match model
                             'name'=> $this->team2->name,
                             //return country name from team2()->function in match model
                             //and from country() ->function in Team model
-                            'country name'=> $this->team2->country->name
+                            'country'=>[
+                                'name' => $this->team2->country->name
+                            ] 
                         ],
             //return match date 
             'match date' => $this->date,
@@ -49,18 +53,18 @@ class MatchResource extends Resource
             'status' => $this->status,
             //return match stadium 
             'match stadium' =>$this->stadium,
-            'winner of the match ' =>[
+            'winner' =>[
                                         //return match winner name 
-                                       'Winner' =>optional($this->winner)->name
+                                       'name' =>optional($this->winner)->name
                                     ],
             //return match first team goals 
-            'first team number of goals' =>$this->team_1_goals,
+            'first team goals' =>$this->team_1_goals,
             //return match second team goals 
-            'second team number of goals' =>$this->team_2_goals,
+            'second team goals' =>$this->team_2_goals,
             //return match yellow cards  
-            'number of yellow cards in match' =>$this->yellow_cards,
+            'yellow cards' =>$this->yellow_cards,
             //return match red cards  
-            'number of red cards in match' =>$this->red_cards,
+            'red cards' =>$this->red_cards,
 
         ];
     }

@@ -21,19 +21,19 @@ class PlayerResource extends Resource
             'Player name' =>$this->name,
             //return player position
             'Player position' =>$this->position,
-            'player team' =>[
+            'team' =>[
                 //return player team name from Team()->function in player model
-                'team name' =>optional($this->team)->name,
+                ' name' =>optional($this->team)->name,
                 //return player team country name from Team()->function in player model
                 //and from country()->function in team model
-                'team country' =>optional($this->team)->country->name
+                ' country' =>optional($this->team)->country->name
             ],
-            'player country' =>[
+            'country' =>[
                 //return player country name from country()->function in player model
-                'country name' => $this->country->name,
+                ' name' => $this->country->name,
                 //return player country continent name from country()->function in player model
                 //and from continent()->function in country model
-                'country position' => $this->country->continent->name
+                ' position' => $this->country->continent->name
             ]
         ];
     }

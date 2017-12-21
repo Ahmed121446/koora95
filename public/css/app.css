@@ -10,6 +10,9 @@ h2 a:hover{
 .caption{
 	height: 30vh !important;
 }
+.remove:hover{
+    color:red !important;
+}
 
 @keyframes up-right {
     0% {

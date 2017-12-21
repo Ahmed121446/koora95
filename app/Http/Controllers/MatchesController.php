@@ -13,10 +13,41 @@ use App\Season;
 use App\Team;
 use Carbon\Carbon;
 use App\RegisteredTeam;
+use App\Stage;
+use App\competition;
 
 
 class MatchesController extends Controller
 {
+    public function test(){
+        $season_id = $_GET['ch'];
+        $season = Season::find($season_id);
+        $teams = $season->registeredTeams;
+        $Rteams_names =[];
+        foreach ($teams as $team ) {
+           array_push($Rteams_names, $team->team);
+        }
+        return $Rteams_names;
+    }
+    public function ALL_matches_View(){
+        $all_matches = Match::all();
+        return view('match.all_Matches',compact('all_matches'));
+    }
+    public function Create(Request $request){
+
+        $match = new Match();
+        $match->season_id = $request->get('season_id');
+        $match->date = $request->get('date');
+        $match->time = $request->get('time');
+        $match->stage_id = $request->get('stage_id');
+        $match->stadium = $request->get('stadium');
+
+        $match->register_team_1_id = $request->get('Rteams1');
+        $match->register_team_2_id = $request->get('Rteams2');
+        $match->save();
+        return redirect()->route('home');
+    }
+
     public function Get_Today_Matches_View(){
        $today = Carbon::now();
         $today = $today->toDateString();
@@ -28,6 +59,24 @@ class MatchesController extends Controller
         //dd($competitions);
         return view('welcome',compact('competitions'));
     }
+
+    public function Add_Match_View()
+    {
+        $season = Season::where('active',1)->get();
+        $competitions = $season->groupBy(function ($item, $key) {
+            return $item->competiton->name;
+        });
+
+        return view('match.create',compact('competitions'));
+    }
+
+    public function remove_match($id){
+        $find_match = Match::find($id);
+        $find_match->delete();
+        return redirect()->back();
+    }
+
+
     /**
 
     //get all matches in specific season swagger

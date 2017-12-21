@@ -58,3 +58,15 @@ Route::group(['prefix' => 'players'], function() {
 	Route::post('create','PlayersController@create');
 	Route::get('/search','PlayersController@autocomplete');
 });
+
+
+
+Route::group(['prefix' => 'matches'], function() {
+	Route::get('/add-match','MatchesController@Add_Match_View');
+	Route::get('/','MatchesController@ALL_matches_View');
+	Route::get('/test','MatchesController@test');
+
+
+	Route::post('/create','MatchesController@Create');
+	Route::get('/{id}','MatchesController@remove_match');
+});

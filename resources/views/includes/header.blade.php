@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">123 kora</a>
+      <a class="navbar-brand">123 kora</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -19,9 +19,29 @@
 
            <li><a href="/"> today matches</a></li>
            @if (Auth::user())
-           <li><a href="/competitions/create"> Create New Competition</a></li>
-           <li><a href="/teams/create"> Create New Team</a></li>
-           <li><a href="/players/create"> Create New Player</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+               View All <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/matches"> Matches</a></li>
+                  
+                </ul>
+            </li>
+
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus
+glyphicon" aria-hidden="true"></span>
+               Create <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/competitions/create"> Create New Competition</a></li>
+                  <li><a href="/teams/create"> Create New Team</a></li>
+                  <li><a href="/players/create"> Create New Player</a></li>
+                  <li><a href="/matches/add-match"> Create New Match</a></li>
+                </ul>
+            </li>
+
+
            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
              {{Auth::user()->name}} <span class="caret"></span></a>

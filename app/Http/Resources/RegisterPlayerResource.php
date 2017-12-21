@@ -22,29 +22,29 @@ class RegisterPlayerResource extends Resource
             'Register Player Information'=>[
                 'Register player id' => $this->id,
                 'Player Information' =>[
-                    'player id' => $this->player->id,
-                    'player name' => $this->player->name,
-                    'country name' => $this->player->country->name,
-                    'player position' => $this->player->position,
+                    ' id' => $this->player->id,
+                    ' name' => $this->player->name,
+                    ' name' => $this->player->country->name,
+                    ' position' => $this->player->position,
                     'Static Team Information' =>[
-                        'Team id' =>$this->player->Team->id,
-                        'Team name' =>$this->player->Team->name
+                        ' id' =>$this->player->Team->id,
+                        ' name' =>$this->player->Team->name
                     ]
                 ],
                 //return Competition information
                 //return Season information
                 //return Register Team information of this Register player
-                'In Competition'=>[
-                    'Competition name' => $this->registeredTeam->seasons->competiton->name,
+                'Competition'=>[
+                    ' name' => $this->registeredTeam->seasons->competiton->name,
                     'season Information'=>[
-                       'Season id'=> $this->registeredTeam->seasons->id,
-                       'Season name'=> $this->registeredTeam->seasons->name,
+                       ' id'=> $this->registeredTeam->seasons->id,
+                       ' name'=> $this->registeredTeam->seasons->name,
                        'Register Team Information'=>[
-                            'Register Team id' =>$this->registeredTeam->id,
-                            'Register Team name' =>$this->registeredTeam->team->name,
-                            'Register Team country' =>[
-                                'country id' => $this->registeredTeam->seasons->competiton->location->id,
-                                'country name' => $this->registeredTeam->seasons->competiton->location->name,
+                            ' id' =>$this->registeredTeam->id,
+                            ' name' =>$this->registeredTeam->team->name,
+                            ' country' =>[
+                                ' id' => $this->registeredTeam->seasons->competiton->location->id,
+                                ' name' => $this->registeredTeam->seasons->competiton->location->name,
                             ]
                         ]
                     ]

@@ -21,13 +21,13 @@ class TeamResource extends Resource
             'Team name' => $this->name,
             //return team stadium name 
             'Team stadium' => $this->stadium,
-            'Team type' =>[
+            ' type' =>[
                 //return team type from  teamType()->function in team model
-                'type' => $this->teamType->name
+                'name' => $this->teamType->name
             ],
             'Country' => [
                 //return team type from  country()->function in team model
-               'Country name'=> $this->country->name
+               ' name'=> $this->country->name
             ]
 
         ];
