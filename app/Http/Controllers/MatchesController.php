@@ -20,7 +20,7 @@ class MatchesController extends Controller
     public function Get_Today_Matches_View(){
        $today = Carbon::now();
         $today = $today->toDateString();
-        $matches = Match::all();
+        $matches = Match::where('date',$today)->get();
         $competitions = $matches->groupBy(function ($item, $key) {
             return $item->season->competiton->name;
             
