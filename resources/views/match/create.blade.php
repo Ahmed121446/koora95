@@ -91,17 +91,19 @@ competition
     document.getElementsByClassName("Rteams")[0].innerHTML = "";
     document.getElementsByClassName("Rteams")[1].innerHTML = "";
     $.get(ajax_page, {ch: season_id}, function(teams) {
-      teams.forEach(function(element) {
-        
+      for (team in teams) {
+          // console.log(team ,teams[team] );
+          
           document.getElementsByClassName("Rteams")[0].innerHTML +="\
-            <option value="+element.id+">"+element.name+"</option>\
+            <option value="+team+">"+teams[team]+"</option>\
             ";
             document.getElementsByClassName("Rteams")[1].innerHTML +="\
-            <option value="+element.id+">"+element.name+"</option>\
+            <option value="+team+">"+teams[team]+"</option>\
             ";
-       
-        
-      });
+      }
+     
+
+
       
     });
   }

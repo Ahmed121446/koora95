@@ -25,9 +25,10 @@ class MatchesController extends Controller
         $teams = $season->registeredTeams;
         $Rteams_names =[];
         foreach ($teams as $team ) {
-           array_push($Rteams_names, $team->team);
+            $Rteams_names[$team->id] = $team->team->name;
         }
         return $Rteams_names;
+
     }
     public function ALL_matches_View(){
         $all_matches = Match::all();
@@ -35,15 +36,31 @@ class MatchesController extends Controller
     }
     public function Create(Request $request){
 
-        $match = new Match();
-        $match->season_id = $request->get('season_id');
-        $match->date = $request->get('date');
-        $match->time = $request->get('time');
-        $match->stage_id = $request->get('stage_id');
-        $match->stadium = $request->get('stadium');
-
-        $match->register_team_1_id = $request->get('Rteams1');
-        $match->register_team_2_id = $request->get('Rteams2');
+        // $match = new Match();
+        // $match->season_id = $request->get('season_id');
+        // $match->date = $request->get('date');
+        // $match->time = $request->get('time');
+        // $match->stage_id = $request->get('stage_id');
+        // $match->stadium = $request->get('stadium');
+        // $match->status = 
+        // $match->register_team_1_id = $request->get('Rteams1');
+        // $match->register_team_2_id = $request->get('Rteams2');
+        // $match->save();
+        $match =  new Match([
+            'date'  => $request->get('date'),
+            'time' => $request->get('time'),
+            'stage_id' => $request->get('stage_id'),
+            'season_id' => $request->get('season_id'),
+            'register_team_1_id' => $request->get('Rteams1'),
+            'register_team_2_id' => $request->get('Rteams2'),
+            'stadium' => $request->get('stadium'),
+            'status' => "Not Played Yet",
+            'team_1_goals' => 0,
+            'team_2_goals' => 0,
+            'winner_id' => 0,
+            'red_cards' => 0,
+            'yellow_cards' => 0
+        ]);
         $match->save();
         return redirect()->route('home');
     }
