@@ -23,7 +23,10 @@ All Competitions
 						</div>
 		  			@endforeach
 		  	</div>
-		  	<button type="submit" class="btn btn-primary">Add Teams</button>
+		  	<button type="submit" class="btn btn-primary">Add Teams</button> <br>
+		  	<div>
+		  		<a href="{{$season->id}}/stages/create"> Create Groups </a>
+		  	</div>
 	  </form>
   </p>
 </div>

@@ -35,16 +35,20 @@ Route::group(['prefix' => 'competitions'], function() {
 		Route::get('/','SeasonController@All_Seasons_View');
 		Route::post('create','SeasonController@create');
 		Route::get('{season}','SeasonController@Specific_Season_View');
+		Route::get('{season}/groups/create','SeasonController@createGroups');
 
 		Route::group(['prefix' => '{season}/teams'], function() {
 		 	Route::get('{team}','RegisteredTeamsController@show');
 		 	Route::post('create', 'RegisteredTeamsController@addTeams');
 
 		 	Route::group(['prefix' => '/{team}/players'], function() {
-		 		Route::get('/','RegisteredPlayersController@add_player');
 				Route::post('create','RegisteredPlayersController@add');
 			});
-		 });
+		});
+
+		Route::group(['prefix' => '/{season}/stages'], function() {
+			Route::post('create','SeasonsController@addStages');
+		});
 	});
 
 });
@@ -57,5 +61,5 @@ Route::group(['prefix' => 'teams'], function() {
 Route::group(['prefix' => 'players'], function() {	
 	Route::get('create','PlayersController@Create_View');
 	Route::post('create','PlayersController@create');
-	Route::get('/search','PlayersController@autocomplete');
+	Route::get('{team}/search','PlayersController@autocomplete');
 });

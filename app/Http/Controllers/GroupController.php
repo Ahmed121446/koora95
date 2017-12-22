@@ -165,7 +165,7 @@ class GroupController extends Controller
             return response()->json(['Message' => 'Groups Are already created'], 400);
         }
 
-        $response = $request->create_groups($competition, $stage);
+        $response = $request->create_groups($stage);
 
         return $response;
     }

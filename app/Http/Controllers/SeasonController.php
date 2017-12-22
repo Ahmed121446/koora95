@@ -7,6 +7,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 use App\Season;
+use App\Repositories\SeasonRepository;
 use App\Competition;
 use App\Stage;
 use App\Team;
@@ -23,25 +24,15 @@ class SeasonController extends Controller
 
     public function create(Competition $competition, Request $request)
     {
-        $name = $request->get('name');
+        $seasonRepo = new SeasonRepository;
+        $season = $seasonRepo->store($request, $competition);
 
-        $is_active = 0;
-
-        if($request->get('is_active')){
-            $is_active = $request->get('is_active');
+        if($request->get('is_grouped')){
+            $url = 'competitions/'. $competition->id . "/seasons" .'/'. $season->id . '/groups/create';
+            return redirect($url)->with('name', $request->get('name'));
         }
 
-
-        $season = new Season();
-        $season->name = $name;
-        $season->active = $is_active;
-
-        $season = $competition->seasons()->save($season);
-
-        return response()->json([
-                'Message' => 'this season is created successfully',
-                'Season_Information' =>new SeasonResource( $season)
-            ],201);
+        return redirect('competitions/' . $competition->id . "/seasons" . $season->id);
     }
 
     public function Specific_Season_View(Competition $competition, Season $season)
@@ -65,6 +56,12 @@ class SeasonController extends Controller
         }
 
         return view('season.specific_Season',compact('season','Teams','RTeams'));
+    }
+
+
+    public function createGroups(Request $request)
+    {
+        return view('season.groups');
     }
 
 

@@ -16,9 +16,9 @@ class RegisteredTeamsController extends Controller
      public function show(Competition $Competition,Season $season ,RegisteredTeam $team)
     {
        
-        $players = player::all();
+        $team_players = $team->registeredPlayers;
 
-        return view('registeredTeam.show', compact(['team','players']));
+        return view('registeredTeam.show', compact(['team','team_players']));
         // return view('registeredTeam.specific_RegisteredTeam',compact('teams'));
     }
 

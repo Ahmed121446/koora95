@@ -16,7 +16,7 @@ class CreateStagesTable extends Migration
         Schema::create('stages', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('season_id');
-            $table->morphs('stage');
+            $table->string('name');
             $table->timestamps();
         });
     }
