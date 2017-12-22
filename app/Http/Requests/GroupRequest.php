@@ -34,12 +34,12 @@ class GroupRequest extends FormRequest
     }
 
 
-    public function create_groups(Competition $competition ,Stage $stage)
+    public function create_groups(Stage $stage)
     {
         $groups_number = $this->get('groups_number');
         $teams_number = $this->get('teams_number');
 
-        if($this->get('home_away') || $competition->is_league()){
+        if($this->get('home_away')){
             $rounds_number = ($teams_number - 1) * 2;
         }else{
             $rounds_number = $teams_number - 1;

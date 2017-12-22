@@ -39,17 +39,18 @@ class PlayersController extends Controller
     }
 
 
-    public function autocomplete(Request $request)
+    public function autocomplete( Team $team, Request $request)
     {
 
         $term = $request->term;
     
         $results = array();
-    
+
         $players = \DB::table('players')
+                   ->where('team_id', $team->id)
                    ->where('name', 'LIKE', '%'.$term.'%')
                    ->get();
-    
+
         foreach ($players as $player) 
         {
             $results[] = [ 'id' => $player->id, 'value' => $player->name ];
