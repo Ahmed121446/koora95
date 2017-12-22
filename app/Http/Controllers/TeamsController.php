@@ -13,6 +13,26 @@ use App\Country;
 
 class TeamsController extends Controller
 {
+    public function All_Teams(Request $request)
+    {
+        if ($request->has('name') || $request->has('type')) {
+
+            $name = $request->get('name');
+            $type = $request->get('type');
+
+            $resualt = Team::where('name','LIKE',"{$name}%");
+            if($type > 0){
+                $resualt->where('type_id',$type);
+            }
+            $all_teams = $resualt->paginate(25)->appends('name',"{$name}%");
+
+        }else{
+            $all_teams = Team::paginate(25);
+        }
+        
+       return view('team.all_teams',compact('all_teams'));
+    }
+    
     public function Create_View()
     {
         $all_Countries = Country::all();
@@ -31,6 +51,12 @@ class TeamsController extends Controller
         return redirect('/');
     }
 
+    public function remove_team($id)
+    {
+        $find_team = Team::find($id);
+        $find_team->delete();
+        return redirect()->back();
+    }
 
     //get all Teams
     /**

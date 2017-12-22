@@ -24,7 +24,7 @@
                View All <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="/matches"> Matches</a></li>
-                  
+                   <li><a href="/teams"> Teams</a></li>
                 </ul>
             </li>
 

@@ -4,7 +4,7 @@ All Matches
 @endsection
 
 @section('content')
-
+	<h1>All Matches</h1>
 	<div class="row">
 
 		<div class="col-md-6">
@@ -21,7 +21,7 @@ All Matches
 	<hr/>
 	<div class="panel panel-default ">
 	  <!-- Default panel contents -->
-	  <div class="panel-heading">All Matches</div>	  	
+	  <div class="panel-heading">Matches</div>	  	
 	  
 	  <table class="table">
 	  	<thead>

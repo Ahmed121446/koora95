@@ -49,8 +49,10 @@ Route::group(['prefix' => 'competitions'], function() {
 });
 
 Route::group(['prefix' => 'teams'], function() {	
+	Route::get('/','TeamsController@All_Teams');
 	Route::get('create','TeamsController@Create_View');
 	Route::post('create','TeamsController@create');
+	Route::get('/{id}','TeamsController@remove_team');
 });
 
 Route::group(['prefix' => 'players'], function() {	
