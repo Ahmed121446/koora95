@@ -27,6 +27,23 @@ All Players
 			        <option value="1" @if(request()->get('team') == 1) selected="" @endif >No Team</option>
 			        <option value="2"  @if(request()->get('team') == 2) selected="" @endif>With Team</option>
 			    </select>
+			    <select name="position" class="form-control">
+			    	<option value="0">Select Position</option>
+			    	<option value='WF' @if(request()->get('position') == 'WF') selected="" @endif >WF</option>
+		            <option value='CF' @if(request()->get('position') == 'CF') selected="" @endif >CF</option>
+		            <option value='SS' @if(request()->get('position') == 'SS') selected="" @endif >SS</option>
+		            <option value='CM' @if(request()->get('position') == 'CM') selected="" @endif >CM</option>
+		            <option value='DM' @if(request()->get('position') == 'DM') selected="" @endif >DM</option>
+		            <option value='AM' @if(request()->get('position') == 'AM') selected="" @endif >AM</option>
+		            <option value='WM' @if(request()->get('position') == 'WM') selected="" @endif >WM</option>
+		            <option value='LB' @if(request()->get('position') == 'LB') selected="" @endif >LB</option>
+		            <option value='LWB' @if(request()->get('position') == 'LWB') selected="" @endif >LWB</option>
+		            <option value='CB' @if(request()->get('position') == 'CB') selected="" @endif >CB</option>
+		            <option value='SW' @if(request()->get('position') == 'SW') selected="" @endif >SW</option>
+		            <option value='RB' @if(request()->get('position') == 'RB') selected="" @endif >RB</option>
+		            <option value='RWB' @if(request()->get('position') == 'RWB') selected="" @endif >RWB</option>
+		            <option value='GK' @if(request()->get('position') == 'GK') selected="" @endif >GK</option>
+			    </select>
 			    <span class="input-group-btn">
 			        <button class="btn btn-primary btn-block" type="submit">
 			        	Search 

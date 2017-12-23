@@ -13,16 +13,21 @@ class PlayersController extends Controller
 {
     public function All_Players(Request $request){
 
-        if ($request->has('name') || $request->has('team')) {
+        if ($request->has('name') || $request->has('team') || $request->has('position') ) {
             $name = $request->get('name');
             $team = $request->get('team');
+            $position = $request->get('position');
+
             $resualt = player::where('name','LIKE',"{$name}%");
             if ($team == 1) {
                $resualt->where('team_id',0);
             }else if ($team == 2){
                 $resualt->where('team_id','!=',0);
             }
-            $all_players = $resualt->paginate(25)->appends('name',"{$name}");
+            if ($request->has('position') && $position != "0"){
+                $resualt->where('position',$position);
+            }
+            $all_players = $resualt->paginate(25)->appends('name',"{$name}")->appends('position',"{$position}");
         }else{
             $all_players = player::paginate(25);
         }
