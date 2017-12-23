@@ -24,7 +24,7 @@ class TeamsController extends Controller
             if($type > 0){
                 $resualt->where('type_id',$type);
             }
-            $all_teams = $resualt->paginate(25)->appends('name',"{$name}%");
+            $all_teams = $resualt->paginate(25)->appends('name',"{$name}");
 
         }else{
             $all_teams = Team::paginate(25);

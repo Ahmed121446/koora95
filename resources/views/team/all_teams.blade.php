@@ -38,7 +38,7 @@ All_Teams
 		</form>
 	</div>
 	<div class="col-md-2 ">
-		<button class="btn btn-info btn-block" type="button"><a href="/teams"> Clear Search</a></button>
+		<button class="btn btn-warning btn-block" type="button"><a href="/teams"> Clear Search</a></button>
 	</div>
 		
 </div>

@@ -56,9 +56,11 @@ Route::group(['prefix' => 'teams'], function() {
 });
 
 Route::group(['prefix' => 'players'], function() {	
+	Route::get('/','PlayersController@All_Players');
 	Route::get('create','PlayersController@Create_View');
 	Route::post('create','PlayersController@create');
 	Route::get('/search','PlayersController@autocomplete');
+	Route::get('/{id}','PlayersController@remove_player');
 });
 
 

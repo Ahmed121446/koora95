@@ -17,14 +17,15 @@
 
       <ul class="nav navbar-nav navbar-right">
 
-           <li><a href="/"> today matches</a></li>
+           <li><a href="/"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> today matches</a></li>
            @if (Auth::user())
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                View All <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="/matches"> Matches</a></li>
-                   <li><a href="/teams"> Teams</a></li>
+                  <li><a href="/teams"> Teams</a></li>
+                  <li><a href="/players"> Players</a></li>
                 </ul>
             </li>
 
@@ -47,7 +48,7 @@ glyphicon" aria-hidden="true"></span>
              {{Auth::user()->name}} <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="#">profile</a></li>
-                <li><a href="/admin/Logout">logout </a></li>
+                <li><a href="/admin/Logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> logout </a></li>
               </ul>
           </li>
           
