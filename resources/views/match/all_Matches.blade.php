@@ -47,7 +47,10 @@ All Matches
 	    			<td>{{$match->team2->name}}</td>
 	    			<td>{{$match->date}}</td>
 	    			<td>{{$match->time}}</td>
-	    			<td>{{$match->season_id}}</td>
+	    			<td> {{($match->season_id != 0)? $match->season_id : '----'}}
+	    			
+	    				
+	    			</td>
 	    			<td>{{$match->team_1_goals}}</td>
 	    			<td>{{$match->team_2_goals}}</td>
 	    			<td>{{$match->stadium}}</td>

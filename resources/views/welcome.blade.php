@@ -4,6 +4,9 @@ welcome page
 @endsection
 
 @section('content')
+@if ($competitions->count())
+	{{-- expr --}}
+
 @foreach($competitions as $competition => $matches)
   <div class="jumbotron">
 	<h2><a href="">{{$competition}}</a></h2>
@@ -49,6 +52,9 @@ welcome page
 	</p>
 </div>
 @endforeach
+@else
+<h1>No Matches Today</h1>
+@endif
 
 
 

@@ -35,7 +35,7 @@ competition
   <div class="form-group col-md-12">
     <label for="stage" >Competition Name : </label>
     <select name='season_id' class='form-control' id="stage" onchange="dynamic_Select('/matches/test',this.value)">
-      <option >Select</option>
+      <option value="0">Friendly Match</option>
      @foreach ($competitions as $competition => $seasons)
 
         @foreach ($seasons as $season )
@@ -92,7 +92,7 @@ competition
     document.getElementsByClassName("Rteams")[1].innerHTML = "";
     $.get(ajax_page, {ch: season_id}, function(teams) {
       for (team in teams) {
-          // console.log(team ,teams[team] );
+           //console.log(team ,teams[team] );
           
           document.getElementsByClassName("Rteams")[0].innerHTML +="\
             <option value="+team+">"+teams[team]+"</option>\
