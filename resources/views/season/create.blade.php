@@ -16,8 +16,8 @@
       <input type="text" name="name" class="form-control" id="name">
     </div>
     <div class="form-group">
-            <label for="player_name">competition Name : </label>
-            <select name='competition_id' class='form-control' id="player_name">
+            <label for="competition">competition Name : </label>
+            <select name='competition_id' class='form-control' id="competitio">
               @foreach ($competitions_list as $competitions)
                 <option value='{{$competitions}}'>{{$competitions}}</option>
               @endforeach
