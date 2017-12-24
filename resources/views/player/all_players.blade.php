@@ -27,6 +27,7 @@ All Players
 			        <option value="1" @if(request()->get('team') == 1) selected="" @endif >No Team</option>
 			        <option value="2"  @if(request()->get('team') == 2) selected="" @endif>With Team</option>
 			    </select>
+			     <span class="input-group-addon" style="width:0px; padding-left:0px; padding-right:0px; border:none;"></span>
 			    <select name="position" class="form-control">
 			    	<option value="0">Select Position</option>
 			    	<option value='WF' @if(request()->get('position') == 'WF') selected="" @endif >WF</option>
@@ -45,7 +46,7 @@ All Players
 		            <option value='GK' @if(request()->get('position') == 'GK') selected="" @endif >GK</option>
 			    </select>
 			    <span class="input-group-btn">
-			        <button class="btn btn-primary btn-block" type="submit">
+			        <button class="btn btn-primary " type="submit">
 			        	Search 
 			        	<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 			        </button>
@@ -69,7 +70,7 @@ All Players
 	<table class="table">
 		<thead>
 			<tr>
-				<th>#</th>
+				<th>ID</th>
 				<th>Name</th>
 				<th>position</th>
 				<th>Team</th>
@@ -78,13 +79,10 @@ All Players
 			</tr>
 		</thead>
 		<tbody>
-			<?php
-				$count = 1;
-				?>
 			@foreach ($all_players as $player)
 			<tr>
 				
-				<td>{{$count++ }}</td>
+				<td>{{$player->id }}</td>
 				<td>{{$player->name}}</td>
 				<td>{{$player->position}}</td>
 				<td>{{optional($player->team)->name}}</td>

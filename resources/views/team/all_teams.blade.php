@@ -53,6 +53,7 @@ All_Teams
 	<table class="table">
 		<thead>
 			<tr>
+				<th>ID</th>
 				<th>Name</th>
 				<th>Type</th>
 				<th>Stadium</th>
@@ -64,11 +65,12 @@ All_Teams
 		<tbody>
 			@foreach ($all_teams as $team)
 			<tr>
-				<td>{{$team->name}}</td>
-				<td>{{$team->teamType->name}}</td>
-				<td>{{$team->stadium}}</td>
-				<td>{{$team->country->name}}</td>
-				<td>{{$team->logo}}</td>
+				<td data-editable>{{$team->id}}</td>
+				<td data-editable>{{$team->name}}</td>
+				<td data-editable>{{$team->teamType->name}}</td>
+				<td data-editable>{{$team->stadium}}</td>
+				<td data-editable>{{$team->country->name}}</td>
+				<td data-editable>{{$team->logo}}</td>
 				<td class=""> <a href="/teams/{{$team->id}}" class="remove "><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a> </td>
 			</tr>
 			@endforeach
