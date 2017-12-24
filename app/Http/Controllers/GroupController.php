@@ -31,6 +31,13 @@ class GroupController extends Controller
     }
 
 
+    public function addTeamsView(Competition $competition, Season $season)
+    {
+        $Teams = $season->registeredTeams;
+
+        return view('groups.add_teams', compact(['season', 'Teams']));
+    }
+
     public function addGroupTeams(Season $season, Stage $stage, Group $group, GroupRepositorty $groupRepo)
     {
         $this->validate(request(), [
@@ -42,6 +49,8 @@ class GroupController extends Controller
         return $response;
 
     }
+
+
 
 
     // Get All Groups
