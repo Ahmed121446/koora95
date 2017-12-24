@@ -11,10 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
 
+
+Route::get('/', 'MatchesController@Get_Today_Matches_View' )->name('home');
 
 Route::group(['prefix' => 'admin'], function() {
 	Route::get('Login','AuthController@Login_View');
@@ -37,6 +36,13 @@ Route::group(['prefix' => 'competitions'], function() {
 		Route::get('{season}','SeasonController@Specific_Season_View');
 		Route::get('{season}/groups/create','SeasonController@createGroups');
 
+		Route::group(['prefix' => '{season}/stages/{stage}/groups'], function() {
+			Route::get('/create','GroupController@createGroupsView');
+			Route::post('/create','GroupController@addGroups');
+			Route::get('{group}/teams', 'GroupController@addTeamsView');
+			Route::get('{group}/teams', 'GroupController@addGroupTeams');
+		});
+
 		Route::group(['prefix' => '{season}/teams'], function() {
 		 	Route::get('{team}','RegisteredTeamsController@show');
 		 	Route::post('create', 'RegisteredTeamsController@addTeams');
@@ -54,12 +60,29 @@ Route::group(['prefix' => 'competitions'], function() {
 });
 
 Route::group(['prefix' => 'teams'], function() {	
+	Route::get('/','TeamsController@All_Teams');
 	Route::get('create','TeamsController@Create_View');
 	Route::post('create','TeamsController@create');
+	Route::get('/{id}','TeamsController@remove_team');
 });
 
 Route::group(['prefix' => 'players'], function() {	
+	Route::get('/','PlayersController@All_Players');
 	Route::get('create','PlayersController@Create_View');
 	Route::post('create','PlayersController@create');
 	Route::get('{team}/search','PlayersController@autocomplete');
+	Route::get('/search','PlayersController@autocomplete');
+	Route::get('/{id}','PlayersController@remove_player');
+});
+
+
+
+Route::group(['prefix' => 'matches'], function() {
+	Route::get('/add-match','MatchesController@Add_Match_View');
+	Route::get('/','MatchesController@ALL_matches_View');
+	Route::get('/test','MatchesController@test');
+
+
+	Route::post('/create','MatchesController@Create');
+	Route::get('/{id}','MatchesController@remove_match');
 });

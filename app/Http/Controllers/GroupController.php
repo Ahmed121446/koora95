@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Repositories\Groups as GroupRepositorty;
 use Illuminate\Http\Request;
+
+use App\Competition;
 use App\Group;
 use App\GroupTeams;
 use App\Season;
@@ -13,6 +15,34 @@ use App\Http\Requests\GroupRequest;
 
 class GroupController extends Controller
 {
+
+    public function createGroupsView(Competition $competition, Season $season, Stage $stage)
+    {
+        return view('season.groups', compact(['competition', 'season', 'stage']));
+    }
+
+
+    public function addGroups(Competition $competition, Season $season, Stage $stage, GroupRequest $request)
+    {
+
+        $request->create_groups($stage);
+
+        return redirect('/');
+    }
+
+
+    public function addGroupTeams(Season $season, Stage $stage, Group $group, GroupRepositorty $groupRepo)
+    {
+        $this->validate(request(), [
+            'team_id' => 'required'
+        ]);
+       
+        $response = $groupRepo->addGroupTeams($group, Request('team_id'));
+
+        return $response;
+
+    }
+
 
     // Get All Groups
     /**

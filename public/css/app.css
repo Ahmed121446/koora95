@@ -8350,3 +8350,61 @@ button.close {
   }
 }
 
+<<<<<<< HEAD
+=======
+=======
+h2 a{
+	text-decoration: none !important;
+	text-transform: uppercase;
+	transition: .2s color;
+}
+h2 a:hover{
+	color: #184063;
+	transition: .2s color;
+}
+button a{
+    color: white !important;
+    text-decoration: none !important;
+
+}
+
+.caption{
+	height: 30vh !important;
+}
+.remove:hover{
+    color:red !important;
+}
+
+@keyframes up-right {
+    0% {
+        transform: scale(1);
+        opacity: .25
+    }
+    50% {
+        transform: scale (1, 5);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: .25;
+    }
+}
+.circle {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    opacity: .25;
+}
+.red {
+    background-color: red;
+    -webkit-animation: up-right .8s infinite;
+    -moz-animation: up-right .8s infinite;
+    -o-animation: up-right .8s infinite;
+    animation: up-right .8s infinite;
+}
+.label-info:nth-child(1){
+	margin: 0 8px 0 5px !important;
+}
+.label {
+	font-size: 65%!important;
+}

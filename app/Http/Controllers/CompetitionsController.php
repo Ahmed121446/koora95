@@ -26,7 +26,7 @@ class CompetitionsController extends Controller
     {   
         $competition = $request->store();
 
-        return redirect('/competitions/All-Competitions');
+        return redirect('/competitions');
 
     }
 

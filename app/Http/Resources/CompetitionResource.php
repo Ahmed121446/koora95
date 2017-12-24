@@ -22,11 +22,11 @@ class CompetitionResource extends Resource
             'Competition name' => $this->name,
             //return Competition type from competitionType() ->function in competition model
             'Competition type' => [
-                'Competition type name ' =>$this->competitionType->name
+                'name ' =>$this->competitionType->name
             ],
             //return location of this Competition  from location() -> function in competition model
             'location'=>[
-                'It will take place in ' =>$this->location->name
+                'name' =>$this->location->name
             ]
 
         ];

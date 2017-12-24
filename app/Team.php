@@ -65,5 +65,5 @@ class Team extends BaseModel
     {
         return $this->belongsTo(TeamType::class,'type_id');
     }
-    
+
 }

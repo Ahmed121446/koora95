@@ -20,10 +20,10 @@ class SeasonResource extends Resource
             //return season name 
             'Season' =>$this->name,
             //return true or false according to the seasion is active or not  
-            'Season is active' => ($this->active) ? 'true' : ' false' ,
+            'active' => ($this->active) ? 'true' : ' false' ,
             'For Competition'=>[
                 //return Competition name from competiton()->function in Season model
-                'Competition name' =>$this->competiton->name
+                ' name' =>$this->competiton->name
             ],
         ];
     }
