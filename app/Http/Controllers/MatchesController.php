@@ -21,13 +21,21 @@ class MatchesController extends Controller
 {
     public function test(){
         $season_id = $_GET['ch'];
-        $season = Season::find($season_id);
-        $teams = $season->registeredTeams;
         $Rteams_names =[];
-        foreach ($teams as $team ) {
-            $Rteams_names[$team->id] = $team->team->name;
+        if ($season_id == 0) {
+            $teams = Team::all();
+            foreach ($teams as $team ) {
+                 $Rteams_names[$team->id] = $team->name;
+            }
+            return  $Rteams_names;
+        }else{
+            $season = Season::find($season_id);
+            $teams = $season->registeredTeams;
+            foreach ($teams as $team ) {
+                $Rteams_names[$team->id] = $team->team->name;
+            }
+            return $Rteams_names;
         }
-        return $Rteams_names;
 
     }
     public function ALL_matches_View(Request $request){
@@ -73,8 +81,14 @@ class MatchesController extends Controller
        $today = Carbon::now();
         $today = $today->toDateString();
         $matches = Match::where('date',$today)->get();
+
         $competitions = $matches->groupBy(function ($item, $key) {
-            return $item->season->competiton->name;
+            if ($item->season == 0) {
+                return "friendly matches";
+            }else{
+                return $item->season->competiton->name;
+            }
+            
             
         });
         //dd($competitions);
