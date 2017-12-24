@@ -65,7 +65,6 @@ competition
 </form>
 @endsection
 
-
 <script type="text/javascript">
   function showCountry(){
       document.getElementById('countries').style.display ='block';

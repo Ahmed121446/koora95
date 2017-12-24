@@ -13,13 +13,94 @@ use App\Season;
 use App\Team;
 use Carbon\Carbon;
 use App\RegisteredTeam;
+use App\Stage;
+use App\competition;
 
 
 class MatchesController extends Controller
 {
+    public function test(){
+        $season_id = $_GET['ch'];
+        $season = Season::find($season_id);
+        $teams = $season->registeredTeams;
+        $Rteams_names =[];
+        foreach ($teams as $team ) {
+            $Rteams_names[$team->id] = $team->team->name;
+        }
+        return $Rteams_names;
+
+    }
+    public function ALL_matches_View(Request $request){
+        if ($request->has('status')) {
+            $all_matches = Match::where('status',$request->get('status'))->paginate(5)->appends('status',$request->get('status'));
+        }else{
+            $all_matches = Match::paginate(5);
+        }
+        return view('match.all_Matches',compact('all_matches'));
+    }
+    public function Create(Request $request){
+
+        // $match = new Match();
+        // $match->season_id = $request->get('season_id');
+        // $match->date = $request->get('date');
+        // $match->time = $request->get('time');
+        // $match->stage_id = $request->get('stage_id');
+        // $match->stadium = $request->get('stadium');
+        // $match->status = 
+        // $match->register_team_1_id = $request->get('Rteams1');
+        // $match->register_team_2_id = $request->get('Rteams2');
+        // $match->save();
+        $match =  new Match([
+            'date'  => $request->get('date'),
+            'time' => $request->get('time'),
+            'stage_id' => $request->get('stage_id'),
+            'season_id' => $request->get('season_id'),
+            'register_team_1_id' => $request->get('Rteams1'),
+            'register_team_2_id' => $request->get('Rteams2'),
+            'stadium' => $request->get('stadium'),
+            'status' => "Not Played Yet",
+            'team_1_goals' => 0,
+            'team_2_goals' => 0,
+            'winner_id' => 0,
+            'red_cards' => 0,
+            'yellow_cards' => 0
+        ]);
+        $match->save();
+        return redirect()->route('home');
+    }
+
+    public function Get_Today_Matches_View(){
+       $today = Carbon::now();
+        $today = $today->toDateString();
+        $matches = Match::where('date',$today)->get();
+        $competitions = $matches->groupBy(function ($item, $key) {
+            return $item->season->competiton->name;
+            
+        });
+        //dd($competitions);
+        return view('welcome',compact('competitions'));
+    }
+
+    public function Add_Match_View()
+    {
+        $season = Season::where('active',1)->get();
+        $competitions = $season->groupBy(function ($item, $key) {
+            return $item->competiton->name;
+        });
+
+        return view('match.create',compact('competitions'));
+    }
+
+    public function remove_match($id){
+        $find_match = Match::find($id);
+        $find_match->delete();
+        return redirect()->back();
+    }
+
+
+    /**
 
     //get all matches in specific season swagger
-    /**
      * @SWG\Get(
      *     path="/api/Seasons/{season}/Event/matches",
      *     description = "get all matches in specific season",

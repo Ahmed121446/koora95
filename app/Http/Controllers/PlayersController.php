@@ -11,7 +11,24 @@ use App\Http\Resources\PlayerResource;
 
 class PlayersController extends Controller
 {
-    
+    public function All_Players(Request $request){
+
+        if ($request->has('name') || $request->has('team')) {
+            $name = $request->get('name');
+            $team = $request->get('team');
+            $resualt = player::where('name','LIKE',"{$name}%");
+            if ($team == 1) {
+               $resualt->where('team_id',0);
+            }else if ($team == 2){
+                $resualt->where('team_id','!=',0);
+            }
+            $all_players = $resualt->paginate(25)->appends('name',"{$name}");
+        }else{
+            $all_players = player::paginate(25);
+        }
+        return view('player.all_players',compact('all_players'));
+        
+    }
     public function Create_View(){
         //get player create.blade.php
         $Teams = Team::all();   
@@ -20,9 +37,7 @@ class PlayersController extends Controller
     }
 
     public function create(CreatePlayerRequest $request){
-
         $request->store();
-
         return redirect('/');
     }
 
@@ -59,6 +74,12 @@ class PlayersController extends Controller
         return \Response::json($results);
 
     }
+    public function remove_player($id){
+        $find_player = Player::find($id);
+        $find_player->delete();
+        return redirect()->back();
+    }
+    
 
 
 	//get all players

@@ -18,7 +18,9 @@ class CountryResource extends Resource
             //make the shape of the country data  that will be returned
             //json shape
             'country name' => $this->name,
-            'Continent name' => $this->continent->name
+            'Continent' => [
+                'name' => $this->continent->name
+            ]
         ];
 
     }
