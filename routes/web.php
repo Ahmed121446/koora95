@@ -34,6 +34,7 @@ Route::group(['prefix' => 'competitions'], function() {
 		Route::get('/','SeasonController@All_Seasons_View');
 		Route::post('create','SeasonController@create');
 		Route::get('{season}','SeasonController@Specific_Season_View');
+		Route::get('{season}/groups/create','SeasonController@createGroups');
 
 		Route::group(['prefix' => '{season}/stages/{stage}/groups'], function() {
 			Route::get('/create','GroupController@createGroupsView');

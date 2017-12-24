@@ -37,6 +37,7 @@
   <div class="form-group">
           <label for="team_name">Team Name : </label>
           <select name='team_id' class='form-control' id="team_name">
+            <option value='0'>No Team</option>
             @foreach ($Teams as $team)
                <option value='{{$team->id}}'>{{$team->name}}</option>
             @endforeach
