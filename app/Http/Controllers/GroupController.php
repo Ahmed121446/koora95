@@ -31,6 +31,19 @@ class GroupController extends Controller
     }
 
 
+    public function addGroupTeams(Season $season, Stage $stage, Group $group, GroupRepositorty $groupRepo)
+    {
+        $this->validate(request(), [
+            'team_id' => 'required'
+        ]);
+       
+        $response = $groupRepo->addGroupTeams($group, Request('team_id'));
+
+        return $response;
+
+    }
+
+
     // Get All Groups
     /**
      * @SWG\Get(

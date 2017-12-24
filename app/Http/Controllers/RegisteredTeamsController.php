@@ -22,7 +22,7 @@ class RegisteredTeamsController extends Controller
         // return view('registeredTeam.specific_RegisteredTeam',compact('teams'));
     }
 
-    public function addTeams(Competition $competition, Season $season, Request $request, RegisteredTeamRequests $teamRequest)
+    public function addTeams(Competition $competition, Season $season, RegisteredTeamRequests $teamRequest)
      {
           $teamRequest->store($season);
 
