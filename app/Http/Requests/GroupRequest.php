@@ -28,18 +28,18 @@ class GroupRequest extends FormRequest
     {
         return [
             'groups_number' => 'required|numeric',
-            'teams_number' => 'required|numeric',
+            'teams_per_group' => 'required|numeric',
             'home_away' => 'boolean'
         ];
     }
 
 
-    public function create_groups(Competition $competition ,Stage $stage)
+    public function create_groups(Stage $stage)
     {
         $groups_number = $this->get('groups_number');
-        $teams_number = $this->get('teams_number');
+        $teams_number = $this->get('teams_per_group');
 
-        if($this->get('home_away') || $competition->is_league()){
+        if($this->get('home_away')){
             $rounds_number = ($teams_number - 1) * 2;
         }else{
             $rounds_number = $teams_number - 1;
@@ -54,20 +54,12 @@ class GroupRequest extends FormRequest
             $group->teams_number = $teams_number;
             $group->rounds_number = $rounds_number;
 
-            if (!$stage->groups()->save($group)) {
-                return response()->json([
-                    'Message' => 'An Error Occured'  
-                ], 500);
-            }
+            $stage->groups()->save($group);
 
         }
 
         $stage->addRounds($rounds_number);
-       
-        return response()->json([
-                'Message' => 'Groups are created successfully',
-                'data' => $stage->groups
-            ], 200);
+        
     }
 
 

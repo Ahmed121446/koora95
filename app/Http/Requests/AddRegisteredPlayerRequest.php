@@ -60,7 +60,7 @@ class AddRegisteredPlayerRequest extends FormRequest
 
 
 
-    public function addPlayer(Season $season, RegisteredTeam $team)
+    public function addPlayer()
      {
 
         $player_id = $this->get('player_id');
@@ -73,10 +73,7 @@ class AddRegisteredPlayerRequest extends FormRequest
         $registered_player->red_cards = 0;
         $registered_player->yellow_cards = 0;
 
-        $team = $season->registeredTeams()->find($team)->first();
-        $player = $team->registeredPlayers()->save($registered_player);
-
-        return $player;
+        return $registered_player;
      } 
     
 }
