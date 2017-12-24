@@ -13,11 +13,6 @@ class Groups
 	
 	public function addGroupTeams(Group $group, $team_id)
     {
-        $registeredTeamsNumber = GroupTeams::where('group_id', $group->id)->count();
-
-        if($registeredTeamsNumber == $group->teams_number){
-            return response()->json(['message' => 'the group is complete'], 400);
-        }
         $team = new GroupTeams([
             'register_team_id' => $team_id, 
             'played' => 0, 
@@ -39,6 +34,12 @@ class Groups
         }
 
         return response()->json(['data' => $team], 201);
+    }
+
+
+    public function validateInput($groups, $request)
+    {
+        # code...
     }
 
 }

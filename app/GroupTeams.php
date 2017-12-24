@@ -18,7 +18,12 @@ class GroupTeams extends BaseModel
 {
     public function group()
     {
-    	return $this->belogsTo(Group::class);
+    	return $this->belongsTo(Group::class);
+    }
+
+    public function registeredTeam()
+    {
+        return $this->belongsTo(RegisteredTeam::class,'register_team_id');
     }
 
     public function storeTeamGolas($goals_for ,$goals_against){
