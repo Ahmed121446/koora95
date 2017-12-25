@@ -35,6 +35,7 @@ class GroupController extends Controller
 
 
 
+
     // view the form of adding teams to groups
     public function addTeamsView(Competition $competition, Season $season, Stage $stage)
     {
@@ -66,6 +67,7 @@ class GroupController extends Controller
         }
 
     }
+
 
 
 

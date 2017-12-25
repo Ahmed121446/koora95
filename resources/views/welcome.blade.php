@@ -9,7 +9,7 @@ welcome page
 
 @foreach($competitions as $competition => $matches)
   <div class="jumbotron">
-	<h2><a href="">{{$competition}}</a></h2>
+	<h2><a href="">{{ ucwords($competition) }}</a></h2>
 	<p>
 		<div class="row">
 			@foreach ($matches as $match)
@@ -23,7 +23,7 @@ welcome page
 								@endif 
 							</span> 
 							<span class="label label-danger">VS</span>
-							<span class="label label-info">{{$match->Team2->name}} 
+							<span class="label label-info">{{optional($match->Team2)->name}} 
 								@if ($match->status == "played" || $match->status == "InProgressed") 
 									<span class="badge">{{$match->team_2_goals}} </span> 
 								@endif 
