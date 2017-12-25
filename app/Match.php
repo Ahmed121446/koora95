@@ -174,6 +174,34 @@ class Match extends BaseModel
     {
         return $this->belongsTo(RegisteredTeam::class, 'register_team_1_id');
     }
+
+
+    public function scopeFindByStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+
+    public function scopeFindBySeason($query, $season_id)
+    {
+        return $query->where('season_id', $season_id);
+    }
+
+
+    public function scopeFindByDate($query, $date)
+    {
+        return $query->where('date', $date);
+    }
+
+
+    public function scopeFindByStage($query, $season_id, $stage_id, $group_round_id = null)
+    {
+        return $query->where('season_id', $season_id)
+                     ->where('stage_id', $stage_id);
+    }
+
+
+
     //team1
     public function getTeam1Attribute()
     {

@@ -11,9 +11,29 @@ All Matches
 			<h4>Filter by</h4>
 			<button class="btn btn-success"><a href="/matches/?status=played">Played</a></button> 
 
-		  	<button class="btn btn-primary"><a href="/matches/?status=Not Played Yet">notPlayed</a></button> 
-		  	<button class="btn btn-danger"><a href="/matches/?status=InProgressed">InProgressed</a></button>
-		  	<button class="btn btn-info"><a href="/matches">Clear Filter</a></button> 
+		  	<button class="btn btn-primary"><a href="/matches/?status=Not Played Yet">Not Played</a></button> 
+		  	<button class="btn btn-danger"><a href="/matches/?status=InProgressed">In Progress</a></button>
+		  	<button class="btn btn-info"><a href="/matches">Clear Filter</a></button> <hr>
+		  	<form method="GET" action="">
+		  		<input type="date" name="date">
+			  	<select name="season" id="competitions" onchange="season_stages(this.value)">
+			  		<option value='0'>All</option>
+			  		@foreach($seasons as $season)
+			  			<option value="{{$season->id}}"> {{$season->competition->name}} </option>
+			  		@endforeach
+			  	</select>
+
+			  	<select name="stage" id="stages" onchange="group_rounds(this.value)">
+			  		<option value='0'>None</option>
+			  	</select>
+
+			  	<select name="group_round" id="rounds" style="display: none;" >
+			  		
+			  	</select>
+
+			  	<button type="submit" name="submit" id="search"> Search </button>
+
+		  	</form>
 		 	 
 		  	
 		</div>
@@ -146,7 +166,44 @@ All Matches
 
 
 @section('script')
-<script >
+<script>
+
+	function season_stages(season_id) {
+
+		document.getElementById("stages").innerHTML = "\
+			<option value='0'>None</option>";
+	    
+	    if(season_id != 0){
+		    $.get('/stages', {season_id: season_id}, function(stages) {
+		      for (stage in stages) {
+		          document.getElementById("stages").innerHTML +="\
+		            <option value="+stages[stage].id+">"+stages[stage].name+"</option>";
+		      }
+		  	});
+		}	
+	}
+
+	function group_rounds(stage_id) {
+
+	    if(stage_id != 0){
+		    $.get('/stages/rounds', {stage_id: stage_id}, function(rounds) {
+		    	if(rounds.length != 0){
+		    		var roundsSelect = document.getElementById("rounds");
+		    		roundsSelect.style.display = "block";
+		    		roundsSelect.innerHTML = "\
+		    		<option value=0> None </option>";
+
+				    for (round in rounds) {
+				    	console.log(round);
+				        roundsSelect.innerHTML +="\
+				            <option value="+rounds[round].id+">"+rounds[round].round_number+"</option>";
+				    }
+				}
+		  	});
+		}	
+	}
+
+
 	
 	$(document).ready(function(){
 		$(".edit").click(function (event) {

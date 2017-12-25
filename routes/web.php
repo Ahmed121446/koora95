@@ -76,6 +76,9 @@ Route::group(['prefix' => 'players'], function() {
 	Route::get('/{id}','PlayersController@remove_player');
 });
 
+Route::get('/stages', 'SeasonController@allStages');
+Route::get('/stages/rounds', 'SeasonController@findStageRounds');
+
 
 
 Route::group(['prefix' => 'matches'], function() {
