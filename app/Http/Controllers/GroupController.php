@@ -31,17 +31,48 @@ class GroupController extends Controller
     }
 
 
-    public function addGroupTeams(Season $season, Stage $stage, Group $group, GroupRepositorty $groupRepo)
+    
+    public function addTeamsView(Competition $competition, Season $season, Stage $stage)
     {
-        $this->validate(request(), [
-            'team_id' => 'required'
-        ]);
-       
-        $response = $groupRepo->addGroupTeams($group, Request('team_id'));
+        $Teams = $season->registeredTeams;
 
-        return $response;
+        $groups = $stage->groups;
+
+        return view('groups.add_teams', compact(['season', 'Teams','groups']));
+    }
+
+    public function addGroupTeams(Competition $competition, Season $season, Stage $stage, GroupRepositorty $groupRepo, GroupRequest $request)
+    {
+        foreach ($request->get('groupTeams') as $group_id => $teams) {
+
+            $group = Group::find($group_id);
+            
+            if(count($teams) < $group->teams_number){
+                return "false";
+            }
+
+            foreach ($teams as $team_id => $value) {
+            
+                $groupRepo->addGroupTeams($group, $team_id);
+            
+            }
+ 
+        }
 
     }
+
+
+
+
+    public function showGroupTeams(Competition $competition, Season $season, Stage $stage)
+    {
+        
+        $groups = $stage->groups;
+
+        return view('groups.all-groups', compact('groups'));
+    }
+
+
 
 
     // Get All Groups

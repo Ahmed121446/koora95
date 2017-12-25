@@ -26,11 +26,20 @@ class GroupRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'groups_number' => 'required|numeric',
-            'teams_per_group' => 'required|numeric',
-            'home_away' => 'boolean'
-        ];
+        
+        if($this->get('submit') == 'Add Teams'){
+            $groups_number = count($this->stage->groups);
+
+            return [
+                'groupTeams' => 'required|size:'. $groups_number
+            ];
+        }else{
+            return [
+                'groups_number' => 'required|numeric',
+                'teams_per_group' => 'required|numeric',
+                'home_away' => 'boolean'
+            ];
+        }
     }
 
 
@@ -61,6 +70,15 @@ class GroupRequest extends FormRequest
         $stage->addRounds($rounds_number);
         
     }
+
+
+    public function messages()
+{
+    return [
+        'groupTeams.size' => 'Please Enter All Group Teams',
+       
+    ];
+}
 
 
     
