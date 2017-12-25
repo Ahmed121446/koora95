@@ -75,6 +75,8 @@ Route::group(['prefix' => 'players'], function() {
 	Route::get('{team}/search','PlayersController@autocomplete');
 	Route::get('/search','PlayersController@autocomplete');
 	Route::get('/{id}','PlayersController@remove_player');
+	Route::post('/update/{player_id}','PlayersController@update');
+
 });
 
 

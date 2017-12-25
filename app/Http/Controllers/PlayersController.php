@@ -12,7 +12,8 @@ use App\Http\Resources\PlayerResource;
 class PlayersController extends Controller
 {
     public function All_Players(Request $request){
-
+            $countries = Country::all();
+            $teams = Team::all();
         if ($request->has('name') || $request->has('team') || $request->has('position') ) {
             $name = $request->get('name');
             $team = $request->get('team');
@@ -31,7 +32,7 @@ class PlayersController extends Controller
         }else{
             $all_players = player::paginate(25);
         }
-        return view('player.all_players',compact('all_players'));
+        return view('player.all_players',compact('all_players','countries','teams'));
         
     }
     public function Create_View(){
@@ -85,7 +86,21 @@ class PlayersController extends Controller
         return redirect()->back();
     }
 
-    
+    public function update($player_id,Request $request){
+       $find_player = player::find($player_id);
+        if(!$find_player){
+            return  'player not found';
+        }
+        $find_player->name          = $request->get('player_name');
+        $find_player->position       = $request->get('player_position');
+        $find_player->team_id       = $request->get('team_id');
+        $find_player->country_id    = $request->get('country_id');
+
+        if (!$find_player->update()) {
+            return "player can not be updated";
+        }
+        return "player updated successfully";
+    }
 
 
 	//get all players
