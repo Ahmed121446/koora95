@@ -16,12 +16,14 @@ use App\Http\Requests\GroupRequest;
 class GroupController extends Controller
 {
 
+    //view create Groups form
     public function createGroupsView(Competition $competition, Season $season, Stage $stage)
     {
         return view('season.groups', compact(['competition', 'season', 'stage']));
     }
 
 
+    // Add groups to a season
     public function addGroups(Competition $competition, Season $season, Stage $stage, GroupRequest $request)
     {
 
@@ -31,7 +33,8 @@ class GroupController extends Controller
     }
 
 
-    
+
+    // view the form of adding teams to groups
     public function addTeamsView(Competition $competition, Season $season, Stage $stage)
     {
         $Teams = $season->registeredTeams;
@@ -41,6 +44,8 @@ class GroupController extends Controller
         return view('groups.add_teams', compact(['season', 'Teams','groups']));
     }
 
+
+    // Add Teams To the Group
     public function addGroupTeams(Competition $competition, Season $season, Stage $stage, GroupRepositorty $groupRepo, GroupRequest $request)
     {
         foreach ($request->get('groupTeams') as $group_id => $teams) {
@@ -64,6 +69,7 @@ class GroupController extends Controller
 
 
 
+    // Show all Groups
     public function showGroupTeams(Competition $competition, Season $season, Stage $stage)
     {
         
