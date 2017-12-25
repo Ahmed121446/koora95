@@ -33,11 +33,9 @@ class GroupController extends Controller
     }
 
 
-<<<<<<< HEAD
-=======
+
 
     // view the form of adding teams to groups
->>>>>>> e0990bb... add some comments
     public function addTeamsView(Competition $competition, Season $season, Stage $stage)
     {
         $Teams = $season->registeredTeams;
@@ -71,11 +69,7 @@ class GroupController extends Controller
 
 
 
-<<<<<<< HEAD
-=======
-
     // Show all Groups
->>>>>>> e0990bb... add some comments
     public function showGroupTeams(Competition $competition, Season $season, Stage $stage)
     {
         
