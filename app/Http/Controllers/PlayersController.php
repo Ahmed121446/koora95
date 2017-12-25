@@ -84,6 +84,7 @@ class PlayersController extends Controller
         $find_player->delete();
         return redirect()->back();
     }
+
     
 
 

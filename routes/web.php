@@ -65,6 +65,7 @@ Route::group(['prefix' => 'teams'], function() {
 	Route::get('create','TeamsController@Create_View');
 	Route::post('create','TeamsController@create');
 	Route::get('/{id}','TeamsController@remove_team');
+	Route::post('/update/{team_id}','TeamsController@update');
 });
 
 Route::group(['prefix' => 'players'], function() {	
@@ -86,7 +87,7 @@ Route::group(['prefix' => 'matches'], function() {
 
 	Route::post('/create','MatchesController@Create');
 
-	Route::get('/update/{id}','MatchesController@update_match');
+	Route::post('/update/{id}','MatchesController@update_match');
 
 	Route::get('/{id}','MatchesController@remove_match');
 });
