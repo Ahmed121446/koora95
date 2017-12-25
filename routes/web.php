@@ -84,5 +84,8 @@ Route::group(['prefix' => 'matches'], function() {
 
 
 	Route::post('/create','MatchesController@Create');
+
+	Route::get('/update/{id}','MatchesController@update_match');
+
 	Route::get('/{id}','MatchesController@remove_match');
 });

@@ -83,15 +83,12 @@ class MatchesController extends Controller
         $matches = Match::where('date',$today)->get();
 
         $competitions = $matches->groupBy(function ($item, $key) {
-            if ($item->season == 0) {
+            if ($item->season == null) {
                 return "friendly matches";
             }else{
                 return $item->season->competiton->name;
             }
-            
-            
         });
-        //dd($competitions);
         return view('welcome',compact('competitions'));
     }
 
@@ -110,6 +107,10 @@ class MatchesController extends Controller
         $find_match->delete();
         return redirect()->back();
     }
+
+    public function update_match($id){
+         return "done";
+    } 
 
 
     /**
