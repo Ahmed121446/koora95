@@ -6,6 +6,9 @@ use App\Http\Requests\MatchRequest;
 
 use App\Repositories\Matches as MatchesRepo;
 use App\Http\Resources\MatchResource  ;
+use Image;
+use Storage;
+
 
 use Illuminate\Http\Request;
 use App\Match;
@@ -94,7 +97,7 @@ class MatchesController extends Controller
             if ($item->season == null) {
                 return "friendly matches";
             }else{
-                return $item->season->competiton->name;
+                return $item->season->competition->name;
             }
         });
         return view('welcome',compact('competitions'));
@@ -137,9 +140,100 @@ class MatchesController extends Controller
         return "match updated successfully";
     } 
 
+
+
+
+
+
     public function Get_S_Match(Match $match){
-        //dd($match);
-       return view('match.specific_match',compact('match'));
+        $team1_image = $match->Team1->logo;
+        $image1 = Image::make(Storage::get('public/images/teams-logos/'.$team1_image))->resize(110,110);
+        $team2_image = $match->Team2->logo;
+        $image2 = Image::make(Storage::get('public/images/teams-logos/'.$team2_image))->resize(110,110);
+        
+        $img = Image::canvas(1200, 350, '#1f1f1f');
+        $img->insert($image1, 'top-left',200,160);
+        $img->insert($image2, 'top-right',200,160);
+
+        //match Stadium
+        $img->text("Stadium : ".$match->stadium, 50, 40, function($font) {
+            $font->file('font/Raleway-Light.ttf');
+            $font->color(array(255, 255, 255, 1));
+            $font->size(18);
+        });
+        //match red_cards
+        $img->text("Red Cards : ".$match->red_cards, 220, 40, function($font) {
+            $font->file('font/Raleway-Light.ttf');
+            $font->color(array(255, 0, 0, 0.8));
+            $font->size(15);
+        });
+        //match yellow_cards
+        $img->text("Yellow Cards : ".$match->yellow_cards, 350, 40, function($font) {
+            $font->file('font/Raleway-Light.ttf');
+            $font->color(array(255, 219, 87, 0.8));
+            $font->size(15);
+        });
+
+        //white line
+        $img->line(20, 60, 1180, 60, function ($draw) {
+            $draw->color('#fff');
+        });
+
+        //first team name
+        $img->text($match->Team1->name, 80, 220, function($font) {
+            $font->file('font/yanonekaffeesatz-regular-webfont.ttf');
+            $font->color(array(255, 255, 255, 1));
+            $font->size(25);
+        });
+        //second team name
+        $img->text($match->Team2->name, 1020, 220, function($font) {
+            $font->file('font/yanonekaffeesatz-regular-webfont.ttf');
+            $font->color(array(255, 255, 255, 1));
+            $font->size(25);
+        });
+        //second team goals
+        $img->text($match->team_2_goals, 850, 220, function($font) {
+            $font->file('font/yanonekaffeesatz-regular-webfont.ttf');
+            $font->color(array(255, 255, 255, 1));
+            $font->size(30);
+        });
+        //first team goals
+        $img->text($match->team_1_goals, 330, 220, function($font) {
+            $font->file('font/yanonekaffeesatz-regular-webfont.ttf');
+            $font->color(array(255, 255, 255, 1));
+            $font->size(30);
+        });
+
+         //competition name
+        $img->text($match->season->competition->name, 490, 150, function($font) {
+            $font->file('font/PoiretOne-Regular.ttf');
+            $font->color(array(255, 255, 255, 1));
+            $font->size(40);
+        });
+        //season name
+        $img->text($match->season->name, 560, 200, function($font) {
+            $font->file('font/PoiretOne-Regular.ttf');
+            $font->color(array(255, 255, 255, 1));
+            $font->size(30);
+        });
+
+        //match time
+        $img->text($match->time, 550, 260, function($font) {
+            $font->file('font/PoiretOne-Regular.ttf');
+            $font->color(array(169, 68, 66, 1));
+            $font->size(20);
+        });
+
+        //match status
+        $img->text($match->status, 565, 300, function($font) {
+            $font->file('font/Cairo-Regular.ttf');
+            $font->color(array(169, 68, 66, 1));
+            $font->size(20);
+        });
+
+        
+
+        return $img->response('png');
     }
 
 

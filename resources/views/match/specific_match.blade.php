@@ -7,8 +7,6 @@
 	<div class="row">
 		<div class="col-md-12">
 
-			
-			{{$match->image()}}
 		</div>
 	</div>
 @endsection
