@@ -6,6 +6,10 @@ All Players
 
 
 @section('content')
+
+
+
+
 <h1>All Players</h1>
 <hr/>
 <div class="row">

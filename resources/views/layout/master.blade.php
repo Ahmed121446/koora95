@@ -13,8 +13,11 @@
 
 	@yield('style')
 
+
 </head>
 <body>
+
+
 	
 	<div id="app">
 		@include('../includes/header')

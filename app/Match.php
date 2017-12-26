@@ -269,5 +269,26 @@ class Match extends BaseModel
         $this->yellow_cards = $match_cards['first_team_cards']['first_team_yellow_cards'] + $match_cards['second_team_cards']['second_team_yellow_cards'];
     }
 
+    public function image()
+    {
+        $im = @imagecreate(1125, 1000) or die("Cannot Initialize new GD image stream");
+        $background_color = imagecolorallocatealpha($im, 31,31,31,0);
+
+        $im2 = imagecreatefrompng("http://www.zamzar.com/images/filetypes/png.png");
+        // $color = imagecolorallocatealpha($im2, 255, 255, 255,10);
+        // imagefill($im2, 0, 0, $color);
+        imagealphablending($im2, false);
+        imagecopyresampled($im,$im2,250,150,0,0,200,200,200,200);
+
+        $im3 = imagecreatefrompng("https://www.compareninja.com/public/images/feature_simple.png");
+        imagesavealpha($im3, true);
+        imagepng($im3,"im3.png");
+        imagecopyresampled($im,$im3,850,150,0,0,200,200,200,200);
+
+        imagepng($im,"image.png");
+        imagedestroy($im);
+        print "<img src=image.png?".date("U").">";
+    }
+
 
 }

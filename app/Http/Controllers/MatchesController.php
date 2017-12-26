@@ -129,6 +129,11 @@ class MatchesController extends Controller
         return "match updated successfully";
     } 
 
+    public function Get_S_Match(Match $match){
+        //dd($match);
+       return view('match.specific_match',compact('match'));
+    }
+
 
     /**
 
