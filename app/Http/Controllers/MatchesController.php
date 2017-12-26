@@ -109,8 +109,25 @@ class MatchesController extends Controller
         return redirect()->back();
     }
 
-    public function update_match($id){
-         return "done";
+    public function update_match($match_id,Request $request){
+       $find_match = Match::find($match_id);
+        if(!$find_match){
+            return  'Match not found';
+        }
+        $this->validate($request,[
+            'stadium' => 'required|min:2|max:25'
+        ]);
+        $find_match->date            = $request->get('date');
+        $find_match->time            = $request->get('time');
+        $find_match->stadium         = $request->get('stadium');
+        $find_match->team_1_goals    = $request->get('FTG');
+        $find_match->team_2_goals    = $request->get('STG');
+        $find_match->red_cards       = $request->get('red');
+        $find_match->yellow_cards    = $request->get('yellow');
+        if (!$find_match->update()) {
+            return "match can not be updated";
+        }
+        return "match updated successfully";
     } 
 
 

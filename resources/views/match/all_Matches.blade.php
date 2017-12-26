@@ -65,25 +65,25 @@ All Matches
 
     	<tbody>
     		@foreach ($all_matches as $match)	
-	    		<tr class="element {{ ($match->status == 'played') ? 'success' : ''}}" id="{{$match->id}}">
-	    			<td class="name">{{$match->team1->name}}</td>
-	    			<td>{{$match->team2->name}}</td>
-	    			<td>{{$match->date}}</td>
-	    			<td>{{$match->time}}</td>
-	    			<td> {{($match->season_id != 0)? $match->season_id : '----'}}</td>
-	    			<td>{{$match->team_1_goals}}</td>
-	    			<td>{{$match->team_2_goals}}</td>
-	    			<td>{{optional($match->winner)->name}}</td>
-	    			<td>{{$match->stadium}}</td>
-	    			<td>{{$match->red_cards}}</td>
-	    			<td>{{$match->yellow_cards}}</td>
+	    		<tr class="element {{ ($match->status == 'played') ? 'success' : ''}}" id="{{$match->id}}" data-matchid="{{$match->id}}">
+	    			<td id="ft{{$match->id}}">{{$match->team1->name}}</td>
+	    			<td id="st{{$match->id}}">{{$match->team2->name}}</td>
+	    			<td id="date{{$match->id}}">{{$match->date}}</td>
+	    			<td id="time{{$match->id}}">{{$match->time}}</td>
+	    			<td id="season{{$match->id}}"> {{($match->season_id != 0)? $match->season_id : '----'}}</td>
+	    			<td id="ftg{{$match->id}}">{{$match->team_1_goals}}</td>
+	    			<td id="stg{{$match->id}}">{{$match->team_2_goals}}</td>
+	    			<td id="winner{{$match->id}}">{{optional($match->winner)->name}}</td>
+	    			<td id="stadium{{$match->id}}">{{$match->stadium}}</td>
+	    			<td id="red{{$match->id}}">{{$match->red_cards}}</td>
+	    			<td id="yellow{{$match->id}}">{{$match->yellow_cards}}</td>
 	    			<td>
 		    			<a href="/matches/{{$match->id}}" class="remove">
 		    			 	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 		    			</a> 
 	    			</td>
-	    			<td class="edit">
-	    					<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+	    			<td >
+	    					<span class="glyphicon glyphicon-edit edit" aria-hidden="true"></span>
 	    			</td>
 	    		</tr>
     		@endforeach
@@ -111,11 +111,11 @@ All Matches
 						  {{csrf_field()}}
 						  <div class="form-group ">
 						    <label for="first_name">First Team Name </label>
-						    <input type="first_name" name="first_name" class="form-control" id="first_name">
+						    <input type="text" name="first_name" class="form-control" id="first_name" disabled>
 						  </div>
 						  <div class="form-group ">
 						    <label for="second_name">second Team Name </label>
-						    <input type="second_name" name="second_name" class="form-control" id="second_name">
+						    <input type="text" name="second_name" class="form-control" id="second_name" disabled>
 						  </div>
 						  <div class="form-group col-md-6">
 						    <label for="date"> Match Date </label>
@@ -144,7 +144,7 @@ All Matches
 						  </div>
 						  <div class="form-group ">
 						    <label for="WT">Winner Name  </label>
-						    <input type="text" name="WT" class="form-control" id="WT" >
+						    <input type="text" name="WT" class="form-control" id="WT" disabled>
 						  </div>
 						  <div class="form-group ">
 						    <label for="stadium"> Match stadium </label>
@@ -206,51 +206,73 @@ All Matches
 
 	
 	$(document).ready(function(){
-		$(".edit").click(function (event) {
-			var Match_ID = $(this).closest('tr').attr('id');
-        	var FT_Name = event.target.parentNode.parentNode.childNodes;
-        	// var ST_Name = event.target.parentNode.parentNode.childNodes[1].innerText;
-        	// var date = event.target.parentNode.parentNode.childNodes[2].innerText;
-        	// var time = event.target.parentNode.parentNode.childNodes[7].innerText;
-        	// var FT_Goals = event.target.parentNode.parentNode.childNodes[11].innerText;
-        	// var ST_Goals = event.target.parentNode.parentNode.childNodes[13].innerText;
-        	// var WT = event.target.parentNode.parentNode.childNodes[15].innerText;
-        	// var stadium = event.target.parentNode.parentNode.childNodes[17].innerText;
-        	// var R_cards = event.target.parentNode.parentNode.childNodes[19].innerText;
-        	// var Y_cards = event.target.parentNode.parentNode.childNodes[21].innerText;
+		$.ajaxSetup({
+            headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+        });
 
-        	console.log('Match_ID : '+Match_ID);
-        	console.log('FT_Name : ', FT_Name);
-        	// console.log('ST_Name : '+ST_Name);
-        	// console.log('date : '+date);
-        	// console.log('time : '+ time);
-        	// console.log('FT_Goals : '+FT_Goals);
-        	// console.log('ST_Goals : '+ST_Goals);
-        	// console.log('WT : '+WT);
-        	// console.log('stadium : '+stadium);
-        	// console.log('R_cards : '+R_cards);
-        	// console.log('Y_cards : '+Y_cards);
+			$('tbody').find('.element').find('.edit').on('click', function(event) {
+				event.preventDefault();
+				var match_id = event.target.parentNode.parentNode.dataset['matchid'];
+				var FT_Name = event.target.parentNode.parentNode.childNodes[1].innerText;
+	        	var ST_Name =event.target.parentNode.parentNode.childNodes[3].innerText;
+	        	var date =event.target.parentNode.parentNode.childNodes[5].innerText;
+	        	var time =event.target.parentNode.parentNode.childNodes[7].innerText;
+	        	var FT_Goals =  event.target.parentNode.parentNode.childNodes[11].innerText;
+	        	var ST_Goals =  event.target.parentNode.parentNode.childNodes[13].innerText;
+	        	var WT =  event.target.parentNode.parentNode.childNodes[15].innerText;
+	        	var stadium =  event.target.parentNode.parentNode.childNodes[17].innerText;
+	        	var R_cards =  event.target.parentNode.parentNode.childNodes[19].innerText;
+	        	var Y_cards =  event.target.parentNode.parentNode.childNodes[21].innerText;
+				
+				$('.modal').modal('show');
 
-       		$('.modal').modal('show');
-       		$(".modal-body #first_name").val( FT_Name );
-       		$(".modal-body #second_name").val( ST_Name );
-       		$(".modal-body #date").val( date );
-       		$(".modal-body #time").val( time );
-       		$(".modal-body #FTG").val( FT_Goals );
-       		$(".modal-body #STG").val( ST_Goals );
-       		$(".modal-body #WT").val( WT );
-       		$(".modal-body #stadium").val( stadium );  
-       		$(".modal-body #red_cards").val( R_cards );
-       		$(".modal-body #yellow_cards").val( Y_cards ); 
+	       		$(".modal-body #first_name").val( FT_Name );
+	       		$(".modal-body #second_name").val( ST_Name );
+	       		$(".modal-body #date").val( date );
+	       		$(".modal-body #time").val( time );
+	       		$(".modal-body #FTG").val( FT_Goals );
+	       		$(".modal-body #STG").val( ST_Goals );
+	       		$(".modal-body #WT").val( WT );
+	       		$(".modal-body #stadium").val( stadium );  
+	       		$(".modal-body #red_cards").val( R_cards );
+	       		$(".modal-body #yellow_cards").val( Y_cards ); 
 
-       			$("#Update").click(function(){
-       				$url ="/matches/update/" + Match_ID ;
-       				console.log($url);
-				    $.get($url, function(data){
-				        alert("Data: " + data );
-				    });
-				});              
-    	});
+
+	       		$("button").click(function(){
+	       			$.ajaxSetup({
+					  headers: {
+					    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					  }
+					});
+					$.ajax({
+					    data: {
+					    	date:$(".modal-body #date").val(),
+					    	time:$(".modal-body #time").val(),
+					    	FTG:$(".modal-body #FTG").val(),
+					    	STG:$(".modal-body #STG").val(),
+					    	winner :$(".modal-body #WT").val(),
+					    	stadium:$(".modal-body #stadium").val(),
+					    	red :$(".modal-body #red_cards").val(),
+					    	yellow :$(".modal-body #yellow_cards").val(),
+					    	
+					    },
+					    url: "/matches/update/"+match_id,
+					    type: 'POST',
+					    success: function(response){
+					        console.log(response);
+					    }
+					});
+
+					$('.modal').modal('hide');
+					setTimeout(function() {
+						location.reload();
+					}, 300);
+					
+				});
+
+
+		});
     });
+
 </script>
 @endsection
