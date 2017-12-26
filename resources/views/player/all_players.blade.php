@@ -194,12 +194,24 @@ All Players
 
 	       		$(".modal-body #player_name").val( name );
 	       		$(".modal-body #player_position").val( position );
-	       		$(".modal-body #team_id").val( Team );
-	       		$(".modal-body #country_id").val( country );
+
+	       		$(".modal-body #team_id option").each(function()
+				{
+				    if($(this).text() == Team){
+				    	$(".modal-body #team_id").val($(this).val());
+				    }
+				});
+
+				$(".modal-body #country_id option").each(function()
+				{
+				    if($(this).text() == country){
+				    	$(".modal-body #country_id").val($(this).val());
+				    }
+				});
 
 	       		
 
-	       		$("button").click(function(){
+	       		$("#Update").click(function(){
 	       			$.ajaxSetup({
 					  headers: {
 					    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -42,9 +42,16 @@ class MatchesController extends Controller
 
         $seasons = Season::where('active', 1)->get();
 
-        $all_matches = Match::filter($request->all())->paginate(10); 
+        $all_matches = Match::filter($request->all())->paginate(10);
 
-        return view('match.all_Matches',compact(['all_matches', 'seasons']));
+        if($request->has('season') && $request->get('season') != 0){
+            $stages = Season::find($request->get('season'))->stages;
+        }
+        if($request->has('stage') && $request->get('stage') != 0){
+            $rounds = Stage::find($request->get('stage'))->groupRounds;
+        }
+
+        return view('match.all_Matches',compact(['all_matches', 'seasons', 'stages', 'rounds']));
     
     }
     public function Create(Request $request){

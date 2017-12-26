@@ -14,85 +14,105 @@ All Matches
 		  	<button class="btn btn-primary"><a href="/matches/?status=Not Played Yet">Not Played</a></button> 
 		  	<button class="btn btn-danger"><a href="/matches/?status=InProgressed">In Progress</a></button>
 		  	<button class="btn btn-info"><a href="/matches">Clear Filter</a></button> <hr>
-		  	<form method="GET" action="">
-		  		<input type="date" name="date">
-			  	<select name="season" id="competitions" onchange="season_stages(this.value)">
-			  		<option value='0'>All</option>
-			  		@foreach($seasons as $season)
-			  			<option value="{{$season->id}}"> {{$season->competition->name}} </option>
-			  		@endforeach
-			  	</select>
-
-			  	<select name="stage" id="stages" onchange="group_rounds(this.value)">
-			  		<option value='0'>None</option>
-			  	</select>
-
-			  	<select name="group_round" id="rounds" style="display: none;" >
-			  		
-			  	</select>
-
-			  	<button type="submit" name="submit" id="search"> Search </button>
-
-		  	</form>
-		 	 
-		  	
 		</div>
 	</div>
-	<hr/>
+
+	
+	  	<form method="GET" action="">
+	  		<input type="date" name="date" @if(request()->get('date')) value="{{request()->get('date')}}" @endif>
+		  
+		  	<select name="season" id="competitions" onchange="season_stages(this.value)" >
+		  		
+		  		<option value='0'>All</option>
+		  		@foreach($seasons as $season)
+		  			<option value="{{$season->id}}" @if(request()->get('season') == $season->id) selected="" @endif> {{$season->competition->name}} </option>
+		  		@endforeach
+		  	
+		  	</select>
+
+		  	<select name="stage" id="stages" onchange="stage_rounds(this.value)" >
+		  		
+		  		<option value='0'>All</option>
+		  		@if(isset($stages))
+		  			@foreach($stages as $stage)
+		  			<option value="{{$stage->id}}" @if(request()->get('stage') == $stage->id) selected @endif> {{$stage->name}} </option>
+		  			@endforeach
+		  		@endif
+		  	
+		  	</select>
+
+		  	<select name="group_round" id="rounds" style=" @if(isset($rounds)) display:inline; @else display:none; @endif" >
+		  		
+		  		@if(isset($rounds))
+		  			<option value='0'>all</option>
+		  			@foreach($rounds as $round)
+			  			<option value="{{$round->id}}" @if(request()->get('group_round') == $round->id) selected @endif> {{$round->round_number}} </option>
+		  			@endforeach
+		  		@endif
+		  
+		  	</select>
+
+		  	<button type="submit" name="submit" id="search"> Search </button>
+	  	
+	  	</form>
+
+  	
+	
 	<div class="panel panel-default ">
 	  <!-- Default panel contents -->
-	  <div class="panel-heading">Matches</div>	  	
-	  
-	  <table class="table">
-	  	<thead>
-	      <tr>
-	        <th>First Team</th>
-		   	<th>Second Team</th>
-		    <th>Date</th>
-		    <th>Time</th>
-		    <th>season</th>
-		    <th>Team 1 Goals</th>
-		    <th>Team 2 Goals</th>
-		    <th>winner Name</th>
+		<div class="panel-heading">Matches</div>	  	
+		  
+		<table class="table">
+		  	<thead>
+		      <tr>
+		        <th>First Team</th>
+			   	<th>Second Team</th>
+			    <th>Date</th>
+			    <th>Time</th>
+			    <th>season</th>
+			    <th>Team 1 Goals</th>
+			    <th>Team 2 Goals</th>
+			    <th>winner Name</th>
+			    
+			    <th>stadium</th>
+			    <th>red cards</th>
+			    <th>yellow cards</th>
+			    <th>remove </th>
+			    <th>edit</th>
+		      </tr>
+	    	</thead>
+
+	    	<tbody>
+	    		@foreach ($all_matches as $match)	
+		    		<tr class="element {{ ($match->status == 'played') ? 'success' : ''}}" id="{{$match->id}}" data-matchid="{{$match->id}}">
+		    			<td id="ft{{$match->id}}">{{$match->team1->name}}</td>
+		    			<td id="st{{$match->id}}">{{$match->team2->name}}</td>
+		    			<td id="date{{$match->id}}">{{$match->date}}</td>
+		    			<td id="time{{$match->id}}">{{$match->time}}</td>
+		    			<td id="season{{$match->id}}"> {{($match->season_id != 0)? $match->season_id : '----'}}</td>
+		    			<td id="ftg{{$match->id}}">{{$match->team_1_goals}}</td>
+		    			<td id="stg{{$match->id}}">{{$match->team_2_goals}}</td>
+		    			<td id="winner{{$match->id}}">{{optional($match->winner)->name}}</td>
+		    			<td id="stadium{{$match->id}}">{{$match->stadium}}</td>
+		    			<td id="red{{$match->id}}">{{$match->red_cards}}</td>
+		    			<td id="yellow{{$match->id}}">{{$match->yellow_cards}}</td>
+		    			<td>
+			    			<a href="/matches/{{$match->id}}" class="remove">
+			    			 	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+			    			</a> 
+		    			</td>
+		    			<td >
+		    					<span class="glyphicon glyphicon-edit edit" aria-hidden="true"></span>
+		    			</td>
+		    		</tr>
+	    		@endforeach
+	    	</tbody>
 		    
-		    <th>stadium</th>
-		    <th>red cards</th>
-		    <th>yellow cards</th>
-		    <th>remove </th>
-		    <th>edit</th>
-	      </tr>
-    	</thead>
 
-    	<tbody>
-    		@foreach ($all_matches as $match)	
-	    		<tr class="element {{ ($match->status == 'played') ? 'success' : ''}}" id="{{$match->id}}" data-matchid="{{$match->id}}">
-	    			<td id="ft{{$match->id}}">{{$match->team1->name}}</td>
-	    			<td id="st{{$match->id}}">{{$match->team2->name}}</td>
-	    			<td id="date{{$match->id}}">{{$match->date}}</td>
-	    			<td id="time{{$match->id}}">{{$match->time}}</td>
-	    			<td id="season{{$match->id}}"> {{($match->season_id != 0)? $match->season_id : '----'}}</td>
-	    			<td id="ftg{{$match->id}}">{{$match->team_1_goals}}</td>
-	    			<td id="stg{{$match->id}}">{{$match->team_2_goals}}</td>
-	    			<td id="winner{{$match->id}}">{{optional($match->winner)->name}}</td>
-	    			<td id="stadium{{$match->id}}">{{$match->stadium}}</td>
-	    			<td id="red{{$match->id}}">{{$match->red_cards}}</td>
-	    			<td id="yellow{{$match->id}}">{{$match->yellow_cards}}</td>
-	    			<td>
-		    			<a href="/matches/{{$match->id}}" class="remove">
-		    			 	<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-		    			</a> 
-	    			</td>
-	    			<td >
-	    					<span class="glyphicon glyphicon-edit edit" aria-hidden="true"></span>
-	    			</td>
-	    		</tr>
-    		@endforeach
-    	</tbody>
-	    
-
-	  </table>
+		  </table>
 
 	</div>
+	
 	{{$all_matches->links()}}
 
 
@@ -167,11 +187,18 @@ All Matches
 
 @section('script')
 <script>
+	// window.onload = function() {
+	// 	var season_id = document.getElementById("competitions").value;
+	// 	season_stages(season_id);
+
+	// 	var stage_id = document.getElementById("stages").value; 
+	// 	alert(stage_id);
+	// 	stage_rounds(stage_id);
+	// };
 
 	function season_stages(season_id) {
-
 		document.getElementById("stages").innerHTML = "\
-			<option value='0'>None</option>";
+			<option value='0'>All</option>";
 	    
 	    if(season_id != 0){
 		    $.get('/stages', {season_id: season_id}, function(stages) {
@@ -183,15 +210,15 @@ All Matches
 		}	
 	}
 
-	function group_rounds(stage_id) {
+	function stage_rounds(stage_id) {
 
 	    if(stage_id != 0){
 		    $.get('/stages/rounds', {stage_id: stage_id}, function(rounds) {
 		    	if(rounds.length != 0){
 		    		var roundsSelect = document.getElementById("rounds");
-		    		roundsSelect.style.display = "block";
+		    		roundsSelect.style.display = "inline";
 		    		roundsSelect.innerHTML = "\
-		    		<option value=0> None </option>";
+		    		<option value=0> All </option>";
 
 				    for (round in rounds) {
 				    	console.log(round);
