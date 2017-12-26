@@ -45,12 +45,9 @@ class TeamsController extends Controller
 
     public function create(TeamRequests $request){
 
-        Team::create([
-            'name' => $request->get('name'),
-            'type_id' => 1,
-            'stadium' => $request->get('stadium'),
-            'country_id' => $request->get('country_id')
-        ]);
+        $team = $request->store();
+
+        
 
         return redirect('/');
     }

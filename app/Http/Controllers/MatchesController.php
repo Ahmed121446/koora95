@@ -104,7 +104,7 @@ class MatchesController extends Controller
     {
         $season = Season::where('active',1)->get();
         $competitions = $season->groupBy(function ($item, $key) {
-            return $item->competiton->name;
+            return $item->competition->name;
         });
 
         return view('match.create',compact('competitions'));
