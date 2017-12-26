@@ -80,6 +80,9 @@ Route::group(['prefix' => 'players'], function() {
 
 });
 
+Route::get('/stages', 'SeasonController@allStages');
+Route::get('/stages/rounds', 'SeasonController@findStageRounds');
+
 
 
 Route::group(['prefix' => 'matches'], function() {

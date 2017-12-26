@@ -71,7 +71,7 @@ All_Teams
 				<td data-editable>{{$team->teamType->name}}</td>
 				<td data-editable>{{$team->stadium}}</td>
 				<td data-editable>{{$team->country->name}}</td>
-				<td data-editable>{{$team->logo}}</td>
+				<td> <img src="{{asset('storage/images/teams-logos/'.$team->logo)}}" width="50px" height="35px"></td>
 				<td class=""> <a href="/teams/{{$team->id}}" class="remove "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a> </td>
 				<td >
 	    			<span class="glyphicon glyphicon-edit edit" aria-hidden="true"></span>

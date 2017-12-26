@@ -39,12 +39,20 @@ class MatchesController extends Controller
 
     }
     public function ALL_matches_View(Request $request){
-        if ($request->has('status')) {
-            $all_matches = Match::where('status',$request->get('status'))->paginate(5)->appends('status',$request->get('status'));
-        }else{
-            $all_matches = Match::paginate(5);
+
+        $seasons = Season::where('active', 1)->get();
+
+        $all_matches = Match::filter($request->all())->paginate(10);
+
+        if($request->has('season') && $request->get('season') != 0){
+            $stages = Season::find($request->get('season'))->stages;
         }
-        return view('match.all_Matches',compact('all_matches'));
+        if($request->has('stage') && $request->get('stage') != 0){
+            $rounds = Stage::find($request->get('stage'))->groupRounds;
+        }
+
+        return view('match.all_Matches',compact(['all_matches', 'seasons', 'stages', 'rounds']));
+    
     }
     public function Create(Request $request){
 
@@ -96,7 +104,7 @@ class MatchesController extends Controller
     {
         $season = Season::where('active',1)->get();
         $competitions = $season->groupBy(function ($item, $key) {
-            return $item->competiton->name;
+            return $item->competition->name;
         });
 
         return view('match.create',compact('competitions'));
@@ -133,6 +141,7 @@ class MatchesController extends Controller
         //dd($match);
        return view('match.specific_match',compact('match'));
     }
+
 
 
     /**
