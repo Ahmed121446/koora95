@@ -35,10 +35,10 @@ class TeamRequests extends FormRequest
                         'required',
                         'min:2',
                         'max:25',
-                        'unique:teams,name,null,null,country_id,' . $this->country_id
+                        'unique:teams,name,null,null,country_id,' . $this->country_id,
                     ],              
-                    // 'type_id'       =>  'required|numeric',
-                    // 'logo'          =>  'required',
+                    'type'       =>  'required|numeric',
+                    'logo' => 'required|image|mimes:jpg,png,jpeg|min:100|max:100',
                     'stadium'       =>  'required|min:2|max:25',
                     'country_id'    =>  'required|numeric'
                 ];
@@ -66,17 +66,19 @@ class TeamRequests extends FormRequest
 
     public function store()
     {
-        $name           =   $this->get('name');
-        $type_id        =   $this->get('type_id');
-        $logo           =   $this->get('logo');
-        $stadium        =   $this->get('stadium');
-        $country_id     =   $this->get('country_id');
+        $name = $this->get('name');
+        $type_id = $this->get('type');
+        $stadium = $this->get('stadium');
+        $country_id = $this->get('country_id');
+
+        $logoName  = $name .'.'.$this->file('logo')->extension();
+        $this->file('logo')->storeAs('public/images/teams-logos', $logoName);
 
 
         $Team = new Team();
         $Team->name         = $name;
         $Team->type_id      = $type_id;
-        $Team->logo         = $logo;
+        $Team->logo         = $logoName;
         $Team->stadium      = $stadium;
         $Team->country_id   = $country_id;
 

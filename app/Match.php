@@ -174,6 +174,61 @@ class Match extends BaseModel
     {
         return $this->belongsTo(RegisteredTeam::class, 'register_team_1_id');
     }
+
+
+    public function scopeFindByStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+
+    public function scopeFindBySeason($query, $season_id)
+    {
+        return $query->where('season_id', $season_id);
+    }
+
+
+    public function scopeFindByDate($query, $date)
+    {
+        return $query->where('date', $date);
+    }
+
+
+    public function scopeFindByStage($query, $season_id, $stage_id, $group_round_id = null)
+    {
+        $query->where('season_id', $season_id)
+              ->where('stage_id', $stage_id);
+
+        if($group_round_id != null){
+            $query->where('group_round_id', $group_round_id);
+        }
+    }
+
+
+    public function scopeFilter($query, $data)
+    {
+        if(array_key_exists("status",$data)){
+            $query->findByStatus($data['status']);
+        }
+        if(array_key_exists("date",$data) && $data['date'] != null ){
+            $query->findByDate($data['date']);
+        }
+        if(array_key_exists("season",$data) && $data['season'] != 0){
+            $query->findBySeason($data['season']);
+
+            if(array_key_exists("stage",$data) && $data['stage'] != 0){
+                $query->findByStage($data['season'], $data['stage']);
+
+                if(array_key_exists("group_round",$data) && $data['group_round'] != 0){
+                    $query->findByStage($data['season'], $data['stage'], $data['group_round']);
+                }
+            }
+        }
+
+    }
+
+
+
     //team1
     public function getTeam1Attribute()
     {

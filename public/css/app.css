@@ -8372,6 +8372,15 @@ button a{
 .remove:hover{
     color:red !important;
 }
+.edit{
+  color: #22A7F0;
+}
+.edit:hover{
+  color: blue;
+}
+.edit{
+  cursor: pointer;
+}
 
 @keyframes up-right {
     0% {

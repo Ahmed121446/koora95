@@ -9,12 +9,16 @@ use App\Http\Resources\TeamResource;
 use Illuminate\Http\Request;
 use App\Team;
 use App\Country;
+use App\TeamType;
+
 
 
 class TeamsController extends Controller
 {
     public function All_Teams(Request $request)
     {
+        $types = TeamType::all();
+        $Countries = Country::all();
         if ($request->has('name') || $request->has('type')) {
 
             $name = $request->get('name');
@@ -30,7 +34,7 @@ class TeamsController extends Controller
             $all_teams = Team::paginate(25);
         }
         
-       return view('team.all_teams',compact('all_teams'));
+       return view('team.all_teams',compact('all_teams','types','Countries'));
     }
     
     public function Create_View()
@@ -41,12 +45,9 @@ class TeamsController extends Controller
 
     public function create(TeamRequests $request){
 
-        Team::create([
-            'name' => $request->get('name'),
-            'type_id' => 1,
-            'stadium' => $request->get('stadium'),
-            'country_id' => $request->get('country_id')
-        ]);
+        $team = $request->store();
+
+        
 
         return redirect('/');
     }
@@ -56,6 +57,24 @@ class TeamsController extends Controller
         $find_team = Team::find($id);
         $find_team->delete();
         return redirect()->back();
+    }
+
+
+    public function update($team_id,Request $request)
+    {
+        $find_team = Team::find($team_id);
+        if(!$find_team){
+            return  'team not found';
+        }
+        $find_team->name          = $request->get('team_name');
+        $find_team->type_id       = $request->get('type_id');
+        $find_team->stadium       = $request->get('stadium');
+        $find_team->country_id    = $request->get('country_id');
+
+        if (!$find_team->update()) {
+            return "team can not be updated";
+        }
+        return "team updated successfully";
     }
 
     //get all Teams
