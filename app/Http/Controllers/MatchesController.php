@@ -42,40 +42,7 @@ class MatchesController extends Controller
 
         $seasons = Season::where('active', 1)->get();
 
-
-        if($request->has('status')) {
-          
-            $all_matches = Match::findByStatus($request->get('status'))->paginate(5)->appends('status',$request->get('status'));
-        
-        }if($request->has('date')) {
-        
-            $all_matches = Match::findBydate($request->get('date'))->paginate(5)->appends('date',$request->get('date'));
-        
-        }if($request->has('season')){
-        
-            if($request->has('stage') && $request->get('stage') != 0){
-        
-                if($request->has('group_round') && $request->get('group_round') != 0){
-                   
-                    $all_matches = Match::findByStage($request->get('season'), $request->get('stage'), $request->get('group_round'))->paginate(5);
-                
-                }else{
-                 
-                   $all_matches = Match::findByStage($request->get('season'), $request->get('stage'))
-                                        ->paginate(5);
-                
-                }
-        
-            }else{
-        
-                $all_matches = Match::findBySeason($request->get('season'))->paginate(5);
-        
-            }
-
-        }else{
-        
-            $all_matches = Match::paginate(10);
-        }
+        $all_matches = Match::filter($request->all())->paginate(10); 
 
         return view('match.all_Matches',compact(['all_matches', 'seasons']));
     
