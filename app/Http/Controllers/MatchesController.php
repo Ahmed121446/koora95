@@ -164,7 +164,7 @@ class MatchesController extends Controller
         //match red_cards
         $img->text("Red Cards : ".$match->red_cards, 220, 40, function($font) {
             $font->file('font/Raleway-Light.ttf');
-            $font->color(array(255, 0, 0, 0.8));
+            $font->color(array(200, 30, 45, 1));
             $font->size(15);
         });
         //match yellow_cards
@@ -225,13 +225,15 @@ class MatchesController extends Controller
         });
 
         //match status
-        $img->text($match->status, 565, 300, function($font) {
+        $img->text($match->status, 595, 300, function($font) {
             $font->file('font/Cairo-Regular.ttf');
             $font->color(array(169, 68, 66, 1));
+            $font->align('center');
             $font->size(20);
         });
 
         
+
 
         return $img->response('png');
     }
