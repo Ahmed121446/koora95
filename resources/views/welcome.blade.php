@@ -5,14 +5,13 @@ welcome page
 
 @section('content')
 @if ($competitions->count())
-	{{-- expr --}}
-
 @foreach($competitions as $competition => $matches)
   <div class="jumbotron">
 	<h2><a href="">{{ ucwords($competition) }}</a></h2>
 	<p>
 		<div class="row">
 			@foreach ($matches as $match)
+			<a href="/{{$match->id}}">
 			<div class="col-sm-6 ">
 				<div class="thumbnail">
 					<div class="caption">
@@ -42,10 +41,13 @@ welcome page
 								<h5> Time : {{$match->time}}</h5>
 							@endif
 						</p>
+						
 
+						
 					</div>
 				</div>
 			</div>
+			</a>
 			@endforeach
 
 		</div>

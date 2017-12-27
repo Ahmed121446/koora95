@@ -14,6 +14,7 @@
 
 
 Route::get('/', 'MatchesController@Get_Today_Matches_View' )->name('home');
+Route::get('/{match}', 'MatchesController@Get_S_Match' );
 
 Route::group(['prefix' => 'admin'], function() {
 	Route::get('Login','AuthController@Login_View');
