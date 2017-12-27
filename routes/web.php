@@ -81,13 +81,14 @@ Route::group(['prefix' => 'players'], function() {
 
 Route::get('/stages', 'SeasonController@allStages');
 Route::get('/stages/rounds', 'SeasonController@findStageRounds');
+Route::get('/stages/data', 'SeasonController@findStageData');
 
 
 
 Route::group(['prefix' => 'matches'], function() {
 	Route::get('/add-match','MatchesController@Add_Match_View');
 	Route::get('/','MatchesController@ALL_matches_View');
-	Route::get('/test','MatchesController@test');
+	Route::get('/teams','MatchesController@getTeams');
 
 
 	Route::post('/create','MatchesController@Create');

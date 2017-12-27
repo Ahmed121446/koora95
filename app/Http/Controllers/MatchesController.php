@@ -14,28 +14,40 @@ use App\Team;
 use Carbon\Carbon;
 use App\RegisteredTeam;
 use App\Stage;
+use App\Group;
 use App\competition;
 
 
 class MatchesController extends Controller
 {
-    public function test(){
-        $season_id = $_GET['ch'];
+    public function getTeams(Request $request){
+
         $Rteams_names =[];
-        if ($season_id == 0) {
-            $teams = Team::all();
-            foreach ($teams as $team ) {
-                 $Rteams_names[$team->id] = $team->name;
-            }
-            return  $Rteams_names;
-        }else{
+
+        if($request->has('season_id') && $request->get('season_id') != 0){
+            $season_id = $request->get('season_id');
             $season = Season::find($season_id);
             $teams = $season->registeredTeams;
             foreach ($teams as $team ) {
                 $Rteams_names[$team->id] = $team->team->name;
             }
             return $Rteams_names;
+        }else if($request->has('group_id') && $request->get('group_id') != 0) {
+            $group_id = $request->get('group_id');
+            $group = Group::find($group_id);
+            $teams = $group->groupTeams;
+            foreach ($teams as $team ) {
+                $Rteams_names[$team->register_team_id] = $team->registeredTeam->team->name;
+            }
+            return $Rteams_names;
+        }else{
+            $teams = Team::all();
+            foreach ($teams as $team ) {
+                 $Rteams_names[$team->id] = $team->name;
+            }
+            return  $Rteams_names;
         }
+        
 
     }
     public function ALL_matches_View(Request $request){
@@ -55,21 +67,15 @@ class MatchesController extends Controller
     
     }
     public function Create(Request $request){
+        $group_id = ($request->has('group_id')) ? $request->get('group_id') : null ;
+        $round_id = ($request->has('group_round')) ? $request->get('group_round') : null ;
 
-        // $match = new Match();
-        // $match->season_id = $request->get('season_id');
-        // $match->date = $request->get('date');
-        // $match->time = $request->get('time');
-        // $match->stage_id = $request->get('stage_id');
-        // $match->stadium = $request->get('stadium');
-        // $match->status = 
-        // $match->register_team_1_id = $request->get('Rteams1');
-        // $match->register_team_2_id = $request->get('Rteams2');
-        // $match->save();
         $match =  new Match([
             'date'  => $request->get('date'),
             'time' => $request->get('time'),
             'stage_id' => $request->get('stage_id'),
+            'group_id' => $group_id,
+            'group_round_id' => $round_id,
             'season_id' => $request->get('season_id'),
             'register_team_1_id' => $request->get('Rteams1'),
             'register_team_2_id' => $request->get('Rteams2'),
@@ -94,7 +100,7 @@ class MatchesController extends Controller
             if ($item->season == null) {
                 return "friendly matches";
             }else{
-                return $item->season->competiton->name;
+                return $item->season->competition->name;
             }
         });
         return view('welcome',compact('competitions'));

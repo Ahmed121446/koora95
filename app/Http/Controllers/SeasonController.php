@@ -76,6 +76,8 @@ class SeasonController extends Controller
         $season = Season::find($season_id);
 
         return $season->stages; 
+
+        // return Stage::all();
     }
 
 
@@ -87,6 +89,19 @@ class SeasonController extends Controller
         $rounds = $stage->groupRounds;
 
         return $rounds;
+
+    }
+
+
+    public function findStageData()
+    {
+        $stage_id = $_GET['stage_id'];
+        $stage = Stage::find($stage_id);
+        
+        $groups = $stage->groups;
+        $rounds = $stage->groupRounds;
+
+        return ['groups' => $groups, 'rounds' => $rounds];
 
     }
 
