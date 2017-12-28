@@ -28,15 +28,13 @@ class SeasonController extends Controller
         $season = $seasonRepo->store($request, $competition);
 
         if($request->get('is_grouped')){
-            $url = 'competitions/'. $competition->id . "/seasons" .'/'. $season->id . '/groups/create';
-            return redirect($url)->with('name', $request->get('name'));
             $stage = $season->stages()->where('name','group stage')->first();
             $url = 'competitions/'. $competition->id . "/seasons" .'/'. $season->id . '/stages' . '/' . $stage->id . '/groups/create';
             
             return redirect($url);
         }
 
-        return redirect('competitions/' . $competition->id . "/seasons" . $season->id);
+        return redirect('competitions/' . $competition->id . "/seasons/" . $season->id);
     }
 
     public function Specific_Season_View(Competition $competition, Season $season)

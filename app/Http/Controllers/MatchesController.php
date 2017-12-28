@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MatchRequest;
+use App\Http\Requests\CreateMatchRequest;
 
 use App\Repositories\Matches as MatchesRepo;
 use App\Http\Resources\MatchResource  ;
@@ -69,22 +70,22 @@ class MatchesController extends Controller
         return view('match.all_Matches',compact(['all_matches', 'seasons', 'stages', 'rounds']));
     
     }
-    public function Create(Request $request){
+    public function Create(CreateMatchRequest $request){
         $group_id = ($request->has('group_id')) ? $request->get('group_id') : null ;
-        $round_id = ($request->has('group_round')) ? $request->get('group_round') : null ;
+        $group_round_id = ($request->has('group_round')) ? $request->get('group_round') : null ;
         $stage_id = ($request->get('season_id') > 0 ) ? $request->get('stage_id') : 0 ;
 
         $match =  new Match([
             'date'  => $request->get('date'),
             'time' => $request->get('time'),
             'stage_id' => $stage_id,
+            'group_round_id' => $group_round_id,
             'group_id' => $group_id,
-            'group_round_id' => $round_id,
             'season_id' => $request->get('season_id'),
-            'register_team_1_id' => $request->get('Rteams1'),
-            'register_team_2_id' => $request->get('Rteams2'),
+            'register_team_1_id' => $request->get('team_1_id'),
+            'register_team_2_id' => $request->get('team_2_id'),
             'stadium' => $request->get('stadium'),
-            'status' => "Not Played Yet",
+            'status' => "Not Played",
             'team_1_goals' => 0,
             'team_2_goals' => 0,
             'winner_id' => 0,
@@ -150,8 +151,24 @@ class MatchesController extends Controller
 
     public function updateLive(Match $match,Request $request)
     {
+        
         $match->team_1_goals = $request->get('team_1_goals');
         $match->team_2_goals = $request->get('team_2_goals');
+        
+        $match->save();
+
+        return redirect('/matches'.'/'.$match->id);
+    }
+
+
+    public function updateStatus(Match $match,Request $request)
+    {
+        if($match->status == "Not Played"){
+            $match->status = "InProgressed";
+        }else if($match->status == "InProgressed"){
+            $match->status = "Played";
+        }
+        
         $match->save();
 
         return redirect('/matches'.'/'.$match->id);
@@ -236,7 +253,8 @@ class MatchesController extends Controller
         });
 
         //match time
-        $img->text($match->time, 595, 260, function($font) {
+        $time = ($match->status == "Not Played") ? $match->time : '';
+        $img->text($time, 595, 260, function($font) {
             $font->file('font/PoiretOne-Regular.ttf');
             $font->color(array(169, 68, 66, 1));
             $font->align('center');

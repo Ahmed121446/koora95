@@ -38,7 +38,7 @@ class TeamRequests extends FormRequest
                         'unique:teams,name,null,null,country_id,' . $this->country_id,
                     ],              
                     'type'       =>  'required|numeric',
-                    'logo' => 'required|image|mimes:jpg,png,jpeg|min:100|max:100',
+                    'logo' => 'required|image|mimes:jpg,png,jpeg',
                     'stadium'       =>  'required|min:2|max:25',
                     'country_id'    =>  'required|numeric'
                 ];

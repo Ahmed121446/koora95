@@ -20,6 +20,12 @@
 	    top: 20px;
 	    right: 0px;
 	}
+
+	#live{
+	    position: absolute;
+	    top: 250px;
+	    right: 550px;
+	}
 </style>
 @endsection
 
@@ -41,6 +47,10 @@
 			<div class="fb-share-button" data-href="http://www.123kora.com/en/gamecast/5a3b719096293c86278b4572/Game-details-of-Enppi-vs-El-Nasr-FC" data-layout="button" data-size="large" data-mobile-iframe="false">
 				<a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fjavascript%2Fexamples&amp;src=sdkpreparse"></a>
 			</div>
+
+			@if($match->status == "InProgressed")
+				<div class="circle red" id="live"></div>
+			@endif
 		</div>
 	</div>
 
@@ -67,21 +77,25 @@
 			</table>
 		</div>
 
-		<div class="col-md-6">
-			<form  method="post" action="/matches/live/update/{{$match->id}}">
+		
+		<div class="col-md-6" >
+			@if($match->status != "Played")
+			<div class="row">
+			<form id="update" method="post" action="/matches/live/update/{{$match->id}}" @if($match->status != "InProgressed") style="display: none;" @endif>
 				{{csrf_field()}}
 				<div class="row">
 					<div class="row">
 						<div class="form-group col-md-3">
 							
 						</div>
-
+						
 						<div class="form-group col-md-6">
 							<div class="panel-heading" style="align:center;">
 								<h3> Update Match Goals </h3>
 							</div>
-						</div>
 
+						</div>
+						
 						<div class="form-group col-md-3">
 							
 						</div>
@@ -91,7 +105,7 @@
 							<input type="number" name="team_1_goals" class="form-control" value="{{$match->team_1_goals}}">
 						</div>
 						<div class="col-md-6">
-							<input type="submit" name="submit" class="form-control btn btn-primary" value="update">
+							<input type="submit" class="form-control btn btn-primary"  value="update">
 						</div>
 
 						<div class="form-group col-md-3">
@@ -101,8 +115,20 @@
 						</div>
 					</div>
 				</div>
-				
-			</form>
+			</form>			
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<center><h3 id="change"> Click To @if($match->status != "InProgressed") End @else Start @endif the Match  </h3></center>
+				</div>
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<a href="/matches/status/update/{{$match->id}}" class="form-control btn btn-primary" id="changeSatus"> @if($match->status == "InProgressed") End @else Start @endif </a>
+				</div>
+				<div class="col-md-4"></div>
+			</div>
+			@endif
 		</div>
 
 		<div class="col-md-3">
@@ -128,3 +154,4 @@
 		</div>
 	</div>
 @endsection
+

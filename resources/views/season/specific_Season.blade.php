@@ -11,10 +11,11 @@ All Competitions
 
 <div class="jumbotron">
   <h2>Add Teams In Season</h2>
-  <p>
+  	@if(count($Teams))
 	  <form action="{{$season->id}}/teams/create" method="POST">
 	  		{{csrf_field()}}
 		  	<div class="form-group col-md-12">
+		  		
 		  			@foreach ($Teams as $Team)
 		  				<div class="form-check form-check-inline col-md-4">
 						  <label class="form-check-label">
@@ -24,17 +25,21 @@ All Competitions
 		  			@endforeach
 		  	</div>
 		  	<button type="submit" class="btn btn-primary">Add Teams</button> <br>
-		  	<div>
-		  		<a href="{{$season->id}}/stages/create"> Create Groups </a>
-		  	</div>
+		  	<!-- <div>
+		  		<a href=""> Create Groups </a>
+		  	</div> -->
 	  </form>
-  </p>
+	@else
+
+		<h4> Please <a href="/teams/create">Add Teams</a> First To the Location</h4>
+
+	@endif
 </div>
 <hr>
 
 
 
-@if (!$RTeams)
+@if (!count($RTeams))
 	<h1 class="text-center">No RegisteredTeams</h1>
 @else
 	<h1 >Registered Teams </h1>

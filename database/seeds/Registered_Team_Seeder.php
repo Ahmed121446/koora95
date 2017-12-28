@@ -13,11 +13,12 @@ class Registered_Team_Seeder extends Seeder
      *
      * @return void
      */
+
             public function run()
             {
-                for ($i=0; $i < 30; $i++) { 
+                foreach(Team::all() as $team) { 
                    DB::table('registered_teams')->insert([
-                      'team_id' =>Team::all()->random()->id, 
+                      'team_id' =>$team->id, 
                       'season_id' => 9,
                       'played' => 0,
                       'wins' => 0,

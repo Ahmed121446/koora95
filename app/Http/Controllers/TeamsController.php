@@ -47,9 +47,7 @@ class TeamsController extends Controller
 
         $team = $request->store();
 
-        
-
-        return redirect('/');
+        return redirect()->intended();
     }
 
     public function remove_team($id)

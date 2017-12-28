@@ -33,7 +33,7 @@ specific Add Player
 	@foreach($team_players as $player)
 			<a href="#">
 				<div class="alert alert-info" role="alert"> 
-					<strong>RegisteredTeam Name : </strong> {{$player->player->name}}
+					<strong>Player Name : </strong> {{$player->player->name}}
 				</div>
 			</a>
 

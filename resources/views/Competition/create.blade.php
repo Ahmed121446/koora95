@@ -8,6 +8,12 @@ competition
 
 <h1>Create New Competition</h1>
 
+<div class="row">
+    <div class="col-md-12">
+      @include('includes.error')
+    </div>
+
+</div>
 <form action="/competitions/create" method="post">
 
   {{csrf_field()}}

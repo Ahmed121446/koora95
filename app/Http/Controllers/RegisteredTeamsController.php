@@ -17,6 +17,7 @@ class RegisteredTeamsController extends Controller
     {
        
         $team_players = $team->registeredPlayers;
+        // return $team_players;
 
         return view('registeredTeam.show', compact(['team','team_players']));
         // return view('registeredTeam.specific_RegisteredTeam',compact('teams'));

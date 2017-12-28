@@ -19,6 +19,7 @@ class CreatePlayersTable extends Migration
             $table->string('position');
             $table->integer('team_id')->nullable();
             $table->integer('country_id');
+            $table->text('image')->nullable();
             $table->timestamps();
         });
     }

@@ -100,4 +100,5 @@ Route::group(['prefix' => 'matches'], function() {
 	Route::get('/delete/{id}','MatchesController@remove_match');
 
 	Route::post('/live/update/{match}','MatchesController@updateLive');
+	Route::get('/status/update/{match}','MatchesController@updateStatus');
 });

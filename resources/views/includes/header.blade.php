@@ -23,9 +23,10 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                View All <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="/matches"> Matches</a></li>
-                  <li><a href="/teams"> Teams</a></li>
-                  <li><a href="/players"> Players</a></li>
+                  <li><a href="/competitions"> Competitions </a></li>
+                  <li><a href="/matches"> Matches </a></li>
+                  <li><a href="/teams"> Teams </a></li>
+                  <li><a href="/players"> Players </a></li>
                 </ul>
             </li>
 

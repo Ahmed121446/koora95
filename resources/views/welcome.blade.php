@@ -10,13 +10,14 @@ welcome page
 	<h2><a href="">{{ ucwords($competition) }}</a></h2>
 	<p>
 		<div class="row">
+			@if ($matches->count())
 			@foreach ($matches as $match)
 			<a href="/matches/{{$match->id}}">
 			<div class="col-sm-6 ">
 				<div class="thumbnail">
 					<div class="caption">
 						<h3 class="text-center"> 
-							<span class="label label-info">{{$match->Team1->name}} 
+							<span class="label label-info">{{optional($match->Team1)->name}} 
 								@if ($match->status == "played" || $match->status == "InProgressed") 
 									<span class="badge">{{$match->team_1_goals}} </span> 
 								@endif 
@@ -49,6 +50,7 @@ welcome page
 			</div>
 			</a>
 			@endforeach
+			@endif
 
 		</div>
 	</p>

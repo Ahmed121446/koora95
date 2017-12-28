@@ -8,6 +8,13 @@ competition
 
 <h1>Create New Match</h1>
 
+<div class="row">
+ <div class="col-md-12">
+   @include('includes.error')
+
+ </div>
+</div>
+
 <form action="/matches/create" method="post">
 
   {{csrf_field()}}
@@ -59,7 +66,7 @@ competition
   <div class="form-group col-md-6">
     <div id="txtResult">
       <label for="Rteams" >first Teams Names : </label>
-        <select name='Rteams1' class='form-control Rteams' >
+        <select name='team_1_id' class='form-control Rteams' >
          
         </select>   
     </div>
@@ -68,19 +75,17 @@ competition
   <div class="form-group col-md-6">
     <div id="txtResult">
       <label for="Rteams" >second Teams Names : </label>
-        <select name='Rteams2' class='form-control Rteams'>
+        <select name='team_2_id' class='form-control Rteams'>
           
         </select>   
     </div>
 </div>
-
 
 <div class="form-group col-md-3">
   <input type="submit" class="btn btn-primary" value="Create">
 </div>
 
 </form>
-
 
 
 

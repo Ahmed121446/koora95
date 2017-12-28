@@ -18,6 +18,7 @@ class CreateCompetitionsTable extends Migration
             $table->string("name")->unique();
             $table->integer('comp_type_id');
             $table->morphs('location');
+            $table->text('logo')->nullable();
             $table->timestamps();
         });
     }

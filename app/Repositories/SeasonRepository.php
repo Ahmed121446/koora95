@@ -32,6 +32,7 @@ class SeasonRepository
         $season = new Season();
         $season->name = $name;
         $season->active = $is_active;
+        $season->teams_number = $this->teams_number;
         $season = $competition->seasons()->save($season);
 
         $this->season = $season;
