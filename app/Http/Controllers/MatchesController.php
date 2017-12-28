@@ -44,9 +44,9 @@ class MatchesController extends Controller
             }
             return $Rteams_names;
         }else{
-            $teams = Team::all();
+            $teams = RegisteredTeam::where('season_id', 0)->get();
             foreach ($teams as $team ) {
-                 $Rteams_names[$team->id] = $team->name;
+                 $Rteams_names[$team->id] = $team->team->name;
             }
             return  $Rteams_names;
         }
@@ -72,11 +72,12 @@ class MatchesController extends Controller
     public function Create(Request $request){
         $group_id = ($request->has('group_id')) ? $request->get('group_id') : null ;
         $round_id = ($request->has('group_round')) ? $request->get('group_round') : null ;
+        $stage_id = ($request->get('season_id') > 0 ) ? $request->get('stage_id') : 0 ;
 
         $match =  new Match([
             'date'  => $request->get('date'),
             'time' => $request->get('time'),
-            'stage_id' => $request->get('stage_id'),
+            'stage_id' => $stage_id,
             'group_id' => $group_id,
             'group_round_id' => $round_id,
             'season_id' => $request->get('season_id'),
@@ -147,6 +148,14 @@ class MatchesController extends Controller
     } 
 
 
+    public function updateLive(Match $match,Request $request)
+    {
+        $match->team_1_goals = $request->get('team_1_goals');
+        $match->team_2_goals = $request->get('team_2_goals');
+        $match->save();
+
+        return redirect('/matches'.'/'.$match->id);
+    }
 
 
 
@@ -168,17 +177,18 @@ class MatchesController extends Controller
             $font->size(18);
         });
         //match red_cards
-        $img->text("Red Cards : ".$match->red_cards, 220, 40, function($font) {
+        $img->text("| Red Cards : ".$match->red_cards, 260, 40, function($font) {
             $font->file('font/Raleway-Light.ttf');
             $font->color(array(200, 30, 45, 1));
             $font->size(15);
         });
         //match yellow_cards
-        $img->text("Yellow Cards : ".$match->yellow_cards, 350, 40, function($font) {
+        $img->text("| Yellow Cards : ".$match->yellow_cards, 370, 40, function($font) {
             $font->file('font/Raleway-Light.ttf');
             $font->color(array(255, 219, 87, 0.8));
             $font->size(15);
         });
+
 
         //white line
         $img->line(20, 60, 1180, 60, function ($draw) {
@@ -211,13 +221,15 @@ class MatchesController extends Controller
         });
 
          //competition name
-        $img->text($match->season->competition->name, 490, 150, function($font) {
+        $competition_name = ($match->season_id ==0) ? 'Friendly Match' : $match->season->competition->name ; 
+        $img->text($competition_name, 490, 150, function($font) {
             $font->file('font/PoiretOne-Regular.ttf');
             $font->color(array(255, 255, 255, 1));
             $font->size(40);
         });
         //season name
-        $img->text($match->season->name, 560, 200, function($font) {
+        $season_name = ($match->season_id ==0) ? '' : $match->season->name ; 
+        $img->text($season_name, 560, 200, function($font) {
             $font->file('font/PoiretOne-Regular.ttf');
             $font->color(array(255, 255, 255, 1));
             $font->size(30);
@@ -237,11 +249,16 @@ class MatchesController extends Controller
             $font->align('center');
             $font->size(20);
         });
-
         
 
+        $path = storage_path('app/public/images/matches/');
 
-        return $img->response('png');
+        $matchLogo = $match->id . '.png';
+
+
+        $img->save($path.''.$matchLogo);
+
+        return view('match.specific_match', compact(['match','matchLogo']));
     }
 
 

@@ -14,7 +14,7 @@
 
 
 Route::get('/', 'MatchesController@Get_Today_Matches_View' )->name('home');
-Route::get('/{match}', 'MatchesController@Get_S_Match' );
+
 
 Route::group(['prefix' => 'admin'], function() {
 	Route::get('Login','AuthController@Login_View');
@@ -55,7 +55,7 @@ Route::group(['prefix' => 'competitions'], function() {
 		});
 
 		Route::group(['prefix' => '/{season}/stages'], function() {
-			Route::post('create','SeasonsController@addStages');
+			Route::post('create','SeasonController@addStages');
 		});
 	});
 
@@ -90,11 +90,14 @@ Route::group(['prefix' => 'matches'], function() {
 	Route::get('/add-match','MatchesController@Add_Match_View');
 	Route::get('/','MatchesController@ALL_matches_View');
 	Route::get('/teams','MatchesController@getTeams');
+	Route::get('/{match}', 'MatchesController@Get_S_Match' );
 
 
 	Route::post('/create','MatchesController@Create');
 
 	Route::post('/update/{id}','MatchesController@update_match');
 
-	Route::get('/{id}','MatchesController@remove_match');
+	Route::get('/delete/{id}','MatchesController@remove_match');
+
+	Route::post('/live/update/{match}','MatchesController@updateLive');
 });

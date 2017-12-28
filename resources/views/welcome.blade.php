@@ -11,7 +11,7 @@ welcome page
 	<p>
 		<div class="row">
 			@foreach ($matches as $match)
-			<a href="/{{$match->id}}">
+			<a href="/matches/{{$match->id}}">
 			<div class="col-sm-6 ">
 				<div class="thumbnail">
 					<div class="caption">

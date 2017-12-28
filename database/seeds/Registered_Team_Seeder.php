@@ -19,7 +19,6 @@ class Registered_Team_Seeder extends Seeder
                    DB::table('registered_teams')->insert([
                       'team_id' =>Team::all()->random()->id, 
                       'season_id' => 9,
-
                       'played' => 0,
                       'wins' => 0,
                       'losses' => 0,
