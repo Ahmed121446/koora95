@@ -16,6 +16,9 @@ use App\Http\Requests\GroupRequest;
 class GroupController extends Controller
 {
 
+    public function __construct(){
+        $this->middleware('auth');
+    }
     //view create Groups form
     public function createGroupsView(Competition $competition, Season $season, Stage $stage)
     {

@@ -15,6 +15,9 @@ use App\TeamType;
 
 class TeamsController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function All_Teams(Request $request)
     {
         $types = TeamType::all();

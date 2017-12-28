@@ -12,6 +12,10 @@ use App\Http\Resources\CompetitionResource;
 
 class CompetitionsController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
     //create view for competition
     public function Create_View()
     {

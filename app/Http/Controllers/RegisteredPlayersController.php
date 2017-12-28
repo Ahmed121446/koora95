@@ -17,7 +17,9 @@ use App\Http\Requests\AddRegisteredPlayerRequest;
 
 class RegisteredPlayersController extends Controller
 {
-
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function add(Competition $competition, Season $season, RegisteredTeam $team, AddRegisteredPlayerRequest $request)
     {
         $player = $request->addPlayer();

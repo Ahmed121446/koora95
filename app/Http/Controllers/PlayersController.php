@@ -11,6 +11,9 @@ use App\Http\Resources\PlayerResource;
 
 class PlayersController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function All_Players(Request $request){
             $countries = Country::all();
             $teams = Team::all();
