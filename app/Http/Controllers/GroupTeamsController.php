@@ -11,7 +11,9 @@ use App\GroupTeams;
 
 class GroupTeamsController extends Controller
 {
-
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function get_All_Teams_In_Specific_Group(Season $season ,Group $group){
     	$Find_Group_In_Season = $season->groups()->where('name',$group->name)->first();
     	$This_Group = $Find_Group_In_Season->GroupTeams;

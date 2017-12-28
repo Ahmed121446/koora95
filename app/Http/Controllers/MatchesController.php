@@ -23,6 +23,9 @@ use App\competition;
 
 class MatchesController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function getTeams(Request $request){
 
         $Rteams_names =[];

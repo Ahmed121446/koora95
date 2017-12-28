@@ -17,7 +17,7 @@ Route::get('/', 'MatchesController@Get_Today_Matches_View' )->name('home');
 
 
 Route::group(['prefix' => 'admin'], function() {
-	Route::get('Login','AuthController@Login_View');
+	Route::get('Login','AuthController@Login_View')->name('login');
 	Route::get('Register','AuthController@Register_View');
 
 	Route::post('Login','AuthController@Login');

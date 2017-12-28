@@ -21,7 +21,9 @@ use App\Http\Resources\SeasonResource;
 
 class SeasonController extends Controller
 {
-
+    public function __construct(){
+        $this->middleware('auth');
+    }
     public function create(Competition $competition, Request $request)
     {
         $seasonRepo = new SeasonRepository;

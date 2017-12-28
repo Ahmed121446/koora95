@@ -164,19 +164,21 @@ All Matches
 					
 					<div class="form-group col-md-6">
 						<label for="FTG">First Team goals </label>
-						<input type="number" name="FTG" class="form-control" id="FTG" min="0">
+						<input type="number" name="FTG" class="form-control" id="FTG" min="0" 
+						onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" name="itemConsumption"
+						>
 					</div>
 					<div class="form-group col-md-6">
 						<label for="STG">second Team goals </label>
-						<input type="number" name="STG" class="form-control" id="STG" min="0">
+						<input type="number" name="STG" class="form-control" id="STG" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" name="itemConsumption">
 					</div>
 					<div class="form-group col-md-6 ">
 						<label for="red_cards"> Match red cards </label>
-						<input type="number" name="red_cards" class="form-control" id="red_cards" min="0">
+						<input type="number" name="red_cards" class="form-control" id="red_cards" min="0"onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" name="itemConsumption">
 					</div>
 					<div class="form-group col-md-6 ">
 						<label for="yellow_cards"> Match yellow cards </label>
-						<input type="number" name="yellow_cards" class="form-control" id="yellow_cards" min="0">
+						<input type="number" name="yellow_cards" class="form-control" id="yellow_cards" min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" name="itemConsumption">
 					</div>
 					<div class="form-group ">
 						<label for="WT">Winner Name  </label>

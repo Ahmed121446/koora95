@@ -9,6 +9,9 @@ use App\Http\Resources\CountryResource;
 
 class CountryController extends Controller
 {
+         public function __construct(){
+             $this->middleware('auth');
+         }
 
 	//Get All Countries swagger
     /**
