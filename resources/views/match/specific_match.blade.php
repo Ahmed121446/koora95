@@ -57,10 +57,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach ($match->Team1->players as $player)
+					@foreach ($match->register_team_1->registeredPlayers as $player)
 					<tr>
-						<td>{{$player->name}}</td>
-						<td>{{$player->position}}</td>
+						<td>{{$player->player->name}}</td>
+						<td>{{$player->player->position}}</td>
 					</tr>
 					@endforeach
 				</tbody>
@@ -117,10 +117,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					@foreach ($match->Team2->players as $player)
+					@foreach ($match->register_team_2->registeredPlayers as $player)
 					<tr>
-						<td>{{$player->name}}</td>
-						<td>{{$player->position}}</td>
+						<td>{{$player->player->name}}</td>
+						<td>{{$player->player->position}}</td>
 					</tr>
 					@endforeach
 				</tbody>

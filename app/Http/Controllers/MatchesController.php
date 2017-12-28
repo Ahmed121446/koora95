@@ -236,9 +236,10 @@ class MatchesController extends Controller
         });
 
         //match time
-        $img->text($match->time, 550, 260, function($font) {
+        $img->text($match->time, 595, 260, function($font) {
             $font->file('font/PoiretOne-Regular.ttf');
             $font->color(array(169, 68, 66, 1));
+            $font->align('center');
             $font->size(20);
         });
 
