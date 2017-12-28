@@ -7,7 +7,11 @@
 @section('content')
 
 <h1>Create New player</h1>
-
+<div class="row">
+  <div class="col-md-12">
+    @include('includes.error')
+  </div>
+</div>
 <form action="/players/create" method="post">
 	{{csrf_field()}}
 	<div class="form-group">
