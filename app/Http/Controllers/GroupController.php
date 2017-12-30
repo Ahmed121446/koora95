@@ -20,19 +20,22 @@ class GroupController extends Controller
         $this->middleware('auth');
     }
     //view create Groups form
-    public function createGroupsView(Competition $competition, Season $season, Stage $stage)
+    public function createGroupsView(Competition $competition, Season $season)
     {
-        return view('season.groups', compact(['competition', 'season', 'stage']));
+        return view('groups.create', compact(['competition', 'season']));
     }
 
 
     // Add groups to a season
-    public function addGroups(Competition $competition, Season $season, Stage $stage, GroupRequest $request)
+    public function addGroups(Competition $competition, Season $season, GroupRequest $request)
     {
 
-        $request->create_groups($stage);
+        $request->create_groups($season);
 
-        return redirect('/');
+        $url = '/competitions/' . $competition->id . '/seasons/'. $season->id;
+        $url .= '/groups/'.$request->get('stage_id').'/teams/create';
+        
+        return redirect($url);
     }
 
 
@@ -57,7 +60,9 @@ class GroupController extends Controller
             $group = Group::find($group_id);
             
             if(count($teams) < $group->teams_number){
-                return "false";
+                return back()->withErrors("
+                    Number of teams you've added is less than the required number"
+                );
             }
 
             foreach ($teams as $team_id => $value) {
@@ -67,6 +72,10 @@ class GroupController extends Controller
             }
  
         }
+
+        $url  = '/competitions/' . $competition->id . '/seasons/' . $season->id . '/stages/' . $stage->id . '/groups';
+
+        return redirect($url);
 
     }
 

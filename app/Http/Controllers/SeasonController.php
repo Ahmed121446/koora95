@@ -31,7 +31,7 @@ class SeasonController extends Controller
 
         if($request->get('is_grouped')){
             $stage = $season->stages()->where('name','group stage')->first();
-            $url = 'competitions/'. $competition->id . "/seasons" .'/'. $season->id . '/stages' . '/' . $stage->id . '/groups/create';
+            $url = 'competitions/'. $competition->id . "/seasons" .'/'. $season->id . '/groups/create';
             
             return redirect($url);
         }
@@ -103,6 +103,15 @@ class SeasonController extends Controller
 
         return ['groups' => $groups, 'rounds' => $rounds];
 
+    }
+
+
+    public function addStage(Competition $competition, Season $season, Request $request)
+    {
+        $stage = new Stage(['name' => $request->get('name')]);
+        $season->stages()->save($stage);
+
+        return back();
     }
 
 

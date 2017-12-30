@@ -52,7 +52,13 @@ class Season extends BaseModel
    
    public function groups()
    {
-         return $this->hasMany(Group::class);
+        $stage = $this->stages->where('name', 'group stage');
+        if($stage->first()){
+              $stage = $stage->first();
+              return $stage->groups;
+        }else{
+              return false;
+        }
    }
 
 

@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+
+use App\Season;
 use App\Group;
 use App\Stage;
 use App\Competition;
@@ -43,8 +45,10 @@ class GroupRequest extends FormRequest
     }
 
 
-    public function create_groups(Stage $stage)
+    public function create_groups(Season $season)
     {
+        $stage = $season->stages()->find($this->get('stage_id'));
+
         $groups_number = $this->get('groups_number');
         $teams_number = $this->get('teams_per_group');
 

@@ -44,7 +44,7 @@ class CompetitionRequest extends FormRequest
     // create New Competition
     public function store()
     {
-        if($this->get('country')) {
+        if($this->get('country_id')) {
             $country_id = $this->get('country_id');
             $location = Country::find($country_id);            
         }else{
