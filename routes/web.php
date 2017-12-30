@@ -39,7 +39,7 @@ Route::group(['prefix' => 'competitions'], function() {
 		Route::post('{season}/stages/create','SeasonController@addStage');
 
 		Route::group(['prefix' => '{season}/groups'], function() {
-			Route::get('/', 'GroupController@showGroupTeams');
+			Route::get('/', 'GroupController@showGroups');
 			Route::get('/create','GroupController@createGroupsView');
 			Route::post('/create','GroupController@addGroups');
 			Route::get('/{stage}/teams/create', 'GroupController@addTeamsView');

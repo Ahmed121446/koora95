@@ -83,12 +83,12 @@ class GroupController extends Controller
 
 
     // Show all Groups
-    public function showGroupTeams(Competition $competition, Season $season, Stage $stage)
+    public function showGroups(Competition $competition, Season $season, Stage $stage)
     {
-        
+        $stage = $season->GroupStage();
         $groups = $stage->groups;
 
-        return view('groups.all-groups', compact('groups'));
+        return view('groups.all-groups', compact(['groups','stage']));
     }
 
 

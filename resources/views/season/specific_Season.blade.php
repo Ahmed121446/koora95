@@ -9,7 +9,10 @@ All Competitions
   <h1>Season <small> {{$season->name}}</small></h1>
   <div>
   	<a class="btn btn-primary" onclick="createStage();"> Add stage </a>
-  	<a class="btn btn-primary" onclick="createGroups();""> Add Groups </a>
+  	<a class="btn btn-primary" onclick="createGroups();"> Add Groups </a>
+  	@if($season->GroupStage())
+  		<a class="btn btn-primary" href="{{$season->id}}/groups"> View Groups </a>
+  	@endif
   </div>
 </div>
 
@@ -46,7 +49,7 @@ All Competitions
 @if (!count($RTeams))
 	<h1 class="text-center">No RegisteredTeams</h1>
 @elseif($season->competition->is_league())
-	<?php $groups  = $season->groups() ?> 
+	<?php $groups  = $season->league_groups() ?> 
 	@if($groups)
 		@foreach($groups as $group)
 			@include('groups.show')

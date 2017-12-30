@@ -86,7 +86,7 @@ class RegisteredTeam extends BaseModel
     	return $this->hasMany(RegisteredPlayer::class);
     }
 
-    public function storeTeamGolas($goals_for ,$goals_against){
+    public function storeTeamGoals($goals_for ,$goals_against){
     	$this->goals_for += $goals_for;
         $this->goals_against += $goals_against;
     }

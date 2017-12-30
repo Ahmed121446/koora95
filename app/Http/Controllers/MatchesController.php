@@ -164,15 +164,17 @@ class MatchesController extends Controller
     }
 
 
-    public function updateStatus(Match $match,Request $request)
+    public function updateStatus(Match $match,Request $request, MatchesRepo $matchRepo)
     {
         if($match->status == "Not Played"){
             $match->status = "InProgressed";
+            $match->save();
         }else if($match->status == "InProgressed"){
-            $match->status = "Played";
+            $season = $match->season;
+            $matchRepo->endMatch($season, $match);
         }
         
-        $match->save();
+        
 
         return redirect('/matches'.'/'.$match->id);
     }

@@ -67,14 +67,69 @@ class Matches
     }
 
 
+    public function endMatch(Season $season, Match $match)
+    {
+        // Get Match type
+        $competition = $season->competition;
+        $is_cup = $competition->is_cup();
+
+        // Match is Played 
+        $match->status = "Played";
+
+        // set the Winner 
+        $first_team_goals = $match->team_1_goals;
+        $second_team_goals = $match->team_2_goals;
+        $match->match_winner($first_team_goals, $second_team_goals, $is_cup);
+
+        // save the Match
+        $match->save();
+        
+        // Get IDs of teams
+        $first_team = $match->register_team_1_id;
+        $second_team = $match->register_team_2_id;
+
+        // If group stage  
+        if($match->group_round_id){
+            $stage = $season->stages()->find($match->stage_id);
+            $group = $stage->groups()->find($match->group_id);
+
+            $first_team = $group->groupTeams()
+                                ->where('register_team_id', $first_team)
+                                ->first();
+            
+            $second_team = $group->groupTeams()
+                                 ->where('register_team_id', $second_team)
+                                 ->first();
+            $this->calculateGroupStandings($first_team, $second_team, $match, $is_cup);
+
+        }else{
+            $first_team = $season->registeredTeams()->find($first_team);
+            $second_team = $season->registeredTeams()->find($second_team);
+            $this->calculateStandings($first_team, $second_team, $match, $is_cup);
+        }
+
+        
+        $match_goals = [
+            'first_team_goals' => $match->team_1_goals,
+            'second_team_goals' => $match->team_2_goals
+        ];
+        $this->storeGoals($first_team, $second_team, $match_goals);
+
+
+        
+        $first_team->save();
+        $second_team->save();
+    }
+
+
     
     private function storeGoals($first_team, $second_team, $goals)
     {
         $first_team_goals = $goals['first_team_goals'];
         $second_team_goals = $goals['second_team_goals'];
 
-        $first_team->storeTeamGolas($first_team_goals,$second_team_goals);
-        $second_team->storeTeamGolas($second_team_goals,$first_team_goals);
+        $first_team->storeTeamGoals($first_team_goals,$second_team_goals);
+        $second_team->storeTeamGoals($second_team_goals,$first_team_goals);
     }
 
 
@@ -92,28 +147,54 @@ class Matches
 
     private function calculateStandings($first_team, $second_team ,$match, $is_cup)
     {
+        
         switch ($match->winner_id) {
-                case $first_team->id : {
-                        $winner = $first_team;
-                        $loser = $second_team;
+                case $first_team->id : {       
+                    $winner = $first_team;
+                    $loser = $second_team;
+                    $match->set_winner($winner, $loser, $is_cup);
                 }
-                        break;
+                    break;
 
                  case $first_team->id : {
-                        $winner = $second_team;
-
-                        $loser = $first_team;
+                    $winner = $second_team;
+                    $loser = $first_team;
+                    $match->set_winner($winner, $loser, $is_cup);
                 }
-                        break;
+                    break;
                 
                  case 0 : {
-
-                        $match->set_draw($first_team, $second_team);
+                    $match->set_draw($first_team, $second_team);
                 }
-                        break;
+                    break;
         }
 
-        $match->set_winner($winner, $loser, $is_cup);
+    }
+
+
+    private function calculateGroupStandings($first_team, $second_team ,$match, $is_cup)
+    {
+        
+        switch ($match->winner_id) {
+                case $first_team->register_team_id : {       
+                    $winner = $first_team;
+                    $loser = $second_team;
+                    $match->set_winner($winner, $loser, $is_cup);
+                }
+                    break;
+
+                 case $first_team->register_team_id : {
+                    $winner = $second_team;
+                    $loser = $first_team;
+                    $match->set_winner($winner, $loser, $is_cup);
+                }
+                    break;
+                
+                 case 0 : {
+                    $match->set_draw($first_team, $second_team);
+                }
+                    break;
+        }
 
     }
 

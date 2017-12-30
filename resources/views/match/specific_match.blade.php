@@ -120,7 +120,7 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<center><h3 id="change"> Click To @if($match->status != "InProgressed") End @else Start @endif the Match  </h3></center>
+					<center><h3 id="change"> Click To @if($match->status == "InProgressed") End @else Start @endif the Match  </h3></center>
 				</div>
 				<div class="col-md-4"></div>
 				<div class="col-md-4">

@@ -18,15 +18,16 @@ welcome page
 					<div class="caption">
 						<h3 class="text-center"> 
 							<span class="label label-info">{{optional($match->Team1)->name}} 
-								@if ($match->status == "played" || $match->status == "InProgressed") 
+								@if ($match->status == "Played" || $match->status == "InProgressed") 
 									<span class="badge">{{$match->team_1_goals}} </span> 
 								@endif 
 							</span> 
 							<span class="label label-danger">VS</span>
-							<span class="label label-info">{{optional($match->Team2)->name}} 
-								@if ($match->status == "played" || $match->status == "InProgressed") 
+							<span class="label label-info">
+								@if ($match->status == "Played" || $match->status == "InProgressed") 
 									<span class="badge">{{$match->team_2_goals}} </span> 
 								@endif 
+								{{optional($match->Team2)->name}} 
 							</span>
 						</h3>
 
@@ -34,7 +35,7 @@ welcome page
 							<h4>Status : {{$match->status}}</h4>
 						</p>
 						<p>
-							@if ($match->status == "played")
+							@if ($match->status == "Played")
 								<h4> <span class="label label-success">{{$match->Winner->name}}</span> </h4>
 							@elseif ($match->status == "InProgressed")
 							  <div class="circle red"></div>
