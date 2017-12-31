@@ -29,7 +29,7 @@
     <div class="row">
       <div class="form-group col-md-4">
           <label for="groups_number"> Number Of Groups: </label>
-          <input type="number" name="groups_number" class="form-control" id="groups_number">
+          <input type="number" name="groups_number" class="form-control" id="groups_number" value="{{ old('groups_number') }}">
       </div>
     </div>
 

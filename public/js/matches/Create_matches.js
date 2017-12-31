@@ -38,24 +38,30 @@
            $(this).data('previous',value);
            $('.Rteams').not(this).find('option[value="'+value+'"]').hide();
        });
+
     });
 
+    
     document.getElementsByClassName("Rteams")[0].innerHTML = "";
     document.getElementsByClassName("Rteams")[1].innerHTML = "";
     $.get('/matches/teams', {season_id: season_id}, function(teams) {
       for (team in teams) {
-          document.getElementsByClassName("Rteams")[0].innerHTML +="\
+           document.getElementsByClassName("Rteams")[0].innerHTML +="\
             <option value="+team+">"+teams[team]+"</option>\
             ";
             document.getElementsByClassName("Rteams")[1].innerHTML +="\
             <option value="+team+">"+teams[team]+"</option>\
             ";
-      }
-     
 
 
       
+      }
+      console.log(old.team1_old);
+      $('#team_1_id').val(old.team1_old);
+      $('#team_2_id').val(old.team2_old);
+      
     });
+
   }
 
   function stage_data(stage_id) {

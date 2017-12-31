@@ -17,7 +17,7 @@
 	{{csrf_field()}}
   <div class="form-group">
     <label for="Team_name">Team Name : </label>
-    <input type="text" name="name" id="Team_name" class="form-control" placeholder="Al-Ahly">
+    <input type="text" name="name" id="Team_name" class="form-control" placeholder="Al-Ahly" value="{{ old('name') }}">
   </div>
 
 
@@ -26,11 +26,11 @@
       <div class="container">
       <h3 for="type"> Team Type : </h3> <br>
       <label>
-        <input type="radio" name="type" id="league" value="1"> Club
+        <input type="radio" name="type" id="league" value="1" @if(old('type')) checked @endif> Club
       </label>
       <br/>
       <label>
-        <input type="radio" name="type" id="cup" value="2"> National Team
+        <input type="radio" name="type" id="cup" value="2" @if(old('type')) checked @endif> National Team
       </label>
        </div>
         </div>
@@ -39,7 +39,7 @@
 
   <div class="form-group">
     <label for="stadium">Team Official Stadium : </label>
-    <input type="text" name="stadium" id="stadium" class="form-control" placeholder="Cairo Stadium">
+    <input type="text" name="stadium" id="stadium" class="form-control" placeholder="Cairo Stadium" value="{{ old('stadium') }}">
   </div>
 	<div class="form-group">
       <label for="countries">Country Name : </label>
@@ -62,4 +62,12 @@
 
 
 
+@endsection
+
+@section('script')
+<script type="text/javascript">
+  var CountryName_OldValue = '{{old('country_id')}}';
+  $('#countries').val(CountryName_OldValue);
+
+</script>
 @endsection

@@ -16,7 +16,7 @@
 	{{csrf_field()}}
 	<div class="form-group">
 		<label for="name">player Name : </label>
-		<input type="text" name="name" class="form-control" id="name">
+		<input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}">
 	</div>
 	<div class="form-group">
           <label for="player_position">player Position : </label>
@@ -61,4 +61,19 @@
 </form>
 
 
+@endsection
+
+@section('script')
+<script >
+  var old = {
+    position: "{{ old('player_position') }}",
+    team: "{{ old('team_id') }}",
+    country: "{{ old('country_id') }}",
+  };
+
+  $('#Country_name').val(old.country);
+  $('#team_name').val(old.team);
+  $('#player_position').val(old.position);
+
+</script>
 @endsection

@@ -21,16 +21,16 @@ competition
 
   <div class="form-group col-md-6">
     <label for="date">Match Date : </label>
-    <input type="date" name="date" class="form-control" id="date">
+    <input type="date" name="date" class="form-control" id="date" value="{{ old('date') }}">
   </div>
   <div class="form-group col-md-6">
     <label for="time">Match Time : </label>
-    <input type="time" name="time" class="form-control" id="time">
+    <input type="time" name="time" class="form-control" id="time" value="{{ old('time') }}">
   </div>
 
   <div class="form-group col-md-12">
     <label for="stadium" >Stadium Name : </label>
-    <input type="text" name="stadium" class="form-control" id="stadium">
+    <input type="text" name="stadium" class="form-control" id="stadium" value="{{ old('stadium') }}">
   </div>
   <div class="form-group col-md-12">
     <label for="season_id" >Competition Name : </label>
@@ -66,7 +66,7 @@ competition
   <div class="form-group col-md-6">
     <div id="txtResult">
       <label for="Rteams" >first Teams Names : </label>
-        <select name='team_1_id' class='form-control Rteams' >
+        <select name='team_1_id' class='form-control Rteams' id="team_1_id">
          
         </select>   
     </div>
@@ -75,7 +75,7 @@ competition
   <div class="form-group col-md-6">
     <div id="txtResult">
       <label for="Rteams" >second Teams Names : </label>
-        <select name='team_2_id' class='form-control Rteams'>
+        <select name='team_2_id' class='form-control Rteams'  id="team_2_id">
           
         </select>   
     </div>
@@ -91,6 +91,24 @@ competition
 @endsection
 
 @section('script')
-<script type="text/javascript" src="{{ asset('js/matches/Create_matches.js') }}"></script>
+<script >
+  var old = {
+    comp: "{{ old('season_id') }}",
+    stage: "{{ old('stage_id') }}",
+    groupRounds: "{{ old('group_round') }}",
+    groupName: "{{ old('group_id') }}",
+    team1_old: "{{ old('team_1_id') }}",
+    team2_old: "{{ old('team_2_id') }}",
+  };
+
+  $('#season_id').val(old.comp);
+  
+
+
+
+</script>
+<script type="text/javascript" src="{{ asset('js/matches/Create_matches.js') }}">
+</script>
+
 @endsection
 

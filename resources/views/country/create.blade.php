@@ -14,7 +14,7 @@
 	{{csrf_field()}}
 	<div class="form-group">
 		<label for="name">Country Name : </label>
-		<input type="text" name="name" class="form-control" id="name">
+		<input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}">
 	</div>
 	<div class="form-group">
           <select name='Continent_id' class='form-control'>

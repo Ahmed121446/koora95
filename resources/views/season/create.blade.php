@@ -13,7 +13,7 @@
       {{csrf_field()}}
     <div class="form-group">
       <label for="name">Season Name : </label>
-      <input type="text" name="name" class="form-control" id="name">
+      <input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}">
     </div>
     <div class="form-group">
             <label for="competition">competition Name : </label>
