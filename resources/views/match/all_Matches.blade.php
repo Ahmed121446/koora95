@@ -93,8 +93,10 @@ All Matches
 				<th>stadium</th>
 				<th>red cards</th>
 				<th>yellow cards</th>
+				@if (Auth::user())
 				<th>remove </th>
 				<th>edit</th>
+				@endif
 			</tr>
 		</thead>
 
@@ -112,6 +114,7 @@ All Matches
 				<td id="stadium{{$match->id}}">{{$match->stadium}}</td>
 				<td id="red{{$match->id}}">{{$match->red_cards}}</td>
 				<td id="yellow{{$match->id}}">{{$match->yellow_cards}}</td>
+				@if (Auth::user())
 				<td>
 					<a href="/matches/{{$match->id}}" class="remove">
 						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
@@ -120,6 +123,7 @@ All Matches
 				<td >
 					<span class="glyphicon glyphicon-edit edit" aria-hidden="true"></span>
 				</td>
+				@endif
 			</tr>
 			@endforeach
 		</tbody>

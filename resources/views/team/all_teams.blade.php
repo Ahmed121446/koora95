@@ -59,8 +59,10 @@ All_Teams
 				<th>Stadium</th>
 				<th>Country</th>
 				<th>Logo</th>
+				@if (Auth::user())
 				<th>Remove</th>
 				<th>Edit</th>
+				@endif
 			</tr>
 		</thead>
 		<tbody>
@@ -72,10 +74,12 @@ All_Teams
 				<td data-editable>{{$team->stadium}}</td>
 				<td data-editable>{{$team->country->name}}</td>
 				<td> <img src="{{asset('storage/images/teams-logos/'.$team->logo)}}" width="50px" height="35px"></td>
+				@if (Auth::user())
 				<td class=""> <a href="/teams/{{$team->id}}" class="remove "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a> </td>
 				<td >
 	    			<span class="glyphicon glyphicon-edit edit" aria-hidden="true"></span>
 	    		</td>
+	    		@endif
 			</tr>
 			@endforeach
 

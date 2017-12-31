@@ -18,7 +18,7 @@
       <ul class="nav navbar-nav navbar-right">
 
            <li><a href="/"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> today matches</a></li>
-           @if (Auth::user())
+          
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                View All <span class="caret"></span></a>
@@ -30,7 +30,7 @@
                 </ul>
             </li>
 
-
+           @if (Auth::user())
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-plus
 glyphicon" aria-hidden="true"></span>
