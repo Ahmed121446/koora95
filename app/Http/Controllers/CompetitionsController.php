@@ -14,7 +14,7 @@ class CompetitionsController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('auth');
+       $this->middleware('auth')->except(['All_Competitions_View']);
     }
     //create view for competition
     public function Create_View()

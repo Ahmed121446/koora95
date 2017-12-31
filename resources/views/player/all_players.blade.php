@@ -79,8 +79,10 @@ All Players
 				<th>position</th>
 				<th>Team</th>
 				<th>Country</th>
+				@if (Auth::user())
 				<th>Remove</th>
-				<th>Edit</th>
+				<th>Edit</th>	
+				@endif
 			</tr>
 		</thead>
 		<tbody>
@@ -92,10 +94,13 @@ All Players
 				<td>{{$player->position}}</td>
 				<td>{{optional($player->team)->name}}</td>
 				<td>{{$player->country->name}}</td>
-				<td class=""> <a href="/players/{{$player->id}}" class="remove "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a> </td>
+				@if (Auth::user())
+				<td class=""> <a href="/players/{{$player->id}}" class="remove "><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a> 
+				</td>
 				<td >
 	    			<span class="glyphicon glyphicon-edit edit" aria-hidden="true"></span>
 	    		</td>
+	    		@endif
 			</tr>
 			@endforeach
 		</tbody>

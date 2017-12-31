@@ -25,7 +25,7 @@ use App\competition;
 class MatchesController extends Controller
 {
     public function __construct(){
-       $this->middleware('auth')->except(['Get_Today_Matches_View']);
+       $this->middleware('auth')->except(['Get_Today_Matches_View','ALL_matches_View']);
     }
     public function getTeams(Request $request){
 

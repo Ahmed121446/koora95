@@ -16,7 +16,7 @@ use App\TeamType;
 class TeamsController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth');
+            $this->middleware('auth')->except(['All_Teams']);
     }
     public function All_Teams(Request $request)
     {
