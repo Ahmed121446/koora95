@@ -50,7 +50,10 @@ All Competitions
 @if (!count($RTeams))
 	<h1 class="text-center">No RegisteredTeams</h1>
 @elseif($season->competition->is_league())
-	<?php $groups  = $season->league_groups(); ?> 
+
+	<?php 
+	$groups  = $season->league_groups() ;
+	?> 
 	@if($groups)
 		@foreach($groups as $group)
 			@include('groups.show')
@@ -194,19 +197,6 @@ All Competitions
 
 @section('script')
 
-<script type="text/javascript">
-	function createStage() {
-		event.preventDefault();
-		$('#stageModal').modal('show');
-	}
-
-
-	function createGroups() {
-		event.preventDefault();
-		$('#groupsModal').modal('show');
-	}
-	
-
-</script>
+<script type="text/javascript" src="{{ asset('js/season.js') }}"></script>
 
 @endsection

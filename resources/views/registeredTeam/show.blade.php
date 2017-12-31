@@ -46,22 +46,6 @@ specific Add Player
 
 @section('script')
 
-<script type="text/javascript">
-
-    $(document).ready(function()
-	
-	{
-	
-		$( "#name" ).autocomplete({
-		 	source: "/players/{{$team->team->id}}/search",
-			minLength: 1,
-			autoFocus:true,
-			select: function(event, ui) {
-		  		$('#invisible').val(ui.item.id);
-			}
-		});
-	
-	});
-</script>
+<script type="text/javascript" src="{{ asset('js/registerTeam') }}"></script>
 
 @endsection
