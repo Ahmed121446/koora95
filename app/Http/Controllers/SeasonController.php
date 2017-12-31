@@ -41,25 +41,30 @@ class SeasonController extends Controller
 
     public function Specific_Season_View(Competition $competition, Season $season)
     {
-        $RTeams = $season->registeredTeams()->orderByRaw('min(points) desc')->get();
+        $RTeams = $season->registeredTeams;
         $location = $competition->location;
+        $availableTeams = [];
 
         if (!$location instanceof Country) {
-            $Teams = [];
             $countries = Country::where('continent_id',$location->id)->get();
             foreach ($countries as $country) {
                 $teams = Team::where('country_id',$country->id)->get();
                 foreach ($teams as $team ) {
-                    if(!$RTeams->find($team->id)){
-                        array_push($Teams,$team);
+                    if(!$RTeams->where('team_id',$team->id)->first()){
+                        array_push($availableTeams,$team);
                     }
                 }
             } 
         }else{
-            $Teams = Team::where('country_id',$location->id)->get();
+            $teams = Team::where('country_id',$location->id)->get();
+            foreach ($teams as $team ) {
+                if(!$RTeams->where('team_id',$team->id)->first()){
+                    array_push($availableTeams,$team);
+                }
+            }
         }
 
-        return view('season.specific_Season',compact('season','Teams','RTeams'));
+        return view('season.specific_Season',compact('season','availableTeams','RTeams'));
     }
 
 

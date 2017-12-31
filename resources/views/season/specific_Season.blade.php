@@ -18,12 +18,12 @@ All Competitions
 
 <div class="jumbotron">
   <h2>Add Teams In Season</h2>
-  	@if(count($Teams))
+  	@if(count($availableTeams))
 	  <form action="{{$season->id}}/teams/create" method="POST">
 	  		{{csrf_field()}}
 		  	<div class="form-group col-md-12">
 		  		
-		  			@foreach ($Teams as $Team)
+		  			@foreach ($availableTeams as $Team)
 		  				<div class="form-check form-check-inline col-md-4">
 						  <label class="form-check-label">
 						    <input class="form-check-input" name="team_name[]" type="checkbox" id="inlineCheckbox1" value="{{$Team->id}}"> {{$Team->name}}
@@ -32,10 +32,11 @@ All Competitions
 		  			@endforeach
 		  	</div>
 		  	<button type="submit" class="btn btn-primary">Add Teams</button> <br>
-		  	<!-- <div>
-		  		<a href=""> Create Groups </a>
-		  	</div> -->
 	  </form>
+	@elseif(count($season->registeredTeams))
+
+		<h4> All Teams are Already Added , you can <a href="/teams/create">Add New Teams</a> To {{$season->competition->location->name}}</h4>
+
 	@else
 
 		<h4> Please <a href="/teams/create">Add Teams</a> First To {{$season->competition->location->name}}</h4>
@@ -49,7 +50,7 @@ All Competitions
 @if (!count($RTeams))
 	<h1 class="text-center">No RegisteredTeams</h1>
 @elseif($season->competition->is_league())
-	<?php $groups  = $season->league_groups() ?> 
+	<?php $groups  = $season->league_groups(); ?> 
 	@if($groups)
 		@foreach($groups as $group)
 			@include('groups.show')
