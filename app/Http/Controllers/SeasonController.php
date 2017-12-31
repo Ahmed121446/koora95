@@ -41,7 +41,7 @@ class SeasonController extends Controller
 
     public function Specific_Season_View(Competition $competition, Season $season)
     {
-        $RTeams = $season->registeredTeams;
+        $RTeams = $season->registeredTeams()->orderByRaw('min(points) desc')->get();
         $location = $competition->location;
 
         if (!$location instanceof Country) {

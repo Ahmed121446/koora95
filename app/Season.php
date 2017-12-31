@@ -75,4 +75,11 @@ class Season extends BaseModel
    }
 
 
+
+  public function teamsRanking()
+  {
+      return $this->registeredTeams()->orderBy('points', 'desc')->get();
+  }
+
+
 }

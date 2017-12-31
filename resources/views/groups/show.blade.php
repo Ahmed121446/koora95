@@ -14,7 +14,7 @@
 
       </thead>
       <tbody>
-      @foreach($group->groupTeams as $team)
+      @foreach($group->teamsRanking() as $team)
        <tr>
           <td>{{$team->registeredTeam->team->name}}</td>
           <td>{{$team->played}}</td>

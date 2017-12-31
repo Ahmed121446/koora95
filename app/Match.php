@@ -267,6 +267,7 @@ class Match extends BaseModel
         }
     }
 
+    
     //calculate for match controller 
     public function match_winner($team_1_goals ,$team_2_goals, $is_cup)
     {
@@ -343,6 +344,12 @@ class Match extends BaseModel
         imagepng($im,"image.png");
         imagedestroy($im);
         print "<img src=image.png?".date("U").">";
+    }
+
+
+    public function getCompetitionAttribute()
+    {
+        return $this->season->competition->name;
     }
 
 

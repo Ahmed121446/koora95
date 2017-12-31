@@ -45,9 +45,9 @@ class Group extends Model
 
     
 
-    // public function getRouteKeyName()
-    // {
-    // 	return 'name';
-    // }
+    public function teamsRanking()
+  {
+      return $this->groupTeams()->orderBy('points', 'desc')->get();
+  }
 
 }

@@ -85,7 +85,7 @@ All Matches
 				<th>Second Team</th>
 				<th>Date</th>
 				<th>Time</th>
-				<th>season</th>
+				<th>Competition</th>
 				<th>Team 1 Goals</th>
 				<th>Team 2 Goals</th>
 				<th>winner Name</th>
@@ -105,7 +105,7 @@ All Matches
 				<td id="st{{$match->id}}">{{$match->team2->name}}</td>
 				<td id="date{{$match->id}}">{{$match->date}}</td>
 				<td id="time{{$match->id}}">{{$match->time}}</td>
-				<td id="season{{$match->id}}"> {{($match->season_id != 0)? $match->season_id : '----'}}</td>
+				<td id="season{{$match->id}}"> {{($match->season_id != 0)? $match->competition : 'Friendly Match'}}</td>
 				<td id="ftg{{$match->id}}">{{$match->team_1_goals}}</td>
 				<td id="stg{{$match->id}}">{{$match->team_2_goals}}</td>
 				<td id="winner{{$match->id}}">{{optional($match->winner)->name}}</td>
