@@ -88,13 +88,6 @@ competition
 </form>
 @endsection
 
-<script type="text/javascript">
-  function showCountry(){
-    document.getElementById('countries').style.display ='block';
-    document.getElementById('continents').style.display ='none';
-  }
-  function showContinent(){
-    document.getElementById('continents').style.display = 'block';
-    document.getElementById('countries').style.display ='none';
-  }
-</script>
+@section('script')
+<script type="text/javascript" src="{{ asset('js/competition.js') }}"></script>
+@endsection
