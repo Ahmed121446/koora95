@@ -37,9 +37,4 @@ class Groups
     }
 
 
-    public function validateInput($groups, $request)
-    {
-        # code...
-    }
-
 }

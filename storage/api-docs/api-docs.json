@@ -565,6 +565,7 @@
                 "tags": [
                     "Match"
                 ],
+                "summary": "//get all matches in specific season swagger",
                 "description": "get all matches in specific season",
                 "operationId": "GET_ALL_matches",
                 "produces": [

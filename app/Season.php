@@ -49,10 +49,29 @@ class Season extends BaseModel
    {
          return $this->hasMany(Stage::class);
    }
-   
-   public function groups()
+
+   public function GroupStage()
    {
-         return $this->hasMany(Group::class);
+        $stages = $this->stages;
+        foreach ($stages as $stage) {
+            if($stage->groups()->first()){
+                return $stage;
+            }
+        }
+
+        return false;
+   }
+   
+   public function league_groups()
+   {
+
+        $stage = $this->stages->where('name', 'group stage');
+        if($stage->first()){
+              $stage = $stage->first();
+              return $stage->groups;
+        }else{
+              return false;
+        }
    }
 
 

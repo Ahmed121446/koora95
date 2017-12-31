@@ -1,7 +1,13 @@
 @extends('layout.master')  
   
 @section('content')
- 
+
+@if(!count($Teams))
+
+<h4> 
+  Please <a href="/competitions/{{$season->competition->id}}/seasons/{{$season->id}}">add Teams</a> to the Season first 
+</h4>
+@else
  <form action="" method="post" name="addGroupTeams">
   {{csrf_field()}}
  <div class="row">
@@ -45,6 +51,7 @@
  @endforeach
 </div>
 
+@endif
 @endsection
 
 
